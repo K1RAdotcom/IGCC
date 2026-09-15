@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  userId       String     @id @default(uuid()) @map("user_id")
+  displayId    String     @unique @map("display_id")
+  fullName     String     @map("full_name")
+  username     String     @unique
+  email        String?
+  passwordHash String     @map("password_hash")
+  role         UserRole
+  status       UserStatus @default(ACTIVE)
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+  auditLogs    AuditLog[]
+  visits       Visit[]
+
+  @@index([fullName])
+  @@map("users")
+}
+
+model Patient {
+  patientId                  String          @id @default(uuid()) @map("patient_id")
+  displayId                  String          @unique @map("display_id")
+  fullName                   String          @map("full_name")
+  dateOfBirth                DateTime        @map("date_of_birth") @db.Date
+  phone                      String
+  email                      String?
+  gender                     String?
+  address                    String?
+  secondaryPhone             String?         @map("secondary_phone")
+  patientCategory            PatientCategory @map("patient_category")
+  emergencyContactName       String          @map("emergency_contact_name")
+  emergencyContactPhone      String          @map("emergency_contact_phone")
+  profilePhoto               String?         @map("profile_photo")
+  golfClubMembership         String?         @map("golf_club_membership")
+  medicalPhysicalInformation String?         @map("medical_physical_information")
+  additionalNotes            String?         @map("additional_notes")
+  createdAt                  DateTime        @default(now()) @map("created_at")
+  updatedAt                  DateTime        @updatedAt @map("updated_at")
+  visits                     Visit[]
+
+  @@index([fullName])
+  @@index([phone])
+  @@map("patients")
+}
+
+model Visit {
+  visitId                 String   @id @default(uuid()) @map("visit_id")
+  displayId               String   @unique @map("display_id")
+  patientId               String   @map("patient_id")
+  staffUserId             String   @map("staff_user_id")
+  visitDateTime           DateTime @map("visit_date_time")
+  reasonForVisit          String   @map("reason_for_visit")
+  complaintSymptoms       String?  @map("complaint_symptoms")
+  bloodPressure           String?  @map("blood_pressure")
+  pulse                   Decimal? @db.Decimal(6, 2)
+  bloodSugar              Decimal? @map("blood_sugar") @db.Decimal(6, 2)
+  respiration             Decimal? @db.Decimal(6, 2)
+  temperature             Decimal? @db.Decimal(5, 2)
+  assessmentObservation   String?  @map("assessment_observation")
+  treatment               String?
+  actionTaken             String?  @map("action_taken")
+  additionalNotes         String?  @map("additional_notes")
+  recommendationsFollowUp String?  @map("recommendations_follow_up")
+  createdAt               DateTime @default(now()) @map("created_at")
+  updatedAt               DateTime @updatedAt @map("updated_at")
+  patient                 Patient  @relation(fields: [patientId], references: [patientId])
+  staff                   User     @relation(fields: [staffUserId], references: [userId])
+
+  @@index([patientId])
+  @@index([staffUserId])
+  @@index([visitDateTime])
+  @@map("visits")
+}
+
+model AuditLog {
+  logId       String   @id @default(uuid()) @map("log_id")
+  userId      String   @map("user_id")
+  action      String
+  entityType  String?  @map("entity_type")
+  entityId    String?  @map("entity_id")
+  description String?
+  timestamp   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [userId])
+
+  @@index([userId])
+  @@index([timestamp])
+  @@map("audit_logs")
+}
+
+model ClinicSettings {
+  settingId  String   @id @default(uuid()) @map("setting_id")
+  clinicName String   @map("clinic_name")
+  address    String?
+  phone      String?
+  email      String?
+  logo       String?
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("clinic_settings")
+}
+
+enum UserRole {
+  ADMIN
+  CLINIC_STAFF
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum PatientCategory {
+  MEMBER
+  STAFF
+  GUEST
+  OTHER
+}

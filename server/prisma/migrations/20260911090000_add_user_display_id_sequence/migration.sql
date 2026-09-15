@@ -1,0 +1,1 @@
+CREATE SEQUENCE IF NOT EXISTS "user_display_id_seq";
