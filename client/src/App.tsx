@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -6,7 +6,11 @@ import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
-
+import {
+  ClipboardList,
+  UserCircle,
+  Users,
+} from "lucide-react";
 import Register from "./Register";
 import ClinicSettings from "./pages/ClinicSettings";
 import Patients from "./Patients";
@@ -21,6 +25,7 @@ import MyAccount from "./MyAccount";
 import AddStaffAccount from "./AddStaffAccount";
 import AuditLogs from "./AuditLogs";
 import StaffManagement from "./StaffManagement";
+import AppShell from "./components/layout/AppShell";
 
 type DashboardStats = {
   totalPatients: number;
@@ -214,6 +219,7 @@ function Dashboard() {
   const [userRole, setUserRole] = useState<"ADMIN" | "CLINIC_STAFF" | null>(
     null
   );
+  const [userName, setUserName] = useState("Clinic Staff");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -235,6 +241,7 @@ function Dashboard() {
         }
 
         setUserRole(data.user.role);
+        setUserName(data.user.fullName || "Clinic Staff");
       } catch {
         setError("Unable to load account information.");
       }
@@ -265,389 +272,155 @@ function Dashboard() {
         setError("Unable to connect to the clinic server.");
       }
     }
+
     loadDashboardStats();
   }, []);
 
-  async function handleLogout() {
-    try {
-      await fetch("http://localhost:4000/api/auth/logout", {
-        method: "POST",
-        credentials: "include",
-      });
-
-      navigate("/login");
-    } catch {
-      setError("Could not log out.");
-    }
-  }
-
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        background: "#f4f7f6",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <aside
-        style={{
-          width: "240px",
-          background: "#173f35",
-          color: "white",
-          minHeight: "100vh",
-          padding: "25px 15px",
-          boxSizing: "border-box",
-        }}
-      >
-        <div style={{ padding: "0 10px 30px" }}>
-          <h2 style={{ margin: 0, fontSize: "20px" }}>
-            Ikeja Golf Club Clinic
-          </h2>
+    <AppShell userRole={userRole} userName={userName}>
+      <div className="space-y-8">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+            Dashboard
+          </h1>
 
-          <p
-            style={{
-              marginTop: "6px",
-              fontSize: "13px",
-              opacity: 0.75,
-            }}
-          >
-            Clinic Management System
+          <p className="mt-2 text-sm text-slate-500">
+            Welcome to the Ikeja Golf Club Clinic Management System.
           </p>
         </div>
 
-        <nav>
-          <button
-            style={{
-              width: "100%",
-              padding: "13px 12px",
-              textAlign: "left",
-              background: "rgba(255,255,255,0.12)",
-              color: "white",
-              border: "none",
-              borderRadius: "7px",
-              marginBottom: "8px",
-              cursor: "pointer",
-            }}
-          >
-            Dashboard
-          </button>
-
-          <button
-            onClick={() => navigate("/patients")}
-            style={{
-              width: "100%",
-              padding: "13px 12px",
-              textAlign: "left",
-              background: "transparent",
-              color: "white",
-              border: "none",
-              borderRadius: "7px",
-              marginBottom: "8px",
-              cursor: "pointer",
-            }}
-          >
-            Patients
-          </button>
-
-          <button
-            onClick={() => navigate("/patients")}
-            style={{
-              width: "100%",
-              padding: "13px 12px",
-              textAlign: "left",
-              background: "transparent",
-              color: "white",
-              border: "none",
-              borderRadius: "7px",
-              marginBottom: "8px",
-              cursor: "pointer",
-            }}
-          >
-            New Visit
-          </button>
-
-          <button
-            onClick={() => navigate("/account")}
-            style={{
-              width: "100%",
-              padding: "13px 12px",
-              textAlign: "left",
-              background: "transparent",
-              color: "white",
-              border: "none",
-              borderRadius: "7px",
-              marginBottom: "8px",
-              cursor: "pointer",
-            }}
-          >
-            My Account
-          </button>
-
-          {userRole === "ADMIN" && (
-            <>
-              <div
-                style={{
-                  marginTop: "25px",
-                  padding: "10px 12px",
-                  fontSize: "12px",
-                  textTransform: "uppercase",
-                  opacity: 0.6,
-                }}
-              >
-                Administration
-              </div>
-
-              <button
-                onClick={() => navigate("/admin/staff")}
-                style={{
-                  width: "100%",
-                  padding: "13px 12px",
-                  textAlign: "left",
-                  background: "transparent",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "7px",
-                  marginBottom: "8px",
-                  cursor: "pointer",
-                }}
-              >
-                Staff Management
-              </button>
-
-              <button
-                onClick={() => navigate("/admin/audit-logs")}
-                style={{
-                  width: "100%",
-                  padding: "13px 12px",
-                  textAlign: "left",
-                  background: "transparent",
-                  border: "none",
-                  color: "white",
-                  borderRadius: "7px",
-                  marginBottom: "8px",
-                  cursor: "pointer",
-                }}
-              >
-                Audit Logs
-              </button>
-
-              <button
-                onClick={() => navigate("/admin/clinic-settings")}
-                style={{
-                  width: "100%",
-                  padding: "13px 12px",
-                  textAlign: "left",
-                  background: "transparent",
-                  border: "none",
-                  color: "white",
-                  borderRadius: "7px",
-                  cursor: "pointer",
-                }}
-              >
-                Clinic Settings
-              </button>
-            </>
-          )}
-        </nav>
-
-        <button
-          onClick={handleLogout}
-          style={{
-            position: "absolute",
-            bottom: "25px",
-            width: "210px",
-            padding: "12px",
-            background: "rgba(255,255,255,0.1)",
-            color: "white",
-            border: "1px solid rgba(255,255,255,0.25)",
-            borderRadius: "7px",
-            cursor: "pointer",
-          }}
-        >
-          Logout
-        </button>
-      </aside>
-
-      <main
-        style={{
-          flex: 1,
-          padding: "35px",
-          boxSizing: "border-box",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "30px",
-          }}
-        >
-          <div>
-            <h1
-              style={{
-                margin: 0,
-                color: "#173f35",
-                fontSize: "30px",
-              }}
-            >
-              Dashboard
-            </h1>
-
-            <p style={{ color: "#666", marginTop: "7px" }}>
-              Welcome to the Ikeja Golf Club Clinic Management System.
-            </p>
-          </div>
-        </div>
-
         {error && (
-          <div
-            style={{
-              background: "#fdecec",
-              color: "#b42318",
-              padding: "12px",
-              borderRadius: "7px",
-              marginBottom: "20px",
-            }}
-          >
+          <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
             {error}
           </div>
         )}
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: "20px",
-          }}
-        >
-          <div
-            style={{
-              background: "white",
-              padding: "25px",
-              borderRadius: "10px",
-              boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-            }}
-          >
-            <p style={{ margin: 0, color: "#777" }}>Total Patients</p>
+        <section>
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="rounded-xl border border-igcc-border bg-white p-6 shadow-igcc-sm">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm font-medium text-slate-500">
+                    Total Patients
+                  </p>
 
-            <h2
-              style={{
-                fontSize: "34px",
-                margin: "10px 0",
-                color: "#173f35",
-              }}
-            >
-              {stats ? stats.totalPatients : "..."}
+                  <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+                    {stats ? stats.totalPatients : "..."}
+                  </p>
+                </div>
+
+                <div className="rounded-lg bg-igcc-50 p-3 text-igcc-700">
+                  <Users size={21} strokeWidth={1.8} />
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-igcc-border bg-white p-6 shadow-igcc-sm">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm font-medium text-slate-500">
+                    Today's Visits
+                  </p>
+
+                  <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+                    {stats ? stats.todaysVisits : "..."}
+                  </p>
+                </div>
+
+                <div className="rounded-lg bg-igcc-50 p-3 text-igcc-700">
+                  <ClipboardList size={21} strokeWidth={1.8} />
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-igcc-border bg-white p-6 shadow-igcc-sm">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm font-medium text-slate-500">
+                    New Patients Today
+                  </p>
+
+                  <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+                    {stats ? stats.newPatients : "..."}
+                  </p>
+                </div>
+
+                <div className="rounded-lg bg-igcc-50 p-3 text-igcc-700">
+                  <UserCircle size={21} strokeWidth={1.8} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold text-slate-900">
+              Quick Actions
             </h2>
+
+            <p className="mt-1 text-sm text-slate-500">
+              Common clinic tasks
+            </p>
           </div>
 
-          <div
-            style={{
-              background: "white",
-              padding: "25px",
-              borderRadius: "10px",
-              boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-            }}
-          >
-            <p style={{ margin: 0, color: "#777" }}>Today's Visits</p>
-
-            <h2
-              style={{
-                fontSize: "34px",
-                margin: "10px 0",
-                color: "#173f35",
-              }}
-            >
-              {stats ? stats.todaysVisits : "..."}
-            </h2>
-          </div>
-
-          <div
-            style={{
-              background: "white",
-              padding: "25px",
-              borderRadius: "10px",
-              boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-            }}
-          >
-            <p style={{ margin: 0, color: "#777" }}>New Patients Today</p>
-
-            <h2
-              style={{
-                fontSize: "34px",
-                margin: "10px 0",
-                color: "#173f35",
-              }}
-            >
-              {stats ? stats.newPatients : "..."}
-            </h2>
-          </div>
-        </div>
-
-        <section style={{ marginTop: "35px" }}>
-          <h2 style={{ color: "#173f35" }}>Quick Actions</h2>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-              gap: "15px",
-              marginTop: "15px",
-            }}
-          >
+          <div className="grid gap-4 md:grid-cols-3">
             <button
               onClick={() => navigate("/patients")}
-              style={{
-                padding: "18px",
-                background: "white",
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                textAlign: "left",
-                cursor: "pointer",
-                fontWeight: "bold",
-              }}
+              className="group rounded-xl border border-igcc-border bg-white p-5 text-left shadow-igcc-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-igcc-200 hover:shadow-igcc-md"
             >
-              Search Patients
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 transition group-hover:bg-igcc-100">
+                <Users size={20} strokeWidth={1.8} />
+              </div>
+
+              <h3 className="font-semibold text-slate-900">
+                Search Patients
+              </h3>
+
+              <p className="mt-1 text-sm text-slate-500">
+                Find and review patient records.
+              </p>
             </button>
 
             <button
               onClick={() => navigate("/new-patient")}
-              style={{
-                padding: "18px",
-                background: "white",
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                textAlign: "left",
-                cursor: "pointer",
-                fontWeight: "bold",
-              }}
+              className="group rounded-xl border border-igcc-border bg-white p-5 text-left shadow-igcc-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-igcc-200 hover:shadow-igcc-md"
             >
-              Register New Patient
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 transition group-hover:bg-igcc-100">
+                <UserCircle size={20} strokeWidth={1.8} />
+              </div>
+
+              <h3 className="font-semibold text-slate-900">
+                Register New Patient
+              </h3>
+
+              <p className="mt-1 text-sm text-slate-500">
+                Create a new patient record.
+              </p>
             </button>
 
             <button
               onClick={() => navigate("/patients")}
-              style={{
-                padding: "18px",
-                background: "white",
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                textAlign: "left",
-                cursor: "pointer",
-                fontWeight: "bold",
-              }}
+              className="group rounded-xl border border-igcc-border bg-white p-5 text-left shadow-igcc-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-igcc-200 hover:shadow-igcc-md"
             >
-              Record New Visit
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 transition group-hover:bg-igcc-100">
+                <ClipboardList size={20} strokeWidth={1.8} />
+              </div>
+
+              <h3 className="font-semibold text-slate-900">
+                Record New Visit
+              </h3>
+
+              <p className="mt-1 text-sm text-slate-500">
+                Select a patient and record a visit.
+              </p>
             </button>
           </div>
         </section>
-      </main>
-    </div>
+      </div>
+    </AppShell>
   );
 }
-
 function Placeholder({ title }: { title: string }) {
   return (
     <div style={{ padding: "40px", fontFamily: "Arial, sans-serif" }}>
@@ -801,6 +574,11 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
 
 
 

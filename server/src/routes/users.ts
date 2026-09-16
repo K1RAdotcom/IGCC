@@ -1,4 +1,3 @@
-﻿
 import { Router } from "express";
 import { createUser, getUsers } from "../services/userService";
 import { setUserStatus } from "../services/userStatusService";
@@ -120,6 +119,15 @@ router.post("/", requireAuth, requireAdmin, async (req, res) => {
     if (
       error instanceof Error &&
       error.message === "An Administrator account already exists."
+    ) {
+      return res.status(409).json({
+        error: error.message,
+      });
+    }
+
+    if (
+      error instanceof Error &&
+      error.message === "Username already exists."
     ) {
       return res.status(409).json({
         error: error.message,

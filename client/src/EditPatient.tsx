@@ -1,6 +1,19 @@
 ﻿import { useEffect, useState } from "react";
-import type { FormEvent } from "react";
+import type { FormEvent, ReactNode } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import {
+  ArrowLeft,
+  CalendarDays,
+  FileText,
+  HeartPulse,
+  Save,
+  ShieldAlert,
+  User,
+  Users,
+  X,
+} from "lucide-react";
+
+import AppShell from "./components/layout/AppShell";
 
 type Patient = {
   patientId: string;
@@ -21,11 +34,91 @@ type Patient = {
   additionalNotes?: string | null;
 };
 
+type CurrentUser = {
+  fullName?: string;
+  role?: "ADMIN" | "CLINIC_STAFF";
+};
+
+function SectionHeader({
+  number,
+  icon,
+  title,
+  description,
+}: {
+  number: string;
+  icon: ReactNode;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="border-b border-igcc-border px-5 py-4 sm:px-6">
+      <div className="flex items-start gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700">
+          {icon}
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[11px] font-bold tracking-wider text-slate-400">
+              {number}
+            </span>
+
+            <h2 className="font-semibold text-slate-900">
+              {title}
+            </h2>
+          </div>
+
+          <p className="mt-1 text-xs leading-5 text-slate-500">
+            {description}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Field({
+  label,
+  required = false,
+  icon,
+  children,
+  fullWidth = false,
+}: {
+  label: string;
+  required?: boolean;
+  icon?: ReactNode;
+  children: ReactNode;
+  fullWidth?: boolean;
+}) {
+  return (
+    <div className={fullWidth ? "sm:col-span-2" : ""}>
+      <label className="mb-2 block">
+        <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-600">
+          {icon && (
+            <span className="text-slate-400">
+              {icon}
+            </span>
+          )}
+
+          {label}
+
+          {required && (
+            <span className="font-bold text-red-500">*</span>
+          )}
+        </span>
+      </label>
+
+      {children}
+    </div>
+  );
+}
+
 export default function EditPatient() {
   const { patientId } = useParams();
   const navigate = useNavigate();
 
   const [patient, setPatient] = useState<Patient | null>(null);
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -66,7 +159,9 @@ export default function EditPatient() {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.error || "Could not load patient.");
+          throw new Error(
+            data.error || "Could not load patient."
+          );
         }
 
         setPatient(data);
@@ -74,32 +169,60 @@ export default function EditPatient() {
         setForm({
           fullName: data.fullName || "",
           dateOfBirth: data.dateOfBirth
-            ? new Date(data.dateOfBirth).toISOString().split("T")[0]
+            ? new Date(data.dateOfBirth)
+                .toISOString()
+                .split("T")[0]
             : "",
           phone: data.phone || "",
           email: data.email || "",
           gender: data.gender || "",
           address: data.address || "",
           secondaryPhone: data.secondaryPhone || "",
-          patientCategory: data.patientCategory || "MEMBER",
-          emergencyContactName: data.emergencyContactName || "",
-          emergencyContactPhone: data.emergencyContactPhone || "",
+          patientCategory:
+            data.patientCategory || "MEMBER",
+          emergencyContactName:
+            data.emergencyContactName || "",
+          emergencyContactPhone:
+            data.emergencyContactPhone || "",
           profilePhoto: data.profilePhoto || "",
-          golfClubMembership: data.golfClubMembership || "",
+          golfClubMembership:
+            data.golfClubMembership || "",
           medicalPhysicalInformation:
             data.medicalPhysicalInformation || "",
-          additionalNotes: data.additionalNotes || "",
+          additionalNotes:
+            data.additionalNotes || "",
         });
       } catch (err) {
         setError(
-          err instanceof Error ? err.message : "Could not load patient."
+          err instanceof Error
+            ? err.message
+            : "Could not load patient."
         );
       } finally {
         setLoading(false);
       }
     }
 
+    async function loadCurrentUser() {
+      try {
+        const response = await fetch(
+          "http://localhost:4000/api/users/me",
+          {
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) return;
+
+        const data = await response.json();
+        setCurrentUser(data);
+      } catch {
+        // Keep the page usable if the profile request fails.
+      }
+    }
+
     loadPatient();
+    loadCurrentUser();
   }, [patientId]);
 
   function updateField(name: string, value: string) {
@@ -109,7 +232,7 @@ export default function EditPatient() {
     }));
   }
 
-  async function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!patientId) {
@@ -136,13 +259,17 @@ export default function EditPatient() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Could not update patient.");
+        throw new Error(
+          data.error || "Could not update patient."
+        );
       }
 
       navigate(`/patients/${patientId}`);
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Could not update patient."
+        err instanceof Error
+          ? err.message
+          : "Could not update patient."
       );
     } finally {
       setSaving(false);
@@ -151,315 +278,451 @@ export default function EditPatient() {
 
   if (loading) {
     return (
-      <div style={{ padding: "40px", fontFamily: "Arial, sans-serif" }}>
-        Loading patient...
-      </div>
+      <AppShell
+        userRole={currentUser?.role ?? null}
+        userName={currentUser?.fullName ?? "Clinic Staff"}
+      >
+        <div className="rounded-xl border border-igcc-border bg-white p-8 shadow-igcc-sm">
+          <div className="animate-pulse space-y-4">
+            <div className="h-6 w-48 rounded bg-slate-200" />
+            <div className="h-4 w-72 rounded bg-slate-200" />
+            <div className="h-24 rounded-lg bg-slate-100" />
+            <div className="h-48 rounded-lg bg-slate-100" />
+          </div>
+        </div>
+      </AppShell>
     );
   }
 
   if (!patient) {
     return (
-      <div style={{ padding: "40px", fontFamily: "Arial, sans-serif" }}>
-        <p style={{ color: "crimson" }}>{error || "Patient not found."}</p>
-        <button onClick={() => navigate("/patients")}>
-          Back to Patients
-        </button>
-      </div>
+      <AppShell
+        userRole={currentUser?.role ?? null}
+        userName={currentUser?.fullName ?? "Clinic Staff"}
+      >
+        <div className="space-y-6">
+          <button
+            type="button"
+            onClick={() => navigate("/patients")}
+            className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-igcc-700"
+          >
+            <ArrowLeft size={17} />
+            Back to Patients
+          </button>
+
+          <div className="rounded-xl border border-red-200 bg-red-50 p-5">
+            <div className="flex items-start gap-3">
+              <ShieldAlert
+                size={20}
+                className="mt-0.5 shrink-0 text-red-600"
+              />
+
+              <div>
+                <p className="font-semibold text-red-800">
+                  Patient could not be loaded
+                </p>
+
+                <p className="mt-1 text-sm text-red-700">
+                  {error || "Patient not found."}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </AppShell>
     );
   }
 
-  const inputStyle = {
-    width: "100%",
-    padding: "11px",
-    border: "1px solid #d1d5db",
-    borderRadius: "6px",
-    fontSize: "14px",
-    boxSizing: "border-box" as const,
-  };
-
-  const labelStyle = {
-    display: "block",
-    marginBottom: "6px",
-    fontWeight: 600,
-    fontSize: "14px",
-  };
-
-  const fieldStyle = {
-    marginBottom: "18px",
-  };
-
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#f5f7fa",
-        padding: "30px",
-        fontFamily: "Arial, sans-serif",
-      }}
+    <AppShell
+      userRole={currentUser?.role ?? null}
+      userName={currentUser?.fullName ?? "Clinic Staff"}
     >
-      <div
-        style={{
-          maxWidth: "1000px",
-          margin: "0 auto",
-          background: "#ffffff",
-          padding: "30px",
-          borderRadius: "10px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-        }}
-      >
+      <div className="space-y-6">
         <button
           type="button"
-          onClick={() => navigate(`/patients/${patientId}`)}
-          style={{
-            border: "none",
-            background: "transparent",
-            cursor: "pointer",
-            marginBottom: "20px",
-            fontSize: "14px",
-          }}
+          onClick={() =>
+            navigate(`/patients/${patientId}`)
+          }
+          className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-igcc-700"
         >
-          ← Back to Patient Profile
+          <ArrowLeft size={17} />
+          Back to Patient Profile
         </button>
 
-        <h1 style={{ marginBottom: "5px" }}>Edit Patient</h1>
+        <section className="overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+          <div className="h-2 bg-igcc-800" />
 
-        <p style={{ color: "#666", marginTop: 0 }}>
-          Patient ID: <strong>{patient.displayId}</strong>
-        </p>
+          <div className="p-6 sm:p-8">
+            <div className="flex items-start gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-igcc-50 text-igcc-700">
+                <User size={24} />
+              </div>
+
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                  Edit Patient
+                </h1>
+
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+                  Update the patient's personal, contact,
+                  emergency, and medical information.
+                </p>
+
+                <p className="mt-3 text-xs text-slate-400">
+                  Patient ID:{" "}
+                  <span className="font-semibold text-slate-600">
+                    {patient.displayId}
+                  </span>
+                </p>
+
+                <p className="mt-1 text-xs text-slate-400">
+                  Fields marked with{" "}
+                  <span className="font-bold text-red-500">*</span>{" "}
+                  are required.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {error && (
-          <div
-            style={{
-              background: "#fee2e2",
-              color: "#991b1b",
-              padding: "12px",
-              borderRadius: "6px",
-              marginBottom: "20px",
-            }}
-          >
-            {error}
+          <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3.5">
+            <div className="flex items-start gap-3">
+              <ShieldAlert
+                size={19}
+                className="mt-0.5 shrink-0 text-red-600"
+              />
+
+              <div>
+                <p className="text-sm font-semibold text-red-800">
+                  Unable to update patient
+                </p>
+
+                <p className="mt-1 text-sm text-red-700">
+                  {error}
+                </p>
+              </div>
+            </div>
           </div>
         )}
 
-        <form onSubmit={handleSubmit}>
-          <h2 style={{ fontSize: "18px", marginTop: "25px" }}>
-            Personal Information
-          </h2>
-
-          <div style={fieldStyle}>
-            <label style={labelStyle}>Full Name *</label>
-            <input
-              value={form.fullName}
-              onChange={(e) => updateField("fullName", e.target.value)}
-              style={inputStyle}
-              required
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+            <SectionHeader
+              number="01"
+              icon={<User size={18} />}
+              title="Personal Information"
+              description="Update the patient's basic identity and contact details."
             />
-          </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "18px",
-            }}
-          >
-            <div style={fieldStyle}>
-              <label style={labelStyle}>Date of Birth *</label>
-              <input
-                type="date"
-                value={form.dateOfBirth}
-                onChange={(e) => updateField("dateOfBirth", e.target.value)}
-                style={inputStyle}
+            <div className="grid gap-5 p-5 sm:grid-cols-2 sm:p-6">
+              <Field
+                label="Full Name"
                 required
-              />
-            </div>
-
-            <div style={fieldStyle}>
-              <label style={labelStyle}>Phone *</label>
-              <input
-                value={form.phone}
-                onChange={(e) => updateField("phone", e.target.value)}
-                style={inputStyle}
-                required
-              />
-            </div>
-
-            <div style={fieldStyle}>
-              <label style={labelStyle}>Patient Category *</label>
-              <select
-                value={form.patientCategory}
-                onChange={(e) =>
-                  updateField("patientCategory", e.target.value)
-                }
-                style={inputStyle}
-                required
+                icon={<User size={16} />}
               >
-                <option value="MEMBER">Club Member</option>
-                <option value="STAFF">Staff</option>
-                <option value="GUEST">Guest / Visitor</option>
-                <option value="OTHER">Other</option>
-              </select>
-            </div>
+                <input
+                  value={form.fullName}
+                  onChange={(event) =>
+                    updateField("fullName", event.target.value)
+                  }
+                  className="form-input"
+                  required
+                />
+              </Field>
 
-            <div style={fieldStyle}>
-              <label style={labelStyle}>Gender</label>
-              <select
-                value={form.gender}
-                onChange={(e) => updateField("gender", e.target.value)}
-                style={inputStyle}
+              <Field
+                label="Date of Birth"
+                required
+                icon={<CalendarDays size={16} />}
               >
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
+                <input
+                  type="date"
+                  value={form.dateOfBirth}
+                  onChange={(event) =>
+                    updateField(
+                      "dateOfBirth",
+                      event.target.value
+                    )
+                  }
+                  className="form-input"
+                  required
+                />
+              </Field>
 
-            <div style={fieldStyle}>
-              <label style={labelStyle}>Email</label>
-              <input
-                type="email"
-                value={form.email}
-                onChange={(e) => updateField("email", e.target.value)}
-                style={inputStyle}
-              />
-            </div>
-
-            <div style={fieldStyle}>
-              <label style={labelStyle}>Secondary Phone</label>
-              <input
-                value={form.secondaryPhone}
-                onChange={(e) =>
-                  updateField("secondaryPhone", e.target.value)
-                }
-                style={inputStyle}
-              />
-            </div>
-          </div>
-
-          <div style={fieldStyle}>
-            <label style={labelStyle}>Address</label>
-            <textarea
-              value={form.address}
-              onChange={(e) => updateField("address", e.target.value)}
-              style={{ ...inputStyle, minHeight: "80px" }}
-            />
-          </div>
-
-          <div style={fieldStyle}>
-            <label style={labelStyle}>Golf Club Membership</label>
-            <input
-              value={form.golfClubMembership}
-              onChange={(e) =>
-                updateField("golfClubMembership", e.target.value)
-              }
-              style={inputStyle}
-            />
-          </div>
-
-          <h2 style={{ fontSize: "18px", marginTop: "30px" }}>
-            Emergency Contact
-          </h2>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "18px",
-            }}
-          >
-            <div style={fieldStyle}>
-              <label style={labelStyle}>Emergency Contact Name *</label>
-              <input
-                value={form.emergencyContactName}
-                onChange={(e) =>
-                  updateField("emergencyContactName", e.target.value)
-                }
-                style={inputStyle}
+              <Field
+                label="Phone"
                 required
-              />
-            </div>
+                icon={<FileText size={16} />}
+              >
+                <input
+                  value={form.phone}
+                  onChange={(event) =>
+                    updateField("phone", event.target.value)
+                  }
+                  className="form-input"
+                  required
+                />
+              </Field>
 
-            <div style={fieldStyle}>
-              <label style={labelStyle}>Emergency Contact Phone *</label>
-              <input
-                value={form.emergencyContactPhone}
-                onChange={(e) =>
-                  updateField("emergencyContactPhone", e.target.value)
-                }
-                style={inputStyle}
+              <Field
+                label="Patient Category"
                 required
-              />
+                icon={<Users size={16} />}
+              >
+                <select
+                  value={form.patientCategory}
+                  onChange={(event) =>
+                    updateField(
+                      "patientCategory",
+                      event.target.value
+                    )
+                  }
+                  className="form-input"
+                  required
+                >
+                  <option value="MEMBER">Club Member</option>
+                  <option value="STAFF">Staff</option>
+                  <option value="GUEST">Guest / Visitor</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </Field>
+
+              <Field
+                label="Gender"
+                icon={<User size={16} />}
+              >
+                <select
+                  value={form.gender}
+                  onChange={(event) =>
+                    updateField("gender", event.target.value)
+                  }
+                  className="form-input"
+                >
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </Field>
+
+              <Field
+                label="Email"
+                icon={<FileText size={16} />}
+              >
+                <input
+                  type="email"
+                  value={form.email}
+                  onChange={(event) =>
+                    updateField("email", event.target.value)
+                  }
+                  className="form-input"
+                />
+              </Field>
+
+              <Field
+                label="Secondary Phone"
+                icon={<FileText size={16} />}
+              >
+                <input
+                  value={form.secondaryPhone}
+                  onChange={(event) =>
+                    updateField(
+                      "secondaryPhone",
+                      event.target.value
+                    )
+                  }
+                  className="form-input"
+                />
+              </Field>
+
+              <Field
+                label="Golf Club Membership"
+                icon={<Users size={16} />}
+              >
+                <input
+                  value={form.golfClubMembership}
+                  onChange={(event) =>
+                    updateField(
+                      "golfClubMembership",
+                      event.target.value
+                    )
+                  }
+                  className="form-input"
+                />
+              </Field>
+
+              <Field
+                label="Address"
+                icon={<FileText size={16} />}
+                fullWidth
+              >
+                <textarea
+                  value={form.address}
+                  onChange={(event) =>
+                    updateField("address", event.target.value)
+                  }
+                  rows={3}
+                  className="form-input resize-y"
+                />
+              </Field>
             </div>
-          </div>
+          </section>
 
-          <h2 style={{ fontSize: "18px", marginTop: "30px" }}>
-            Medical / Additional Information
-          </h2>
-
-          <div style={fieldStyle}>
-            <label style={labelStyle}>
-              Relevant Medical / Physical Information
-            </label>
-            <textarea
-              value={form.medicalPhysicalInformation}
-              onChange={(e) =>
-                updateField("medicalPhysicalInformation", e.target.value)
-              }
-              style={{ ...inputStyle, minHeight: "120px" }}
+          <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+            <SectionHeader
+              number="02"
+              icon={<ShieldAlert size={18} />}
+              title="Emergency Contact"
+              description="Keep the patient's emergency contact information current."
             />
-          </div>
 
-          <div style={fieldStyle}>
-            <label style={labelStyle}>Additional Notes</label>
-            <textarea
-              value={form.additionalNotes}
-              onChange={(e) =>
-                updateField("additionalNotes", e.target.value)
-              }
-              style={{ ...inputStyle, minHeight: "120px" }}
+            <div className="grid gap-5 p-5 sm:grid-cols-2 sm:p-6">
+              <Field
+                label="Emergency Contact Name"
+                required
+                icon={<User size={16} />}
+              >
+                <input
+                  value={form.emergencyContactName}
+                  onChange={(event) =>
+                    updateField(
+                      "emergencyContactName",
+                      event.target.value
+                    )
+                  }
+                  className="form-input"
+                  required
+                />
+              </Field>
+
+              <Field
+                label="Emergency Contact Phone"
+                required
+                icon={<FileText size={16} />}
+              >
+                <input
+                  value={form.emergencyContactPhone}
+                  onChange={(event) =>
+                    updateField(
+                      "emergencyContactPhone",
+                      event.target.value
+                    )
+                  }
+                  className="form-input"
+                  required
+                />
+              </Field>
+            </div>
+          </section>
+
+          <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+            <SectionHeader
+              number="03"
+              icon={<HeartPulse size={18} />}
+              title="Medical / Additional Information"
+              description="Update relevant medical, physical, and other patient information."
             />
-          </div>
 
-          <div
-            style={{
-              display: "flex",
-              gap: "12px",
-              marginTop: "25px",
-            }}
-          >
+            <div className="space-y-5 p-5 sm:p-6">
+              <Field
+                label="Relevant Medical / Physical Information"
+                icon={<HeartPulse size={16} />}
+              >
+                <textarea
+                  value={form.medicalPhysicalInformation}
+                  onChange={(event) =>
+                    updateField(
+                      "medicalPhysicalInformation",
+                      event.target.value
+                    )
+                  }
+                  rows={5}
+                  className="form-input resize-y"
+                />
+              </Field>
+
+              <Field
+                label="Additional Notes"
+                icon={<FileText size={16} />}
+              >
+                <textarea
+                  value={form.additionalNotes}
+                  onChange={(event) =>
+                    updateField(
+                      "additionalNotes",
+                      event.target.value
+                    )
+                  }
+                  rows={5}
+                  className="form-input resize-y"
+                />
+              </Field>
+            </div>
+          </section>
+
+          <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-5 sm:flex-row sm:justify-end">
             <button
-              type="submit"
+              type="button"
+              onClick={() =>
+                navigate(`/patients/${patientId}`)
+              }
               disabled={saving}
-              style={{
-                padding: "12px 22px",
-                border: "none",
-                borderRadius: "6px",
-                background: "#1f6f43",
-                color: "#fff",
-                cursor: saving ? "not-allowed" : "pointer",
-                fontWeight: 600,
-              }}
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {saving ? "Saving..." : "Save Changes"}
+              <X size={17} />
+              Cancel
             </button>
 
             <button
-              type="button"
-              onClick={() => navigate(`/patients/${patientId}`)}
-              style={{
-                padding: "12px 22px",
-                border: "1px solid #ccc",
-                borderRadius: "6px",
-                background: "#fff",
-                cursor: "pointer",
-              }}
+              type="submit"
+              disabled={saving}
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
             >
-              Cancel
+              <Save size={17} />
+              {saving ? "Saving Changes..." : "Save Changes"}
             </button>
           </div>
         </form>
       </div>
-    </div>
+
+      <style>{`
+        .form-input {
+          width: 100%;
+          border: 1px solid #cbd5e1;
+          border-radius: 0.5rem;
+          background: #ffffff;
+          padding: 0.7rem 0.8rem;
+          font-size: 0.875rem;
+          line-height: 1.5rem;
+          color: #1e293b;
+          outline: none;
+          transition:
+            border-color 150ms ease,
+            box-shadow 150ms ease,
+            background-color 150ms ease;
+          box-sizing: border-box;
+        }
+
+        .form-input::placeholder {
+          color: #94a3b8;
+        }
+
+        .form-input:hover {
+          border-color: #94a3b8;
+        }
+
+        .form-input:focus {
+          border-color: #1f6b4f;
+          box-shadow: 0 0 0 3px rgba(31, 107, 79, 0.12);
+        }
+
+        .form-input:disabled {
+          background: #f8fafc;
+          cursor: not-allowed;
+        }
+      `}</style>
+    </AppShell>
   );
 }

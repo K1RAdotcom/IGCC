@@ -1,6 +1,20 @@
-import { useEffect, useState } from "react";
-import type { FormEvent } from "react";
+﻿import { useEffect, useState } from "react";
+import type { FormEvent, ReactNode } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import {
+  Activity,
+  ArrowLeft,
+  CalendarDays,
+  ClipboardList,
+  FileText,
+  HeartPulse,
+  Save,
+  ShieldAlert,
+  Stethoscope,
+  User,
+} from "lucide-react";
+
+import AppShell from "./components/layout/AppShell";
 
 type Patient = {
   patientId: string;
@@ -8,11 +22,17 @@ type Patient = {
   fullName: string;
 };
 
+type CurrentUser = {
+  fullName?: string;
+  role?: "ADMIN" | "CLINIC_STAFF";
+};
+
 function NewVisit() {
   const { patientId } = useParams();
   const navigate = useNavigate();
 
   const [patient, setPatient] = useState<Patient | null>(null);
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
   const [loadingPatient, setLoadingPatient] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -20,6 +40,7 @@ function NewVisit() {
   const [visitDateTime, setVisitDateTime] = useState(() => {
     const now = new Date();
     const offset = now.getTimezoneOffset();
+
     return new Date(now.getTime() - offset * 60000)
       .toISOString()
       .slice(0, 16);
@@ -32,11 +53,13 @@ function NewVisit() {
   const [bloodSugar, setBloodSugar] = useState("");
   const [respiration, setRespiration] = useState("");
   const [temperature, setTemperature] = useState("");
-  const [assessmentObservation, setAssessmentObservation] = useState("");
+  const [assessmentObservation, setAssessmentObservation] =
+    useState("");
   const [treatment, setTreatment] = useState("");
   const [actionTaken, setActionTaken] = useState("");
   const [additionalNotes, setAdditionalNotes] = useState("");
-  const [recommendationsFollowUp, setRecommendationsFollowUp] = useState("");
+  const [recommendationsFollowUp, setRecommendationsFollowUp] =
+    useState("");
 
   useEffect(() => {
     async function loadPatient() {
@@ -73,10 +96,31 @@ function NewVisit() {
       }
     }
 
+    async function loadCurrentUser() {
+      try {
+        const response = await fetch(
+          "http://localhost:4000/api/users/me",
+          {
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) return;
+
+        const data = await response.json();
+        setCurrentUser(data);
+      } catch {
+        // Keep the page usable if the profile request fails.
+      }
+    }
+
     loadPatient();
+    loadCurrentUser();
   }, [patientId]);
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(
+    event: FormEvent<HTMLFormElement>
+  ) {
     event.preventDefault();
 
     if (!patientId) {
@@ -113,14 +157,17 @@ function NewVisit() {
     };
 
     try {
-      const response = await fetch("http://localhost:4000/api/visits", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        "http://localhost:4000/api/visits",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(payload),
+        }
+      );
 
       const data = await response.json();
 
@@ -139,263 +186,499 @@ function NewVisit() {
 
   if (loadingPatient) {
     return (
-      <div style={pageStyle}>
-        <div style={cardStyle}>Loading patient...</div>
-      </div>
+      <AppShell
+        userRole={currentUser?.role ?? null}
+        userName={currentUser?.fullName ?? "Clinic Staff"}
+      >
+        <div className="rounded-xl border border-igcc-border bg-white p-8 shadow-igcc-sm">
+          <div className="animate-pulse space-y-4">
+            <div className="h-6 w-48 rounded bg-slate-200" />
+            <div className="h-4 w-72 rounded bg-slate-200" />
+            <div className="h-24 rounded-lg bg-slate-100" />
+          </div>
+        </div>
+      </AppShell>
     );
   }
 
   if (!patient) {
     return (
-      <div style={pageStyle}>
-        <button
-          type="button"
-          onClick={() => navigate("/patients")}
-          style={backButtonStyle}
-        >
-          ? Back to Patients
-        </button>
+      <AppShell
+        userRole={currentUser?.role ?? null}
+        userName={currentUser?.fullName ?? "Clinic Staff"}
+      >
+        <div className="space-y-6">
+          <button
+            type="button"
+            onClick={() => navigate("/patients")}
+            className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-igcc-700"
+          >
+            <ArrowLeft size={17} />
+            Back to Patients
+          </button>
 
-        <div style={errorStyle}>{error || "Patient not found."}</div>
-      </div>
+          <div className="rounded-xl border border-red-200 bg-red-50 p-5">
+            <div className="flex items-start gap-3">
+              <ShieldAlert
+                size={20}
+                className="mt-0.5 shrink-0 text-red-600"
+              />
+
+              <div>
+                <p className="font-semibold text-red-800">
+                  Patient could not be loaded
+                </p>
+
+                <p className="mt-1 text-sm text-red-700">
+                  {error || "Patient not found."}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </AppShell>
     );
   }
 
   return (
-    <div style={pageStyle}>
-      <div style={topBarStyle}>
+    <AppShell
+      userRole={currentUser?.role ?? null}
+      userName={currentUser?.fullName ?? "Clinic Staff"}
+    >
+      <div className="space-y-6">
         <button
           type="button"
-          onClick={() => navigate(`/patients/${patient.patientId}`)}
-          style={backButtonStyle}
+          onClick={() =>
+            navigate(`/patients/${patient.patientId}`)
+          }
+          className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-igcc-700"
         >
-          ? Back to Patient Profile
+          <ArrowLeft size={17} />
+          Back to Patient Profile
         </button>
-      </div>
 
-      <div style={headerStyle}>
-        <div>
-          <h1 style={titleStyle}>Record New Visit</h1>
-          <p style={subtitleStyle}>
-            Enter the details of the patient's current clinic visit.
-          </p>
-        </div>
-      </div>
+        <section className="overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+          <div className="h-2 bg-igcc-800" />
 
-      <div style={patientBannerStyle}>
-        <div>
-          <div style={smallLabelStyle}>Patient</div>
-          <strong style={patientNameStyle}>{patient.fullName}</strong>
-        </div>
+          <div className="p-6 sm:p-8">
+            <div className="flex items-start gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-igcc-50 text-igcc-700">
+                <ClipboardList size={24} />
+              </div>
 
-        <div>
-          <div style={smallLabelStyle}>Patient ID</div>
-          <strong style={patientIdStyle}>{patient.displayId}</strong>
-        </div>
-      </div>
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                  Record New Visit
+                </h1>
 
-      {error && <div style={errorStyle}>{error}</div>}
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+                  Record the details of the patient's current
+                  clinic visit, including symptoms, vital signs,
+                  assessment, treatment, and follow-up.
+                </p>
 
-      <form onSubmit={handleSubmit}>
-        <div style={cardStyle}>
-          <h2 style={sectionTitleStyle}>Visit Information</h2>
+                <p className="mt-3 text-xs text-slate-400">
+                  Fields marked with{" "}
+                  <span className="font-bold text-red-500">*</span>{" "}
+                  are required.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-          <div style={formGridStyle}>
-            <Field
-              label="Visit Date & Time"
-              required
-              input={
+        <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+          <div className="flex flex-col gap-5 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700">
+                <User size={21} />
+              </div>
+
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                  Patient
+                </p>
+
+                <p className="mt-0.5 text-lg font-bold text-slate-900">
+                  {patient.fullName}
+                </p>
+              </div>
+            </div>
+
+            <div className="rounded-lg bg-igcc-50 px-4 py-3 sm:min-w-[150px]">
+              <p className="text-[11px] font-bold uppercase tracking-wider text-igcc-700">
+                Patient ID
+              </p>
+
+              <p className="mt-0.5 font-semibold text-igcc-900">
+                {patient.displayId}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {error && (
+          <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3.5">
+            <div className="flex items-start gap-3">
+              <ShieldAlert
+                size={19}
+                className="mt-0.5 shrink-0 text-red-600"
+              />
+
+              <div>
+                <p className="text-sm font-semibold text-red-800">
+                  Unable to save visit
+                </p>
+
+                <p className="mt-1 text-sm text-red-700">
+                  {error}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+            <SectionHeader
+              number="01"
+              icon={<CalendarDays size={18} />}
+              title="Visit Information"
+              description="Record when the visit occurred and why the patient came to the clinic."
+            />
+
+            <div className="grid gap-5 p-5 sm:grid-cols-2 sm:p-6">
+              <Field
+                label="Visit Date & Time"
+                required
+                icon={<CalendarDays size={16} />}
+              >
                 <input
                   type="datetime-local"
                   value={visitDateTime}
-                  onChange={(event) => setVisitDateTime(event.target.value)}
-                  style={inputStyle}
+                  onChange={(event) =>
+                    setVisitDateTime(event.target.value)
+                  }
+                  className="form-input"
                 />
-              }
-            />
+              </Field>
 
-            <Field
-              label="Reason for Visit"
-              required
-              input={
+              <Field
+                label="Reason for Visit"
+                required
+                icon={<ClipboardList size={16} />}
+              >
                 <input
                   type="text"
                   value={reasonForVisit}
-                  onChange={(event) => setReasonForVisit(event.target.value)}
+                  onChange={(event) =>
+                    setReasonForVisit(event.target.value)
+                  }
                   placeholder="e.g. Routine check, headache, dizziness..."
-                  style={inputStyle}
+                  className="form-input"
                 />
-              }
+              </Field>
+
+              <Field
+                label="Patient's Description / Complaint"
+                required
+                icon={<FileText size={16} />}
+                fullWidth
+              >
+                <textarea
+                  value={complaintSymptoms}
+                  onChange={(event) =>
+                    setComplaintSymptoms(event.target.value)
+                  }
+                  placeholder="Describe the patient's complaint, symptoms, or reason for seeking care..."
+                  rows={5}
+                  className="form-input resize-y"
+                />
+              </Field>
+            </div>
+          </section>
+
+          <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+            <SectionHeader
+              number="02"
+              icon={<Activity size={18} />}
+              title="Vital Signs"
+              description="Record the patient's vital measurements taken during the visit."
             />
-          </div>
 
-          <div style={{ marginTop: "22px" }}>
-            <label style={labelStyle}>
-              Patient's Description / Complaint <span>*</span>
-            </label>
-
-            <textarea
-              value={complaintSymptoms}
-              onChange={(event) => setComplaintSymptoms(event.target.value)}
-              placeholder="Describe the patient's complaint, symptoms, or reason for seeking care..."
-              rows={5}
-              style={textareaStyle}
-            />
-          </div>
-        </div>
-
-        <div style={cardStyle}>
-          <h2 style={sectionTitleStyle}>Vital Signs</h2>
-
-          <div style={formGridStyle}>
-            <Field
-              label="Blood Pressure"
-              input={
+            <div className="grid gap-5 p-5 sm:grid-cols-2 lg:grid-cols-5 sm:p-6">
+              <Field
+                label="Blood Pressure"
+                icon={<HeartPulse size={16} />}
+              >
                 <input
                   type="text"
                   value={bloodPressure}
-                  onChange={(event) => setBloodPressure(event.target.value)}
+                  onChange={(event) =>
+                    setBloodPressure(event.target.value)
+                  }
                   placeholder="e.g. 130/80"
-                  style={inputStyle}
+                  className="form-input"
                 />
-              }
-            />
+              </Field>
 
-            <Field
-              label="Pulse"
-              input={
+              <Field
+                label="Pulse"
+                icon={<Activity size={16} />}
+              >
                 <input
                   type="number"
                   step="0.01"
                   min="0"
                   value={pulse}
-                  onChange={(event) => setPulse(event.target.value)}
+                  onChange={(event) =>
+                    setPulse(event.target.value)
+                  }
                   placeholder="bpm"
-                  style={inputStyle}
+                  className="form-input"
                 />
-              }
-            />
+              </Field>
 
-            <Field
-              label="Blood Sugar"
-              input={
+              <Field
+                label="Blood Sugar"
+                icon={<Activity size={16} />}
+              >
                 <input
                   type="number"
                   step="0.01"
                   min="0"
                   value={bloodSugar}
-                  onChange={(event) => setBloodSugar(event.target.value)}
+                  onChange={(event) =>
+                    setBloodSugar(event.target.value)
+                  }
                   placeholder="e.g. 5.4"
-                  style={inputStyle}
+                  className="form-input"
                 />
-              }
-            />
+              </Field>
 
-            <Field
-              label="Respiration"
-              input={
+              <Field
+                label="Respiration"
+                icon={<Activity size={16} />}
+              >
                 <input
                   type="number"
                   step="0.01"
                   min="0"
                   value={respiration}
-                  onChange={(event) => setRespiration(event.target.value)}
+                  onChange={(event) =>
+                    setRespiration(event.target.value)
+                  }
                   placeholder="breaths/min"
-                  style={inputStyle}
+                  className="form-input"
                 />
-              }
-            />
+              </Field>
 
-            <Field
-              label="Temperature"
-              input={
+              <Field
+                label="Temperature"
+                icon={<HeartPulse size={16} />}
+              >
                 <input
                   type="number"
                   step="0.01"
                   min="0"
                   value={temperature}
-                  onChange={(event) => setTemperature(event.target.value)}
+                  onChange={(event) =>
+                    setTemperature(event.target.value)
+                  }
                   placeholder="°C"
-                  style={inputStyle}
+                  className="form-input"
                 />
-              }
+              </Field>
+            </div>
+          </section>
+
+          <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+            <SectionHeader
+              number="03"
+              icon={<Stethoscope size={18} />}
+              title="Clinical Record"
+              description="Document your assessment, treatment, actions, notes, and follow-up."
             />
+
+            <div className="space-y-5 p-5 sm:p-6">
+              <TextAreaField
+                label="Assessment / Observation"
+                value={assessmentObservation}
+                onChange={setAssessmentObservation}
+                placeholder="Record your clinical observation or assessment..."
+                icon={<Stethoscope size={16} />}
+              />
+
+              <TextAreaField
+                label="Treatment"
+                value={treatment}
+                onChange={setTreatment}
+                placeholder="Describe treatment provided..."
+                icon={<HeartPulse size={16} />}
+              />
+
+              <TextAreaField
+                label="Action Taken"
+                value={actionTaken}
+                onChange={setActionTaken}
+                placeholder="Record the action taken during the visit..."
+                icon={<ClipboardList size={16} />}
+              />
+
+              <TextAreaField
+                label="Additional Notes"
+                value={additionalNotes}
+                onChange={setAdditionalNotes}
+                placeholder="Add any other relevant information..."
+                icon={<FileText size={16} />}
+              />
+
+              <TextAreaField
+                label="Recommendations / Follow-up"
+                value={recommendationsFollowUp}
+                onChange={setRecommendationsFollowUp}
+                placeholder="Record recommendations, monitoring instructions, or follow-up..."
+                icon={<CalendarDays size={16} />}
+              />
+            </div>
+          </section>
+
+          <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-5 sm:flex-row sm:justify-end">
+            <button
+              type="button"
+              onClick={() =>
+                navigate(`/patients/${patient.patientId}`)
+              }
+              className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+              disabled={saving}
+            >
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              disabled={saving}
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+            >
+              <Save size={17} />
+              {saving ? "Saving Visit..." : "Save Visit"}
+            </button>
           </div>
+        </form>
+      </div>
+
+      <style>{`
+        .form-input {
+          width: 100%;
+          border: 1px solid #cbd5e1;
+          border-radius: 0.5rem;
+          background: #ffffff;
+          padding: 0.7rem 0.8rem;
+          font-size: 0.875rem;
+          line-height: 1.5rem;
+          color: #1e293b;
+          outline: none;
+          transition:
+            border-color 150ms ease,
+            box-shadow 150ms ease,
+            background-color 150ms ease;
+          box-sizing: border-box;
+        }
+
+        .form-input::placeholder {
+          color: #94a3b8;
+        }
+
+        .form-input:hover {
+          border-color: #94a3b8;
+        }
+
+        .form-input:focus {
+          border-color: #1f6b4f;
+          box-shadow: 0 0 0 3px rgba(31, 107, 79, 0.12);
+        }
+
+        .form-input:disabled {
+          background: #f8fafc;
+          cursor: not-allowed;
+        }
+      `}</style>
+    </AppShell>
+  );
+}
+
+function SectionHeader({
+  number,
+  icon,
+  title,
+  description,
+}: {
+  number: string;
+  icon: ReactNode;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="border-b border-igcc-border px-5 py-4 sm:px-6">
+      <div className="flex items-start gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700">
+          {icon}
         </div>
 
-        <div style={cardStyle}>
-          <h2 style={sectionTitleStyle}>Clinical Record</h2>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[11px] font-bold tracking-wider text-slate-400">
+              {number}
+            </span>
 
-          <TextAreaField
-            label="Assessment / Observation"
-            value={assessmentObservation}
-            onChange={setAssessmentObservation}
-            placeholder="Record your clinical observation or assessment..."
-          />
+            <h2 className="font-semibold text-slate-900">
+              {title}
+            </h2>
+          </div>
 
-          <TextAreaField
-            label="Treatment"
-            value={treatment}
-            onChange={setTreatment}
-            placeholder="Describe treatment provided..."
-          />
-
-          <TextAreaField
-            label="Action Taken"
-            value={actionTaken}
-            onChange={setActionTaken}
-            placeholder="Record the action taken during the visit..."
-          />
-
-          <TextAreaField
-            label="Additional Notes"
-            value={additionalNotes}
-            onChange={setAdditionalNotes}
-            placeholder="Add any other relevant information..."
-          />
-
-          <TextAreaField
-            label="Recommendations / Follow-up"
-            value={recommendationsFollowUp}
-            onChange={setRecommendationsFollowUp}
-            placeholder="Record recommendations, monitoring instructions, or follow-up..."
-          />
+          <p className="mt-1 text-xs leading-5 text-slate-500">
+            {description}
+          </p>
         </div>
-
-        <div style={actionBarStyle}>
-          <button
-            type="button"
-            onClick={() => navigate(`/patients/${patient.patientId}`)}
-            style={cancelButtonStyle}
-            disabled={saving}
-          >
-            Cancel
-          </button>
-
-          <button type="submit" style={saveButtonStyle} disabled={saving}>
-            {saving ? "Saving Visit..." : "Save Visit"}
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
   );
 }
 
 function Field({
   label,
-  required,
+  required = false,
+  icon,
   input,
+  children,
+  fullWidth = false,
 }: {
   label: string;
   required?: boolean;
-  input: React.ReactNode;
+  icon?: ReactNode;
+  input?: ReactNode;
+  children?: ReactNode;
+  fullWidth?: boolean;
 }) {
   return (
-    <div>
-      <label style={labelStyle}>
-        {label} {required && <span>*</span>}
+    <div className={fullWidth ? "sm:col-span-2" : ""}>
+      <label className="mb-2 block">
+        <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-600">
+          {icon && (
+            <span className="text-slate-400">
+              {icon}
+            </span>
+          )}
+
+          {label}
+
+          {required && (
+            <span className="font-bold text-red-500">*</span>
+          )}
+        </span>
       </label>
-      {input}
+
+      {input || children}
     </div>
   );
 }
@@ -405,175 +688,37 @@ function TextAreaField({
   value,
   onChange,
   placeholder,
+  icon,
 }: {
   label: string;
   value: string;
   onChange: (value: string) => void;
   placeholder: string;
+  icon?: ReactNode;
 }) {
   return (
-    <div style={{ marginTop: "22px" }}>
-      <label style={labelStyle}>{label}</label>
+    <div>
+      <label className="mb-2 block">
+        <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-600">
+          {icon && (
+            <span className="text-slate-400">
+              {icon}
+            </span>
+          )}
+
+          {label}
+        </span>
+      </label>
 
       <textarea
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
         rows={5}
-        style={textareaStyle}
+        className="form-input resize-y"
       />
     </div>
   );
 }
 
-const pageStyle: React.CSSProperties = {
-  minHeight: "100vh",
-  background: "#f4f7f6",
-  fontFamily: "Arial, sans-serif",
-  padding: "30px",
-  boxSizing: "border-box",
-};
-
-const topBarStyle: React.CSSProperties = {
-  marginBottom: "20px",
-};
-
-const headerStyle: React.CSSProperties = {
-  marginBottom: "20px",
-};
-
-const titleStyle: React.CSSProperties = {
-  margin: 0,
-  color: "#173f35",
-  fontSize: "30px",
-};
-
-const subtitleStyle: React.CSSProperties = {
-  color: "#666",
-  marginTop: "7px",
-};
-
-const backButtonStyle: React.CSSProperties = {
-  background: "transparent",
-  border: "none",
-  color: "#173f35",
-  fontWeight: "bold",
-  cursor: "pointer",
-  fontSize: "15px",
-};
-
-const patientBannerStyle: React.CSSProperties = {
-  background: "#eef4f1",
-  border: "1px solid #d7e5df",
-  borderRadius: "10px",
-  padding: "18px 22px",
-  display: "flex",
-  gap: "50px",
-  flexWrap: "wrap",
-  marginBottom: "20px",
-};
-
-const smallLabelStyle: React.CSSProperties = {
-  color: "#6b756f",
-  fontSize: "12px",
-  textTransform: "uppercase",
-  marginBottom: "4px",
-};
-
-const patientNameStyle: React.CSSProperties = {
-  color: "#173f35",
-  fontSize: "18px",
-};
-
-const patientIdStyle: React.CSSProperties = {
-  color: "#173f35",
-};
-
-const cardStyle: React.CSSProperties = {
-  background: "white",
-  borderRadius: "10px",
-  padding: "25px",
-  marginBottom: "20px",
-  boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-};
-
-const sectionTitleStyle: React.CSSProperties = {
-  margin: 0,
-  color: "#173f35",
-  fontSize: "19px",
-};
-
-const formGridStyle: React.CSSProperties = {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))",
-  gap: "20px",
-  marginTop: "22px",
-};
-
-const labelStyle: React.CSSProperties = {
-  display: "block",
-  color: "#444",
-  fontSize: "14px",
-  fontWeight: "bold",
-  marginBottom: "7px",
-};
-
-const inputStyle: React.CSSProperties = {
-  width: "100%",
-  boxSizing: "border-box",
-  padding: "12px",
-  border: "1px solid #ccc",
-  borderRadius: "7px",
-  fontSize: "14px",
-  background: "white",
-};
-
-const textareaStyle: React.CSSProperties = {
-  width: "100%",
-  boxSizing: "border-box",
-  padding: "12px",
-  border: "1px solid #ccc",
-  borderRadius: "7px",
-  fontSize: "14px",
-  resize: "vertical",
-  fontFamily: "Arial, sans-serif",
-  lineHeight: 1.5,
-};
-
-const errorStyle: React.CSSProperties = {
-  background: "#fdecec",
-  color: "#b42318",
-  padding: "13px",
-  borderRadius: "7px",
-  marginBottom: "20px",
-};
-
-const actionBarStyle: React.CSSProperties = {
-  display: "flex",
-  justifyContent: "flex-end",
-  gap: "12px",
-  paddingBottom: "30px",
-};
-
-const cancelButtonStyle: React.CSSProperties = {
-  background: "white",
-  color: "#173f35",
-  border: "1px solid #173f35",
-  borderRadius: "7px",
-  padding: "13px 20px",
-  fontWeight: "bold",
-  cursor: "pointer",
-};
-
-const saveButtonStyle: React.CSSProperties = {
-  background: "#173f35",
-  color: "white",
-  border: "none",
-  borderRadius: "7px",
-  padding: "13px 22px",
-  fontWeight: "bold",
-  cursor: "pointer",
-};
-
 export default NewVisit;
-

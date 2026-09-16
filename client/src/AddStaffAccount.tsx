@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -43,7 +43,7 @@ export default function AddStaffAccount() {
           body: JSON.stringify({
             fullName: fullName.trim(),
             username: username.trim(),
-            email: email.trim(),
+            email: email.trim() || undefined,
             password,
             role,
           }),
@@ -119,7 +119,7 @@ export default function AddStaffAccount() {
             marginBottom: "20px",
           }}
         >
-          ← Back to Staff Management
+          ? Back to Staff Management
         </button>
 
         <div
@@ -322,3 +322,4 @@ export default function AddStaffAccount() {
     </div>
   );
 }
+

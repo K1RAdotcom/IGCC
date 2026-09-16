@@ -1,4 +1,3 @@
-
 import bcrypt from "bcrypt";
 import { prisma } from "../lib/prisma";
 
@@ -29,6 +28,19 @@ export async function createUser(data: CreateUserData) {
       }
     }
 
+    const existingUsername = await tx.user.findUnique({
+      where: {
+        username: data.username.trim(),
+      },
+      select: {
+        userId: true,
+      },
+    });
+
+    if (existingUsername) {
+      throw new Error("Username already exists.");
+    }
+
     const sequenceResult = await tx.$queryRaw<
       Array<{ next_number: bigint }>
     >`
@@ -43,8 +55,8 @@ export async function createUser(data: CreateUserData) {
       data: {
         displayId,
         fullName: data.fullName,
-        username: data.username,
-        email: data.email,
+        username: data.username.trim(),
+        email: data.email?.trim() || undefined,
         passwordHash,
         role: data.role,
       },
