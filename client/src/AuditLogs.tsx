@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  AlertCircle,
+  ArrowLeft,
+  ClipboardList,
+  Search,
+  ShieldCheck,
+} from "lucide-react";
 
 type AuditLog = {
   logId: string;
@@ -82,137 +89,135 @@ export default function AuditLogs() {
   }
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#f5f7f9",
-        padding: "32px",
-        boxSizing: "border-box",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "1400px",
-          margin: "0 auto",
-        }}
-      >
+    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <div className="space-y-6">
+        {/* Back Navigation */}
         <button
           type="button"
           onClick={() => navigate("/dashboard")}
-          style={{
-            padding: "11px 16px",
-            border: "none",
-            borderRadius: "8px",
-            background: "#e5e7eb",
-            color: "#374151",
-            cursor: "pointer",
-            fontWeight: 600,
-            marginBottom: "20px",
-          }}
+          className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-igcc-700"
         >
-          â† Back to Dashboard
+          <ArrowLeft size={17} />
+          Back to Dashboard
         </button>
 
-        <div
-          style={{
-            background: "#ffffff",
-            borderRadius: "12px",
-            padding: "30px",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
-          }}
-        >
-          <h1
-            style={{
-              margin: "0 0 8px",
-              fontSize: "26px",
-              color: "#111827",
-            }}
-          >
-            Audit Logs
-          </h1>
+        {/* Page Header */}
+        <div className="flex items-center gap-3">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-900 text-white shadow-sm">
+            <ClipboardList size={23} strokeWidth={1.8} />
+          </div>
 
-          <p
-            style={{
-              margin: "0 0 24px",
-              color: "#6b7280",
-              fontSize: "14px",
-            }}
-          >
-            Review important activity recorded in the clinic management system.
-          </p>
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+              Audit Logs
+            </h1>
 
+            <p className="mt-0.5 text-sm text-slate-500">
+              Review important activity recorded in the clinic
+              management system.
+            </p>
+          </div>
+        </div>
+
+        {/* Audit Logs Card */}
+        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+          {/* Search Header */}
+          <div className="border-b border-slate-200 px-5 py-5 sm:px-6">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 className="text-base font-semibold text-slate-900">
+                  Activity History
+                </h2>
+
+                <p className="mt-0.5 text-xs text-slate-500">
+                  Search recorded activity by user, action, record,
+                  or description.
+                </p>
+              </div>
+
+              {!loading && !error && (
+                <span className="text-xs font-medium text-slate-400">
+                  {filteredLogs.length}{" "}
+                  {filteredLogs.length === 1
+                    ? "record"
+                    : "records"}
+                </span>
+              )}
+            </div>
+
+            <div className="relative mt-4 max-w-2xl">
+              <Search
+                size={17}
+                strokeWidth={1.8}
+                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+              />
+
+              <input
+                type="text"
+                value={search}
+                onChange={(event) =>
+                  setSearch(event.target.value)
+                }
+                placeholder="Search by user, action, record, or description..."
+                className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+              />
+            </div>
+          </div>
+
+          {/* Error */}
           {error && (
-            <div
-              style={{
-                marginBottom: "20px",
-                padding: "12px",
-                borderRadius: "8px",
-                background: "#fee2e2",
-                color: "#991b1b",
-                fontSize: "14px",
-              }}
-            >
-              {error}
+            <div className="m-5 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 sm:m-6">
+              <AlertCircle
+                size={17}
+                strokeWidth={1.8}
+                className="mt-0.5 shrink-0"
+              />
+
+              <p>{error}</p>
             </div>
           )}
 
-          <input
-            type="text"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            placeholder="Search by user, action, record, or description..."
-            style={{
-              width: "100%",
-              padding: "12px",
-              border: "1px solid #d1d5db",
-              borderRadius: "8px",
-              fontSize: "14px",
-              boxSizing: "border-box",
-              marginBottom: "20px",
-            }}
-          />
-
+          {/* Loading */}
           {loading ? (
-            <p style={{ color: "#6b7280" }}>
+            <div className="px-6 py-10 text-center text-sm text-slate-500">
               Loading audit logs...
-            </p>
-          ) : filteredLogs.length === 0 ? (
-            <p style={{ color: "#6b7280" }}>
-              No audit logs found.
-            </p>
-          ) : (
-            <div
-              style={{
-                overflowX: "auto",
-              }}
-            >
-              <table
-                style={{
-                  width: "100%",
-                  borderCollapse: "collapse",
-                  fontSize: "14px",
-                }}
-              >
+            </div>
+          ) : !error && filteredLogs.length === 0 ? (
+            <div className="px-6 py-12 text-center">
+              <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-slate-100 text-slate-400">
+                <ClipboardList size={20} strokeWidth={1.8} />
+              </div>
+
+              <p className="mt-3 text-sm font-medium text-slate-700">
+                No audit logs found.
+              </p>
+
+              <p className="mt-1 text-xs text-slate-400">
+                Try adjusting your search.
+              </p>
+            </div>
+          ) : !error ? (
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[1050px]">
                 <thead>
-                  <tr
-                    style={{
-                      background: "#f3f4f6",
-                      textAlign: "left",
-                    }}
-                  >
-                    <th style={{ padding: "12px" }}>
-                      Date & Time
+                  <tr className="border-b border-slate-200 bg-slate-50/70">
+                    <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Date &amp; Time
                     </th>
-                    <th style={{ padding: "12px" }}>
+
+                    <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
                       User
                     </th>
-                    <th style={{ padding: "12px" }}>
+
+                    <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
                       Action
                     </th>
-                    <th style={{ padding: "12px" }}>
+
+                    <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
                       Record
                     </th>
-                    <th style={{ padding: "12px" }}>
+
+                    <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
                       Description
                     </th>
                   </tr>
@@ -222,43 +227,53 @@ export default function AuditLogs() {
                   {filteredLogs.map((log) => (
                     <tr
                       key={log.logId}
-                      style={{
-                        borderBottom: "1px solid #e5e7eb",
-                      }}
+                      className="border-b border-slate-100 transition hover:bg-slate-50/70"
                     >
-                      <td style={{ padding: "12px", whiteSpace: "nowrap" }}>
+                      <td className="whitespace-nowrap px-5 py-4 text-sm text-slate-600">
                         {formatDateTime(log.timestamp)}
                       </td>
 
-                      <td style={{ padding: "12px" }}>
-                        <div style={{ fontWeight: 600 }}>
-                          {log.user.fullName}
+                      <td className="px-5 py-4">
+                        <div className="flex items-start gap-2.5">
+                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
+                            <ShieldCheck
+                              size={15}
+                              strokeWidth={1.8}
+                            />
+                          </div>
+
+                          <div>
+                            <div className="text-sm font-semibold text-slate-900">
+                              {log.user.fullName}
+                            </div>
+
+                            <div className="mt-0.5 text-xs text-slate-400">
+                              {log.user.displayId} ·{" "}
+                              {log.user.username}
+                            </div>
+                          </div>
                         </div>
-                        <div
-                          style={{
-                            fontSize: "12px",
-                            color: "#6b7280",
-                          }}
-                        >
-                          {log.user.displayId} Â· {log.user.username}
+                      </td>
+
+                      <td className="px-5 py-4">
+                        <span className="inline-flex rounded-md bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                          {log.action}
+                        </span>
+                      </td>
+
+                      <td className="px-5 py-4 text-sm text-slate-600">
+                        <div>
+                          {log.entityType || "-"}
                         </div>
+
+                        {log.entityId && (
+                          <div className="mt-0.5 text-xs text-slate-400">
+                            {log.entityId}
+                          </div>
+                        )}
                       </td>
 
-                      <td
-                        style={{
-                          padding: "12px",
-                          fontWeight: 600,
-                        }}
-                      >
-                        {log.action}
-                      </td>
-
-                      <td style={{ padding: "12px" }}>
-                        {log.entityType || "-"}
-                        {log.entityId ? ` Â· ${log.entityId}` : ""}
-                      </td>
-
-                      <td style={{ padding: "12px" }}>
+                      <td className="max-w-md px-5 py-4 text-sm leading-6 text-slate-600">
                         {log.description || "-"}
                       </td>
                     </tr>
@@ -266,8 +281,8 @@ export default function AuditLogs() {
                 </tbody>
               </table>
             </div>
-          )}
-        </div>
+          ) : null}
+        </section>
       </div>
     </div>
   );

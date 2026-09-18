@@ -1,5 +1,16 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  AlertCircle,
+  ArrowLeft,
+  Building2,
+  CheckCircle2,
+  Image,
+  Mail,
+  MapPin,
+  Phone,
+  Save,
+} from "lucide-react";
 
 type ClinicSettingsData = {
   clinicName: string;
@@ -34,14 +45,19 @@ export default function ClinicSettings() {
       setLoading(true);
       setError("");
 
-      const response = await fetch("http://localhost:4000/api/clinic-settings", {
-        credentials: "include",
-      });
+      const response = await fetch(
+        "http://localhost:4000/api/clinic-settings",
+        {
+          credentials: "include",
+        }
+      );
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Could not load clinic settings.");
+        throw new Error(
+          data.error || "Could not load clinic settings."
+        );
       }
 
       if (data.settings) {
@@ -87,7 +103,9 @@ export default function ClinicSettings() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Could not update clinic settings.");
+        throw new Error(
+          data.error || "Could not update clinic settings."
+        );
       }
 
       setMessage("Clinic settings updated successfully.");
@@ -124,348 +142,264 @@ export default function ClinicSettings() {
 
   if (loading) {
     return (
-      <div
-        style={{
-          minHeight: "100vh",
-          background: "#f5f7fa",
-          padding: "40px",
-          fontFamily: "Arial, sans-serif",
-        }}
-      >
-        Loading clinic settings...
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <div className="text-sm text-slate-500">
+          Loading clinic settings...
+        </div>
       </div>
     );
   }
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#f5f7fa",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <div
-        style={{
-          background: "#ffffff",
-          borderBottom: "1px solid #e5e7eb",
-          padding: "18px 32px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <div>
-          <h1
-            style={{
-              margin: 0,
-              fontSize: "24px",
-              color: "#1f2937",
-            }}
-          >
-            Clinic Settings
-          </h1>
-
-          <p
-            style={{
-              margin: "5px 0 0",
-              color: "#6b7280",
-              fontSize: "14px",
-            }}
-          >
-            Manage clinic information and branding
-          </p>
-        </div>
-
+    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+      <div className="space-y-6">
+        {/* Back Navigation */}
         <button
           type="button"
           onClick={() => navigate("/dashboard")}
-          style={{
-            padding: "10px 16px",
-            border: "1px solid #d1d5db",
-            borderRadius: "6px",
-            background: "#ffffff",
-            cursor: "pointer",
-            fontWeight: 600,
-          }}
+          className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-igcc-700"
         >
-          ← Back to Dashboard
+          <ArrowLeft size={17} />
+          Back to Dashboard
         </button>
-      </div>
 
-      <main
-        style={{
-          maxWidth: "900px",
-          margin: "35px auto",
-          padding: "0 20px",
-        }}
-      >
+        {/* Page Header */}
+        <div className="flex items-center gap-3">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-900 text-white shadow-sm">
+            <Building2 size={23} strokeWidth={1.8} />
+          </div>
+
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+              Clinic Settings
+            </h1>
+
+            <p className="mt-0.5 text-sm text-slate-500">
+              Manage clinic information and branding.
+            </p>
+          </div>
+        </div>
+
+        {/* Messages */}
         {message && (
-          <div
-            style={{
-              background: "#ecfdf5",
-              color: "#047857",
-              border: "1px solid #a7f3d0",
-              borderRadius: "8px",
-              padding: "13px 16px",
-              marginBottom: "20px",
-            }}
-          >
-            {message}
+          <div className="flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+            <CheckCircle2
+              size={18}
+              strokeWidth={1.8}
+              className="mt-0.5 shrink-0"
+            />
+            <p>{message}</p>
           </div>
         )}
 
         {error && (
-          <div
-            style={{
-              background: "#fef2f2",
-              color: "#b91c1c",
-              border: "1px solid #fecaca",
-              borderRadius: "8px",
-              padding: "13px 16px",
-              marginBottom: "20px",
-            }}
-          >
-            {error}
+          <div className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <AlertCircle
+              size={18}
+              strokeWidth={1.8}
+              className="mt-0.5 shrink-0"
+            />
+            <p>{error}</p>
           </div>
         )}
 
-        <form
-          onSubmit={handleSubmit}
-          style={{
-            background: "#ffffff",
-            borderRadius: "10px",
-            border: "1px solid #e5e7eb",
-            padding: "30px",
-            boxShadow: "0 2px 6px rgba(0,0,0,0.04)",
-          }}
-        >
-          <h2
-            style={{
-              marginTop: 0,
-              marginBottom: "6px",
-              color: "#1f2937",
-            }}
-          >
-            Clinic Information
-          </h2>
+        {/* Clinic Information */}
+        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+          <div className="border-b border-slate-200 px-6 py-5">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-700">
+                <Building2 size={18} strokeWidth={1.8} />
+              </div>
 
-          <p
-            style={{
-              color: "#6b7280",
-              fontSize: "14px",
-              marginBottom: "28px",
-            }}
-          >
-            This information can be used throughout the clinic management
-            system.
-          </p>
+              <div>
+                <h2 className="text-base font-semibold text-slate-900">
+                  Clinic Information
+                </h2>
 
-          <div style={{ marginBottom: "20px" }}>
-            <label
-              style={{
-                display: "block",
-                fontWeight: 600,
-                marginBottom: "7px",
-              }}
-            >
-              Clinic Name *
-            </label>
-
-            <input
-              type="text"
-              value={settings.clinicName}
-              onChange={(event) =>
-                updateField("clinicName", event.target.value)
-              }
-              required
-              style={{
-                width: "100%",
-                boxSizing: "border-box",
-                padding: "12px",
-                border: "1px solid #d1d5db",
-                borderRadius: "6px",
-                fontSize: "15px",
-              }}
-            />
-          </div>
-
-          <div style={{ marginBottom: "20px" }}>
-            <label
-              style={{
-                display: "block",
-                fontWeight: 600,
-                marginBottom: "7px",
-              }}
-            >
-              Address
-            </label>
-
-            <textarea
-              value={settings.address}
-              onChange={(event) =>
-                updateField("address", event.target.value)
-              }
-              rows={3}
-              placeholder="Enter clinic address"
-              style={{
-                width: "100%",
-                boxSizing: "border-box",
-                padding: "12px",
-                border: "1px solid #d1d5db",
-                borderRadius: "6px",
-                fontSize: "15px",
-                resize: "vertical",
-              }}
-            />
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "20px",
-              marginBottom: "20px",
-            }}
-          >
-            <div>
-              <label
-                style={{
-                  display: "block",
-                  fontWeight: 600,
-                  marginBottom: "7px",
-                }}
-              >
-                Phone
-              </label>
-
-              <input
-                type="text"
-                value={settings.phone}
-                onChange={(event) =>
-                  updateField("phone", event.target.value)
-                }
-                placeholder="Enter clinic phone number"
-                style={{
-                  width: "100%",
-                  boxSizing: "border-box",
-                  padding: "12px",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "6px",
-                  fontSize: "15px",
-                }}
-              />
-            </div>
-
-            <div>
-              <label
-                style={{
-                  display: "block",
-                  fontWeight: 600,
-                  marginBottom: "7px",
-                }}
-              >
-                Email
-              </label>
-
-              <input
-                type="email"
-                value={settings.email}
-                onChange={(event) =>
-                  updateField("email", event.target.value)
-                }
-                placeholder="Enter clinic email"
-                style={{
-                  width: "100%",
-                  boxSizing: "border-box",
-                  padding: "12px",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "6px",
-                  fontSize: "15px",
-                }}
-              />
+                <p className="mt-0.5 text-xs text-slate-500">
+                  This information can be used throughout the clinic management system.
+                </p>
+              </div>
             </div>
           </div>
 
-          <div style={{ marginBottom: "28px" }}>
-            <label
-              style={{
-                display: "block",
-                fontWeight: 600,
-                marginBottom: "7px",
-              }}
-            >
-              Logo
-            </label>
+          <form onSubmit={handleSubmit}>
+            <div className="px-6 py-6">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                {/* Clinic Name */}
+                <div className="sm:col-span-2">
+                  <label
+                    htmlFor="clinicName"
+                    className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                  >
+                    Clinic Name <span className="text-red-500">*</span>
+                  </label>
 
-            <input
-              type="text"
-              value={settings.logo}
-              onChange={(event) =>
-                updateField("logo", event.target.value)
-              }
-              placeholder="Enter logo path or URL"
-              style={{
-                width: "100%",
-                boxSizing: "border-box",
-                padding: "12px",
-                border: "1px solid #d1d5db",
-                borderRadius: "6px",
-                fontSize: "15px",
-              }}
-            />
+                  <div className="relative">
+                    <Building2
+                      size={16}
+                      strokeWidth={1.8}
+                      className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                    />
 
-            <p
-              style={{
-                fontSize: "12px",
-                color: "#6b7280",
-                marginTop: "6px",
-              }}
-            >
-              Logo upload can be added during the final branding stage.
-            </p>
-          </div>
+                    <input
+                      id="clinicName"
+                      type="text"
+                      value={settings.clinicName}
+                      onChange={(event) =>
+                        updateField("clinicName", event.target.value)
+                      }
+                      required
+                      className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    />
+                  </div>
+                </div>
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              gap: "12px",
-            }}
-          >
-            <button
-              type="button"
-              onClick={() => navigate("/dashboard")}
-              style={{
-                padding: "11px 20px",
-                border: "1px solid #d1d5db",
-                borderRadius: "6px",
-                background: "#ffffff",
-                cursor: "pointer",
-                fontWeight: 600,
-              }}
-            >
-              Cancel
-            </button>
+                {/* Address */}
+                <div className="sm:col-span-2">
+                  <label
+                    htmlFor="address"
+                    className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                  >
+                    Address
+                  </label>
 
-            <button
-              type="submit"
-              disabled={saving}
-              style={{
-                padding: "11px 22px",
-                border: "none",
-                borderRadius: "6px",
-                background: saving ? "#9ca3af" : "#166534",
-                color: "#ffffff",
-                cursor: saving ? "not-allowed" : "pointer",
-                fontWeight: 600,
-              }}
-            >
-              {saving ? "Saving..." : "Save Changes"}
-            </button>
-          </div>
-        </form>
-      </main>
+                  <div className="relative">
+                    <MapPin
+                      size={16}
+                      strokeWidth={1.8}
+                      className="pointer-events-none absolute left-3 top-3.5 text-slate-400"
+                    />
+
+                    <textarea
+                      id="address"
+                      value={settings.address}
+                      onChange={(event) =>
+                        updateField("address", event.target.value)
+                      }
+                      rows={3}
+                      placeholder="Enter clinic address"
+                      className="w-full resize-y rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    />
+                  </div>
+                </div>
+
+                {/* Phone */}
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                  >
+                    Phone
+                  </label>
+
+                  <div className="relative">
+                    <Phone
+                      size={16}
+                      strokeWidth={1.8}
+                      className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                    />
+
+                    <input
+                      id="phone"
+                      type="text"
+                      value={settings.phone}
+                      onChange={(event) =>
+                        updateField("phone", event.target.value)
+                      }
+                      placeholder="Enter clinic phone number"
+                      className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    />
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                  >
+                    Email
+                  </label>
+
+                  <div className="relative">
+                    <Mail
+                      size={16}
+                      strokeWidth={1.8}
+                      className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                    />
+
+                    <input
+                      id="email"
+                      type="email"
+                      value={settings.email}
+                      onChange={(event) =>
+                        updateField("email", event.target.value)
+                      }
+                      placeholder="Enter clinic email"
+                      className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    />
+                  </div>
+                </div>
+
+                {/* Logo */}
+                <div className="sm:col-span-2">
+                  <label
+                    htmlFor="logo"
+                    className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                  >
+                    Logo
+                  </label>
+
+                  <div className="relative">
+                    <Image
+                      size={16}
+                      strokeWidth={1.8}
+                      className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                    />
+
+                    <input
+                      id="logo"
+                      type="text"
+                      value={settings.logo}
+                      onChange={(event) =>
+                        updateField("logo", event.target.value)
+                      }
+                      placeholder="Enter logo path or URL"
+                      className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    />
+                  </div>
+
+                  <p className="mt-1.5 text-xs text-slate-400">
+                    Logo upload can be added during the final branding stage.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex flex-col-reverse gap-3 border-t border-slate-200 bg-slate-50/60 px-6 py-5 sm:flex-row sm:justify-end">
+              <button
+                type="button"
+                onClick={() => navigate("/dashboard")}
+                disabled={saving}
+                className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                Cancel
+              </button>
+
+              <button
+                type="submit"
+                disabled={saving}
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+              >
+                <Save size={16} strokeWidth={1.8} />
+                {saving ? "Saving..." : "Save Changes"}
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
     </div>
   );
 }

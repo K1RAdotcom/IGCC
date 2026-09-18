@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  ArrowLeft,
+  CheckCircle2,
+  Search,
+  ShieldCheck,
+  UserPlus,
+  Users,
+} from "lucide-react";
 
 type User = {
   userId: string;
@@ -102,6 +110,7 @@ export default function StaffManagement() {
       setLoading(false);
     }
   }
+
   useEffect(() => {
     loadUsers();
   }, []);
@@ -131,257 +140,181 @@ export default function StaffManagement() {
   }
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#f5f7f9",
-        padding: "32px",
-        boxSizing: "border-box",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "24px",
-            gap: "16px",
-            flexWrap: "wrap",
-          }}
+    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <div className="space-y-6">
+        {/* Back Navigation */}
+        <button
+          type="button"
+          onClick={() => navigate("/dashboard")}
+          className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-igcc-700"
         >
-          <div>
-            <button
-              onClick={() => navigate("/dashboard")}
-              style={{
-                border: "none",
-                background: "transparent",
-                padding: 0,
-                marginBottom: "10px",
-                cursor: "pointer",
-                color: "#166534",
-                fontWeight: 600,
-              }}
-            >
-              &#8592; Back to Dashboard
-            </button>
+          <ArrowLeft size={17} />
+          Back to Dashboard
+        </button>
 
-            <h1
-              style={{
-                margin: 0,
-                fontSize: "28px",
-                color: "#111827",
-              }}
-            >
-              Staff Management
-            </h1>
+        {/* Page Header */}
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-900 text-white shadow-sm">
+              <Users size={23} strokeWidth={1.8} />
+            </div>
 
-            <p
-              style={{
-                margin: "6px 0 0",
-                color: "#6b7280",
-                fontSize: "14px",
-              }}
-            >
-              Manage clinic staff and administrator accounts.
-            </p>
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+                Staff Management
+              </h1>
+
+              <p className="mt-0.5 text-sm text-slate-500">
+                Manage clinic staff and administrator accounts.
+              </p>
+            </div>
           </div>
 
           <button
+            type="button"
             onClick={() => navigate("/admin/staff/add")}
-            style={{
-              padding: "12px 18px",
-              border: "none",
-              borderRadius: "8px",
-              background: "#166534",
-              color: "#ffffff",
-              cursor: "pointer",
-              fontWeight: 600,
-            }}
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800"
           >
-            + Add Staff Account
+            <UserPlus size={17} strokeWidth={1.8} />
+            Add Staff Account
           </button>
         </div>
 
-        <div
-          style={{
-            background: "#ffffff",
-            borderRadius: "12px",
-            padding: "24px",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
-          }}
-        >
-          <input
-            type="text"
-            placeholder="Search by Staff ID, name, username, role, or status..."
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            style={{
-              width: "100%",
-              padding: "12px",
-              border: "1px solid #d1d5db",
-              borderRadius: "8px",
-              fontSize: "14px",
-              boxSizing: "border-box",
-              marginBottom: "20px",
-            }}
-          />
+        {/* Staff Card */}
+        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+          {/* Search */}
+          <div className="border-b border-slate-200 px-5 py-5 sm:px-6">
+            <div className="relative max-w-xl">
+              <Search
+                size={17}
+                strokeWidth={1.8}
+                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+              />
 
+              <input
+                type="text"
+                placeholder="Search by Staff ID, name, username, role, or status..."
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+              />
+            </div>
+
+            {!loading && !error && (
+              <div className="mt-3 flex items-center gap-2 text-xs text-slate-400">
+                <Users size={14} />
+                <span>
+                  {filteredUsers.length}{" "}
+                  {filteredUsers.length === 1 ? "staff account" : "staff accounts"}
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Loading */}
           {loading && (
-            <p style={{ color: "#6b7280" }}>
+            <div className="px-6 py-10 text-center text-sm text-slate-500">
               Loading staff accounts...
-            </p>
-          )}
-
-          {error && (
-            <div
-              style={{
-                padding: "12px",
-                borderRadius: "8px",
-                background: "#fee2e2",
-                color: "#991b1b",
-                marginBottom: "20px",
-              }}
-            >
-              {error}
             </div>
           )}
 
+          {/* Error */}
+          {error && (
+            <div className="m-5 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 sm:m-6">
+              <ShieldCheck
+                size={17}
+                strokeWidth={1.8}
+                className="mt-0.5 shrink-0"
+              />
+              <p>{error}</p>
+            </div>
+          )}
+
+          {/* Table */}
           {!loading && !error && (
-            <div style={{ overflowX: "auto" }}>
-              <table
-                style={{
-                  width: "100%",
-                  borderCollapse: "collapse",
-                  minWidth: "800px",
-                }}
-              >
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[900px]">
                 <thead>
-                  <tr>
-                    {[
-                      "Staff ID",
-                      "Full Name",
-                      "Username",
-                      "Role",
-                      "Status",
-                      "Created",
-                      "Action",
-                    ].map((heading) => (
-                      <th
-                        key={heading}
-                        style={{
-                          textAlign: "left",
-                          padding: "12px",
-                          borderBottom: "2px solid #e5e7eb",
-                          color: "#374151",
-                          fontSize: "13px",
-                        }}
-                      >
-                        {heading}
-                      </th>
-                    ))}
+                  <tr className="border-b border-slate-200 bg-slate-50/70">
+                    <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Staff ID
+                    </th>
+
+                    <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Full Name
+                    </th>
+
+                    <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Username
+                    </th>
+
+                    <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Role
+                    </th>
+
+                    <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Status
+                    </th>
+
+                    <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Created
+                    </th>
+
+                    <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Action
+                    </th>
                   </tr>
                 </thead>
 
                 <tbody>
                   {filteredUsers.map((user) => (
-                    <tr key={user.userId}>
-                      <td
-                        style={{
-                          padding: "14px 12px",
-                          borderBottom: "1px solid #e5e7eb",
-                          fontWeight: 600,
-                        }}
-                      >
+                    <tr
+                      key={user.userId}
+                      className="border-b border-slate-100 transition hover:bg-slate-50/70"
+                    >
+                      <td className="px-5 py-4 text-sm font-semibold text-slate-900">
                         {user.displayId}
                       </td>
 
-                      <td
-                        style={{
-                          padding: "14px 12px",
-                          borderBottom: "1px solid #e5e7eb",
-                        }}
-                      >
+                      <td className="px-5 py-4 text-sm font-medium text-slate-800">
                         {user.fullName}
                       </td>
 
-                      <td
-                        style={{
-                          padding: "14px 12px",
-                          borderBottom: "1px solid #e5e7eb",
-                        }}
-                      >
+                      <td className="px-5 py-4 text-sm text-slate-600">
                         {user.username}
                       </td>
 
-                      <td
-                        style={{
-                          padding: "14px 12px",
-                          borderBottom: "1px solid #e5e7eb",
-                        }}
-                      >
+                      <td className="px-5 py-4 text-sm text-slate-600">
                         {formatRole(user.role)}
                       </td>
 
-                      <td
-                        style={{
-                          padding: "14px 12px",
-                          borderBottom: "1px solid #e5e7eb",
-                        }}
-                      >
+                      <td className="px-5 py-4">
                         <span
-                          style={{
-                            display: "inline-block",
-                            padding: "5px 9px",
-                            borderRadius: "999px",
-                            background:
-                              user.status === "ACTIVE"
-                                ? "#dcfce7"
-                                : "#fee2e2",
-                            color:
-                              user.status === "ACTIVE"
-                                ? "#166534"
-                                : "#991b1b",
-                            fontSize: "12px",
-                            fontWeight: 600,
-                          }}
+                          className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
+                            user.status === "ACTIVE"
+                              ? "bg-emerald-50 text-emerald-700"
+                              : "bg-red-50 text-red-700"
+                          }`}
                         >
+                          <CheckCircle2
+                            size={13}
+                            strokeWidth={2}
+                          />
                           {user.status === "ACTIVE"
                             ? "Active"
                             : "Inactive"}
                         </span>
                       </td>
 
-                      <td
-                        style={{
-                          padding: "14px 12px",
-                          borderBottom: "1px solid #e5e7eb",
-                        }}
-                      >
+                      <td className="px-5 py-4 text-sm text-slate-500">
                         {formatDate(user.createdAt)}
                       </td>
 
-                      <td
-                        style={{
-                          padding: "14px 12px",
-                          borderBottom: "1px solid #e5e7eb",
-                        }}
-                      >
+                      <td className="px-5 py-4">
                         <button
+                          type="button"
                           onClick={() => handleStatusChange(user)}
-                          style={{
-                            padding: "7px 12px",
-                            border: "1px solid #d1d5db",
-                            borderRadius: "6px",
-                            background: "#ffffff",
-                            cursor: "pointer",
-                            fontWeight: 600,
-                          }}
+                          className="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-slate-900"
                         >
                           Manage
                         </button>
@@ -393,11 +326,7 @@ export default function StaffManagement() {
                     <tr>
                       <td
                         colSpan={7}
-                        style={{
-                          padding: "30px",
-                          textAlign: "center",
-                          color: "#6b7280",
-                        }}
+                        className="px-6 py-12 text-center text-sm text-slate-500"
                       >
                         No staff accounts found.
                       </td>
@@ -407,7 +336,7 @@ export default function StaffManagement() {
               </table>
             </div>
           )}
-        </div>
+        </section>
       </div>
     </div>
   );

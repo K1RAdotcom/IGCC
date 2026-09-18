@@ -1,5 +1,15 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  ArrowLeft,
+  CheckCircle2,
+  KeyRound,
+  Mail,
+  Pencil,
+  ShieldCheck,
+  User,
+  UserCircle,
+} from "lucide-react";
 
 type User = {
   userId: string;
@@ -37,7 +47,9 @@ export default function MyAccount() {
         setUser(data.user);
       } catch (err) {
         setError(
-          err instanceof Error ? err.message : "Could not load account."
+          err instanceof Error
+            ? err.message
+            : "Could not load account."
         );
       } finally {
         setLoading(false);
@@ -49,229 +61,216 @@ export default function MyAccount() {
 
   if (loading) {
     return (
-      <div
-        style={{
-          padding: "40px",
-          fontFamily: "Arial, sans-serif",
-        }}
-      >
-        Loading account...
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <div className="text-sm text-slate-500">
+          Loading account...
+        </div>
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div
-        style={{
-          padding: "40px",
-          fontFamily: "Arial, sans-serif",
-        }}
-      >
-        <p style={{ color: "crimson" }}>
-          {error || "Could not load account."}
-        </p>
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="rounded-xl border border-red-200 bg-red-50 p-6">
+          <p className="text-sm font-medium text-red-700">
+            {error || "Could not load account."}
+          </p>
 
-        <button
-          type="button"
-          onClick={() => navigate("/dashboard")}
-        >
-          Back to Dashboard
-        </button>
+          <button
+            type="button"
+            onClick={() => navigate("/dashboard")}
+            className="mt-5 inline-flex items-center gap-2 rounded-lg bg-igcc-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800"
+          >
+            <ArrowLeft size={16} strokeWidth={1.8} />
+            Back to Dashboard
+          </button>
+        </div>
       </div>
     );
   }
 
-  const labelStyle = {
-    display: "block",
-    fontSize: "13px",
-    color: "#666",
-    marginBottom: "5px",
-  };
-
-  const valueStyle = {
-    fontSize: "16px",
-    fontWeight: 600,
-    color: "#222",
-  };
-
-  const cardStyle = {
-    background: "#fff",
-    borderRadius: "10px",
-    padding: "24px",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-  };
-
   const roleLabel =
     user.role === "ADMIN" ? "Administrator" : "Clinic Staff";
 
+  const isActive = user.status === "ACTIVE";
+
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#f5f7fa",
-        padding: "30px",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "900px",
-          margin: "0 auto",
-        }}
-      >
+    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+      {/* Header */}
+      <div className="space-y-6">
         <button
           type="button"
           onClick={() => navigate("/dashboard")}
-          style={{
-            border: "none",
-            background: "transparent",
-            cursor: "pointer",
-            marginBottom: "20px",
-            fontSize: "14px",
-          }}
+          className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-igcc-700"
         >
-          ← Back to Dashboard
+          <ArrowLeft size={17} />
+          Back to Dashboard
         </button>
 
-        <h1 style={{ marginBottom: "5px" }}>
-          My Account
-        </h1>
-
-        <p
-          style={{
-            color: "#666",
-            marginTop: 0,
-          }}
-        >
-          View your account information and staff details.
-        </p>
-
-        <div
-          style={{
-            ...cardStyle,
-            marginTop: "25px",
-          }}
-        >
-          <h2
-            style={{
-              marginTop: 0,
-              fontSize: "20px",
-            }}
-          >
-            Account Information
-          </h2>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "25px",
-              marginTop: "25px",
-            }}
-          >
-            <div>
-              <span style={labelStyle}>Full Name</span>
-              <span style={valueStyle}>
-                {user.fullName}
-              </span>
-            </div>
-
-            <div>
-              <span style={labelStyle}>Username</span>
-              <span style={valueStyle}>
-                {user.username}
-              </span>
-            </div>
-
-            <div>
-              <span style={labelStyle}>Staff ID</span>
-              <span style={valueStyle}>
-                {user.displayId}
-              </span>
-            </div>
-
-            <div>
-              <span style={labelStyle}>Role</span>
-              <span style={valueStyle}>
-                {roleLabel}
-              </span>
-            </div>
-
-            <div>
-              <span style={labelStyle}>Email</span>
-              <span style={valueStyle}>
-                {user.email || "Not provided"}
-              </span>
-            </div>
-
-            <div>
-              <span style={labelStyle}>Account Status</span>
-              <span style={valueStyle}>
-                {user.status}
-              </span>
-            </div>
+        <div className="flex items-center gap-3">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-900 text-white shadow-sm">
+            <UserCircle size={23} strokeWidth={1.8} />
           </div>
-        </div>
 
-        <div
-          style={{
-            ...cardStyle,
-            marginTop: "20px",
-          }}
-        >
-          <h2
-            style={{
-              marginTop: 0,
-              fontSize: "20px",
-            }}
-          >
-            Account Actions
-          </h2>
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+              My Account
+            </h1>
 
-          <div
-            style={{
-              display: "flex",
-              gap: "12px",
-              marginTop: "20px",
-              flexWrap: "wrap",
-            }}
-          >
-            <button
-              type="button"
-              onClick={() => navigate("/account/edit")}
-              style={{
-                padding: "11px 18px",
-                border: "none",
-                borderRadius: "6px",
-                background: "#1f6f43",
-                color: "#fff",
-                cursor: "pointer",
-                fontWeight: 600,
-              }}
-            >
-              Edit Profile
-            </button>
-
-            <button
-              type="button"
-              onClick={() =>
-                navigate("/account/change-password")
-              }
-              style={{
-                padding: "11px 18px",
-                border: "1px solid #ccc",
-                borderRadius: "6px",
-                background: "#fff",
-                cursor: "pointer",
-                fontWeight: 600,
-              }}
-            >
-              Change Password
-            </button>
+            <p className="mt-0.5 text-sm text-slate-500">
+              Manage your personal information and account settings.
+            </p>
           </div>
         </div>
       </div>
+
+      {/* Account Information */}
+      <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+        <div className="border-b border-slate-200 px-6 py-5">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-700">
+              <User size={18} strokeWidth={1.8} />
+            </div>
+
+            <div>
+              <h2 className="text-base font-semibold text-slate-900">
+                Account Information
+              </h2>
+
+              <p className="mt-0.5 text-xs text-slate-500">
+                Your staff account details
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-x-10 gap-y-7 px-6 py-6 sm:grid-cols-2">
+          <div>
+            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+              Full Name
+            </p>
+            <p className="text-sm font-semibold text-slate-900">
+              {user.fullName}
+            </p>
+          </div>
+
+          <div>
+            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+              Username
+            </p>
+            <p className="text-sm font-semibold text-slate-900">
+              {user.username}
+            </p>
+          </div>
+
+          <div>
+            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+              Staff ID
+            </p>
+            <p className="text-sm font-semibold text-slate-900">
+              {user.displayId}
+            </p>
+          </div>
+
+          <div>
+            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+              Role
+            </p>
+
+            <div className="flex items-center gap-2">
+              <ShieldCheck
+                size={16}
+                strokeWidth={1.8}
+                className="text-slate-400"
+              />
+
+              <p className="text-sm font-semibold text-slate-900">
+                {roleLabel}
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+              Email
+            </p>
+
+            <div className="flex items-center gap-2">
+              <Mail
+                size={15}
+                strokeWidth={1.8}
+                className="text-slate-400"
+              />
+
+              <p className="text-sm font-semibold text-slate-900">
+                {user.email || "Not provided"}
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+              Account Status
+            </p>
+
+            <span
+              className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
+                isActive
+                  ? "bg-emerald-50 text-emerald-700"
+                  : "bg-slate-100 text-slate-600"
+              }`}
+            >
+              <CheckCircle2 size={14} strokeWidth={2} />
+              {user.status}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* Account Actions */}
+      <section className="mt-5 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+        <div className="border-b border-slate-200 px-6 py-5">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-700">
+              <ShieldCheck size={18} strokeWidth={1.8} />
+            </div>
+
+            <div>
+              <h2 className="text-base font-semibold text-slate-900">
+                Account Actions
+              </h2>
+
+              <p className="mt-0.5 text-xs text-slate-500">
+                Update your profile or security settings
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3 px-6 py-5 sm:flex-row">
+          <button
+            type="button"
+            onClick={() => navigate("/account/edit")}
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800"
+          >
+            <Pencil size={16} strokeWidth={1.8} />
+            Edit Profile
+          </button>
+
+          <button
+            type="button"
+            onClick={() =>
+              navigate("/account/change-password")
+            }
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+          >
+            <KeyRound size={16} strokeWidth={1.8} />
+            Change Password
+          </button>
+        </div>
+      </section>
     </div>
   );
 }
+
