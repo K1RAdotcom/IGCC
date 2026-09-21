@@ -155,6 +155,17 @@ router.post("/login", loginLimiter, async (req, res) => {
 
     req.session.userId = user.userId;
 
+    await new Promise<void>((resolve, reject) => {
+      req.session.save((error) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        resolve();
+      });
+    });
+
     await createAuditLog({
       userId: user.userId,
       action: "LOGIN",
