@@ -1,3 +1,4 @@
+import { apiUrl } from "../api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -11,6 +12,8 @@ import {
   Phone,
   Save,
 } from "lucide-react";
+
+import AppShell from "../components/layout/AppShell";
 
 type ClinicSettingsData = {
   clinicName: string;
@@ -46,7 +49,7 @@ export default function ClinicSettings() {
       setError("");
 
       const response = await fetch(
-        "http://localhost:4000/api/clinic-settings",
+        apiUrl("/api/clinic-settings"),
         {
           credentials: "include",
         }
@@ -89,7 +92,7 @@ export default function ClinicSettings() {
       setError("");
 
       const response = await fetch(
-        "http://localhost:4000/api/clinic-settings",
+        apiUrl("/api/clinic-settings"),
         {
           method: "PATCH",
           headers: {
@@ -151,6 +154,7 @@ export default function ClinicSettings() {
   }
 
   return (
+    <AppShell userRole="ADMIN" userName="Administrator">
     <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       <div className="space-y-6">
         {/* Back Navigation */}
@@ -401,5 +405,6 @@ export default function ClinicSettings() {
         </section>
       </div>
     </div>
+    </AppShell>
   );
 }

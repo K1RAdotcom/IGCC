@@ -1,3 +1,4 @@
+import { apiUrl } from "./api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -8,6 +9,8 @@ import {
   UserPlus,
   Users,
 } from "lucide-react";
+
+import AppShell from "./components/layout/AppShell";
 
 type User = {
   userId: string;
@@ -34,7 +37,7 @@ export default function StaffManagement() {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/users",
+        apiUrl("/api/users"),
         {
           credentials: "include",
         }
@@ -78,7 +81,7 @@ export default function StaffManagement() {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/users/${user.userId}/status`,
+        apiUrl(`/api/users/${user.userId}/status`),
         {
           method: "PATCH",
           credentials: "include",
@@ -140,7 +143,11 @@ export default function StaffManagement() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <AppShell
+      userRole="ADMIN"
+      userName="Administrator"
+    >
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <div className="space-y-6">
         {/* Back Navigation */}
         <button
@@ -338,6 +345,7 @@ export default function StaffManagement() {
           )}
         </section>
       </div>
-    </div>
+      </div>
+    </AppShell>
   );
 }

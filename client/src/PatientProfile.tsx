@@ -1,4 +1,5 @@
-﻿import { useEffect, useMemo, useState } from "react";
+import { apiUrl } from "./api";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Activity,
@@ -117,12 +118,12 @@ function PatientProfile() {
       try {
         const [patientResponse, userResponse] = await Promise.all([
           fetch(
-            `http://localhost:4000/api/patient-profile/${patientId}`,
+            apiUrl(`/api/patient-profile/${patientId}`),
             {
               credentials: "include",
             }
           ),
-          fetch("http://localhost:4000/api/users/me", {
+          fetch(apiUrl("/api/users/me"), {
             credentials: "include",
           }),
         ]);

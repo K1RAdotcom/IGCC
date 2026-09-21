@@ -1,3 +1,4 @@
+import { apiUrl } from "./api";
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +13,8 @@ import {
   User,
   UserPlus,
 } from "lucide-react";
+
+import AppShell from "./components/layout/AppShell";
 
 export default function AddStaffAccount() {
   const navigate = useNavigate();
@@ -45,7 +48,7 @@ export default function AddStaffAccount() {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/users",
+        apiUrl("/api/users"),
         {
           method: "POST",
           credentials: "include",
@@ -83,7 +86,11 @@ export default function AddStaffAccount() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+    <AppShell
+      userRole="ADMIN"
+      userName="Administrator"
+    >
+      <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       <div className="space-y-6">
         {/* Back Navigation */}
         <button
@@ -337,6 +344,7 @@ export default function AddStaffAccount() {
           </form>
         </section>
       </div>
-    </div>
+      </div>
+    </AppShell>
   );
 }

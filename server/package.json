@@ -23,6 +23,7 @@
     "express": "^5.2.1",
     "express-rate-limit": "^8.7.0",
     "express-session": "^1.19.0",
+    "helmet": "^8.3.0",
     "pg": "^8.23.0",
     "prisma": "^7.10.0"
   },
@@ -42,5 +43,9 @@
     "@prisma/engines@7.10.0": true,
     "esbuild@0.28.2": true,
     "bcrypt@6.0.0": true
+  },
+  "overrides": {
+    "mysql2": "3.24.4",
+    "deepmerge-ts": "8.0.2"
   }
 }

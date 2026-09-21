@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from "react";
+import { apiUrl } from "./api";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   CalendarDays,
@@ -37,10 +38,10 @@ function Patients() {
 
     try {
       const url = searchTerm
-        ? `http://localhost:4000/api/patients?search=${encodeURIComponent(
+        ? apiUrl(`/api/patients?search=${encodeURIComponent(
             searchTerm
-          )}`
-        : "http://localhost:4000/api/patients";
+          )}`)
+        : apiUrl("/api/patients");
 
       const response = await fetch(url, {
         credentials: "include",
@@ -69,7 +70,7 @@ function Patients() {
     async function loadCurrentUser() {
       try {
         const response = await fetch(
-          "http://localhost:4000/api/users/me",
+          apiUrl("/api/users/me"),
           {
             credentials: "include",
           }

@@ -19,6 +19,14 @@ type CreatePatientData = {
 
 export async function getAllPatients() {
   return prisma.patient.findMany({
+    select: {
+      patientId: true,
+      displayId: true,
+      fullName: true,
+      phone: true,
+      patientCategory: true,
+      dateOfBirth: true,
+    },
     orderBy: {
       fullName: "asc",
     },

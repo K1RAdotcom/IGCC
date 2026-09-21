@@ -1,14 +1,13 @@
+import { apiUrl } from "../../api";
 import type { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Activity,
-  ClipboardList,
   FileText,
   LayoutDashboard,
   LogOut,
   Settings,
   ShieldCheck,
-  Stethoscope,
   UserCircle,
   Users,
 } from "lucide-react";
@@ -28,7 +27,7 @@ export default function AppShell({
 
   async function handleLogout() {
     try {
-      await fetch("http://localhost:4000/api/auth/logout", {
+      await fetch(apiUrl("/api/auth/logout"), {
         method: "POST",
         credentials: "include",
       });
@@ -42,22 +41,13 @@ export default function AppShell({
   return (
     <div className="min-h-screen bg-igcc-background text-slate-900">
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-igcc-800 bg-igcc-900 text-white lg:flex">
-        <div className="border-b border-white/10 px-6 py-6">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10">
-              <Stethoscope size={21} strokeWidth={1.8} />
-            </div>
-
-            <div className="min-w-0">
-              <p className="truncate text-sm font-bold">
-                Ikeja Golf Club Clinic
-              </p>
-              <p className="mt-0.5 text-xs text-white/60">
-                Clinic Management System
-              </p>
-            </div>
-          </div>
-        </div>
+        <div className="border-b border-white/10 px-6 py-6"><div className="flex items-center justify-center px-4 py-5">
+  <img
+    src="/igcc-logo.png"
+    alt="Ikeja Golf Club Clinic"
+    className="h-14 w-auto object-contain"
+  />
+</div></div>
 
         <nav className="flex-1 overflow-y-auto px-3 py-5">
           <p className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-white/40">
@@ -80,13 +70,6 @@ export default function AppShell({
             Patients
           </button>
 
-          <button
-            onClick={() => navigate("/patients")}
-            className="mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-white/75 transition hover:bg-white/10 hover:text-white"
-          >
-            <ClipboardList size={18} strokeWidth={1.8} />
-            New Visit
-          </button>
 
           <button
             onClick={() => navigate("/account")}
@@ -183,4 +166,3 @@ export default function AppShell({
     </div>
   );
 }
-

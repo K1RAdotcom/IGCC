@@ -1,3 +1,4 @@
+import { apiUrl } from "./api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -7,6 +8,8 @@ import {
   Search,
   ShieldCheck,
 } from "lucide-react";
+
+import AppShell from "./components/layout/AppShell";
 
 type AuditLog = {
   logId: string;
@@ -36,7 +39,7 @@ export default function AuditLogs() {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/audit-logs",
+        apiUrl("/api/audit-logs"),
         {
           credentials: "include",
         }
@@ -89,7 +92,11 @@ export default function AuditLogs() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <AppShell
+      userRole="ADMIN"
+      userName="Administrator"
+    >
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <div className="space-y-6">
         {/* Back Navigation */}
         <button
@@ -198,7 +205,7 @@ export default function AuditLogs() {
             </div>
           ) : !error ? (
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[1050px]">
+              <table className="w-full min-w-[1180px]">
                 <thead>
                   <tr className="border-b border-slate-200 bg-slate-50/70">
                     <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -248,7 +255,7 @@ export default function AuditLogs() {
                             </div>
 
                             <div className="mt-0.5 text-xs text-slate-400">
-                              {log.user.displayId} ·{" "}
+                              {log.user.displayId} Ã‚Â·{" "}
                               {log.user.username}
                             </div>
                           </div>
@@ -273,7 +280,7 @@ export default function AuditLogs() {
                         )}
                       </td>
 
-                      <td className="max-w-md px-5 py-4 text-sm leading-6 text-slate-600">
+                      <td className="min-w-[420px] px-5 py-4 text-sm leading-6 text-slate-600 whitespace-normal break-words">
                         {log.description || "-"}
                       </td>
                     </tr>
@@ -284,6 +291,7 @@ export default function AuditLogs() {
           ) : null}
         </section>
       </div>
-    </div>
+      </div>
+    </AppShell>
   );
 }

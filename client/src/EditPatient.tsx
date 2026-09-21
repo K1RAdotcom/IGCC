@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from "react";
+import { apiUrl } from "./api";
+import { useEffect, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -150,7 +151,7 @@ export default function EditPatient() {
 
       try {
         const response = await fetch(
-          `http://localhost:4000/api/patient-profile/${patientId}`,
+          apiUrl(`/api/patient-profile/${patientId}`),
           {
             credentials: "include",
           }
@@ -206,7 +207,7 @@ export default function EditPatient() {
     async function loadCurrentUser() {
       try {
         const response = await fetch(
-          "http://localhost:4000/api/users/me",
+          apiUrl("/api/users/me"),
           {
             credentials: "include",
           }
@@ -245,7 +246,7 @@ export default function EditPatient() {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/patients/${patientId}`,
+        apiUrl(`/api/patients/${patientId}`),
         {
           method: "PATCH",
           credentials: "include",

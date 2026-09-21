@@ -1,4 +1,5 @@
-﻿import { useState } from "react";
+import { apiUrl } from "./api";
+import { useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -50,7 +51,7 @@ export default function ChangePassword() {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/users/me/change-password",
+        apiUrl("/api/users/me/change-password"),
         {
           method: "POST",
           credentials: "include",

@@ -1,3 +1,4 @@
+import { apiUrl } from "./api";
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +9,8 @@ import {
   Pencil,
   User,
 } from "lucide-react";
+
+import AppShell from "./components/layout/AppShell";
 
 type User = {
   userId: string;
@@ -34,7 +37,7 @@ export default function EditProfile() {
     async function loadAccount() {
       try {
         const response = await fetch(
-          "http://localhost:4000/api/users/me",
+          apiUrl("/api/users/me"),
           {
             credentials: "include",
           }
@@ -78,7 +81,7 @@ export default function EditProfile() {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/users/me",
+        apiUrl("/api/users/me"),
         {
           method: "PATCH",
           headers: {
@@ -121,37 +124,45 @@ export default function EditProfile() {
 
   if (loading) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <div className="text-sm text-slate-500">
-          Loading profile...
+      <AppShell>
+        <div className="flex min-h-[60vh] items-center justify-center">
+          <div className="text-sm text-slate-500">
+            Loading profile...
+          </div>
         </div>
-      </div>
+      </AppShell>
     );
   }
 
   if (!user) {
     return (
-      <div className="mx-auto max-w-4xl px-6 py-10">
-        <div className="rounded-xl border border-red-200 bg-red-50 p-6">
-          <p className="text-sm font-medium text-red-600">
-            {error || "Could not load profile."}
-          </p>
+      <AppShell>
+        <div className="mx-auto max-w-4xl px-6 py-10">
+          <div className="rounded-xl border border-red-200 bg-red-50 p-6">
+            <p className="text-sm font-medium text-red-600">
+              {error || "Could not load profile."}
+            </p>
 
-          <button
-            type="button"
-            onClick={() => navigate("/account")}
-            className="mt-5 inline-flex items-center gap-2 rounded-lg bg-igcc-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-igcc-800"
-          >
-            <ArrowLeft size={16} />
-            Back to My Account
-          </button>
+            <button
+              type="button"
+              onClick={() => navigate("/account")}
+              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-igcc-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-igcc-800"
+            >
+              <ArrowLeft size={16} />
+              Back to My Account
+            </button>
+          </div>
         </div>
-      </div>
+      </AppShell>
     );
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+    <AppShell
+      userRole={user.role}
+      userName={user.fullName}
+    >
+      <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       {/* Page Header */}
       <div className="mb-7">
         <button
@@ -349,6 +360,7 @@ export default function EditProfile() {
           </button>
         </div>
       </form>
-    </div>
+      </div>
+    </AppShell>
   );
 }

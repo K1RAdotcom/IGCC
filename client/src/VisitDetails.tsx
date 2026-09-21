@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from "react";
+import { apiUrl } from "./api";
+import { useEffect, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -264,7 +265,7 @@ function VitalCard({
     String(value).trim() !== "";
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+    <div className="min-h-[108px] rounded-lg border border-slate-200 bg-slate-50 p-4">
       <div className="mb-3 flex items-center gap-2">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-igcc-700 shadow-sm">
           {icon}
@@ -275,7 +276,7 @@ function VitalCard({
         </span>
       </div>
 
-      <div className="text-lg font-bold text-slate-900">
+      <div className="text-xl font-bold tracking-tight text-slate-900">
         {hasValue ? String(value) : "—"}
         {hasValue && unit && (
           <span className="ml-1 text-xs font-medium text-slate-500">
@@ -314,7 +315,7 @@ export default function VisitDetails() {
 
       try {
         const response = await fetch(
-          `http://localhost:4000/api/visits/${visitId}`,
+          apiUrl(`/api/visits/${visitId}`),
           {
             credentials: "include",
           }
@@ -342,7 +343,7 @@ export default function VisitDetails() {
     async function loadCurrentUser() {
       try {
         const response = await fetch(
-          "http://localhost:4000/api/users/me",
+          apiUrl("/api/users/me"),
           {
             credentials: "include",
           }
@@ -408,7 +409,7 @@ export default function VisitDetails() {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/visits/${visitId}`,
+        apiUrl(`/api/visits/${visitId}`),
         {
           method: "PATCH",
           credentials: "include",
@@ -452,7 +453,7 @@ export default function VisitDetails() {
       }
 
       const updatedVisit = await fetch(
-        `http://localhost:4000/api/visits/${visitId}`,
+        apiUrl(`/api/visits/${visitId}`),
         {
           credentials: "include",
         }
@@ -580,14 +581,18 @@ export default function VisitDetails() {
 
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                    Visit Record
+                    Visit Details
                   </p>
 
                   <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-                    {visit.reasonForVisit}
+                    Visit Details
                   </h1>
 
-                  <p className="mt-2 text-sm text-slate-500">
+                  <p className="mt-2 text-sm font-medium text-slate-600">
+                    {visit.reasonForVisit}
+                  </p>
+
+                  <p className="mt-1 text-sm text-slate-500">
                     Visit ID:{" "}
                     <span className="font-semibold text-slate-700">
                       {visit.displayId}
@@ -683,7 +688,7 @@ export default function VisitDetails() {
                 description="Vital measurements recorded during the visit."
               />
 
-              <div className="grid gap-4 p-5 sm:grid-cols-2 lg:grid-cols-5 sm:p-6">
+              <div className="grid gap-4 p-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 sm:p-6">
                 <VitalCard
                   label="Blood Pressure"
                   value={visit.bloodPressure}

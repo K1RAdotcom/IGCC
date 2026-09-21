@@ -1,4 +1,6 @@
-﻿import express from "express";
+import "dotenv/config";
+import helmet from "helmet";
+import express from "express";
 import cors from "cors";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
@@ -17,6 +19,16 @@ import auditLogRoutes from "./routes/auditLogs";
 import clinicSettingsRoutes from "./routes/clinicSettings";
 
 const app = express();
+app.disable("x-powered-by");
+
+const isProduction = process.env.NODE_ENV === "production";
+
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    strictTransportSecurity: isProduction ? undefined : false,
+  })
+);
 
 const PgSession = connectPgSimple(session);
 
@@ -27,12 +39,12 @@ const sessionStore = new PgSession({
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
     credentials: true,
   })
 );
 
-app.use(express.json());
+app.use(express.json({ limit: "100kb" }));
 
 app.use(
   session({
@@ -69,4 +81,57 @@ app.use("/api/patients", patientCreateRoutes);
 app.use("/api/patients", patientUpdateRoutes);
 app.use("/api/users", userRoutes);
 
+/* Handle unknown routes consistently. */
+app.use((req, res) => {
+  if (req.path.startsWith("/api/")) {
+    res.status(404).json({
+      error: "API endpoint not found.",
+    });
+    return;
+  }
+
+  res.status(404).json({
+    error: "Route not found.",
+  });
+});
+
+/* Handle unexpected errors without exposing internal details. */
+const errorHandler: express.ErrorRequestHandler = (
+  err: unknown,
+  _req,
+  res,
+  _next
+) => {
+  console.error("Unhandled server error:", err);
+
+  if (res.headersSent) {
+    return;
+  }
+
+  if (
+    typeof err === "object" &&
+    err !== null &&
+    "status" in err &&
+    typeof (err as { status?: unknown }).status === "number"
+  ) {
+    const status = (err as { status: number }).status;
+
+    if (status >= 400 && status < 500) {
+      return res.status(status).json({
+        error:
+          status === 413
+            ? "Request payload is too large."
+            : status === 400
+              ? "Invalid request payload."
+              : "Invalid request.",
+      });
+    }
+  }
+
+  return res.status(500).json({
+    error: "An unexpected server error occurred.",
+  });
+};
+
+app.use(errorHandler);
 export default app;

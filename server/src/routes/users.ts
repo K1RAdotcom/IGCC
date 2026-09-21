@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { createUser, getUsers } from "../services/userService";
+import {
+  createUser,
+  getUsers,
+  UserValidationError,
+} from "../services/userService";
 import { setUserStatus } from "../services/userStatusService";
 import { createAuditLog } from "../services/auditLogService";
 import { requireAuth } from "../middleware/auth";
@@ -115,6 +119,12 @@ router.post("/", requireAuth, requireAdmin, async (req, res) => {
     });
   } catch (error) {
     console.error("Create user error:", error);
+
+    if (error instanceof UserValidationError) {
+      return res.status(400).json({
+        error: error.message,
+      });
+    }
 
     if (
       error instanceof Error &&

@@ -1,5 +1,16 @@
+import { apiUrl } from "./api";
 import { useEffect, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  AlertCircle,
+  ArrowLeft,
+  CheckCircle2,
+  KeyRound,
+  Mail,
+  ShieldCheck,
+  User,
+  UserPlus,
+} from "lucide-react";
 
 function Register() {
   const navigate = useNavigate();
@@ -21,7 +32,7 @@ function Register() {
     async function checkRegistrationStatus() {
       try {
         const response = await fetch(
-          "http://localhost:4000/api/auth/registration-status"
+          apiUrl("/api/auth/registration-status")
         );
 
         const data = await response.json();
@@ -64,7 +75,7 @@ function Register() {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/auth/register",
+        apiUrl("/api/auth/register"),
         {
           method: "POST",
           headers: {
@@ -101,220 +112,280 @@ function Register() {
   }
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#f4f6f8",
-        padding: "24px",
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "500px",
-          background: "#ffffff",
-          borderRadius: "12px",
-          padding: "32px",
-          boxShadow: "0 8px 30px rgba(0,0,0,0.08)",
-        }}
-      >
-        <div style={{ textAlign: "center", marginBottom: "28px" }}>
-          <h1
-            style={{
-              margin: 0,
-              fontSize: "28px",
-              fontWeight: 700,
-              color: "#1f2937",
-            }}
-          >
-            Ikeja Golf Club Clinic
-          </h1>
+    <div className="min-h-screen bg-igcc-background px-4 py-8 sm:px-6">
+      <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-xl items-center justify-center">
+        <div className="w-full overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-md">
+          <div className="h-2 bg-igcc-800" />
 
-          <p
-            style={{
-              marginTop: "8px",
-              color: "#6b7280",
-            }}
-          >
-            Create Account
-          </p>
-        </div>
+          <div className="p-6 sm:p-8">
+            {/* Header */}
+            <div className="mb-7">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-50 text-igcc-700">
+                  <UserPlus size={23} strokeWidth={1.8} />
+                </div>
 
-        {error && (
-          <div
-            style={{
-              background: "#fee2e2",
-              color: "#991b1b",
-              padding: "12px",
-              borderRadius: "8px",
-              marginBottom: "16px",
-            }}
-          >
-            {error}
-          </div>
-        )}
+                <div>
+                  <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+                    Create Account
+                  </h1>
 
-        {success && (
-          <div
-            style={{
-              background: "#dcfce7",
-              color: "#166534",
-              padding: "12px",
-              borderRadius: "8px",
-              marginBottom: "16px",
-            }}
-          >
-            {success}
-          </div>
-        )}
+                  <p className="mt-0.5 text-sm text-slate-500">
+                    Ikeja Golf Club Clinic
+                  </p>
+                </div>
+              </div>
 
-        <form onSubmit={handleRegister}>
-          <label style={{ display: "block", marginBottom: "6px" }}>
-            Full Name
-          </label>
+              <p className="mt-4 text-sm leading-6 text-slate-500">
+                Create a new clinic staff or administrator account.
+              </p>
+            </div>
 
-          <input
-            type="text"
-            value={fullName}
-            onChange={(event) => setFullName(event.target.value)}
-            required
-            style={inputStyle}
-          />
+            {/* Messages */}
+            {error && (
+              <div className="mb-5 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                <AlertCircle
+                  size={18}
+                  strokeWidth={1.8}
+                  className="mt-0.5 shrink-0"
+                />
 
-          <label style={{ display: "block", margin: "16px 0 6px" }}>
-            Username
-          </label>
-
-          <input
-            type="text"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-            required
-            style={inputStyle}
-          />
-
-          <label style={{ display: "block", margin: "16px 0 6px" }}>
-            Email
-          </label>
-
-          <input
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            style={inputStyle}
-          />
-
-          <label style={{ display: "block", margin: "16px 0 6px" }}>
-            Password
-          </label>
-
-          <input
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-            minLength={8}
-            style={inputStyle}
-          />
-
-          <label style={{ display: "block", margin: "16px 0 6px" }}>
-            Confirm Password
-          </label>
-
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(event) => setConfirmPassword(event.target.value)}
-            required
-            minLength={8}
-            style={inputStyle}
-          />
-
-          <label style={{ display: "block", margin: "16px 0 6px" }}>
-            Account Type
-          </label>
-
-          <select
-            value={role}
-            onChange={(event) => setRole(event.target.value)}
-            style={inputStyle}
-            disabled={checkingStatus}
-          >
-            <option value="CLINIC_STAFF">Clinic Staff</option>
-
-            {adminAvailable && (
-              <option value="ADMIN">Administrator</option>
+                <p>{error}</p>
+              </div>
             )}
-          </select>
 
-          {!checkingStatus && !adminAvailable && (
-            <p
-              style={{
-                marginTop: "6px",
-                fontSize: "13px",
-                color: "#6b7280",
-              }}
-            >
-              Administrator registration is unavailable because an
-              Administrator account already exists.
-            </p>
-          )}
+            {success && (
+              <div className="mb-5 flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+                <CheckCircle2
+                  size={18}
+                  strokeWidth={1.8}
+                  className="mt-0.5 shrink-0"
+                />
 
-          <button
-            type="submit"
-            disabled={loading || checkingStatus}
-            style={{
-              width: "100%",
-              marginTop: "24px",
-              padding: "12px",
-              border: "none",
-              borderRadius: "8px",
-              background: "#1f4d3a",
-              color: "#ffffff",
-              fontSize: "16px",
-              fontWeight: 600,
-              cursor: loading ? "not-allowed" : "pointer",
-            }}
-          >
-            {loading ? "Creating Account..." : "Create Account"}
-          </button>
+                <p>{success}</p>
+              </div>
+            )}
 
-          <button
-            type="button"
-            onClick={() => navigate("/login")}
-            style={{
-              width: "100%",
-              marginTop: "12px",
-              padding: "12px",
-              border: "1px solid #d1d5db",
-              borderRadius: "8px",
-              background: "#ffffff",
-              color: "#374151",
-              fontSize: "16px",
-              cursor: "pointer",
-            }}
-          >
-            Back to Login
-          </button>
-        </form>
+            <form onSubmit={handleRegister} className="space-y-5">
+              {/* Full Name */}
+              <div>
+                <label
+                  htmlFor="fullName"
+                  className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                >
+                  Full Name
+                </label>
+
+                <div className="relative">
+                  <User
+                    size={16}
+                    strokeWidth={1.8}
+                    className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <input
+                    id="fullName"
+                    type="text"
+                    value={fullName}
+                    onChange={(event) =>
+                      setFullName(event.target.value)
+                    }
+                    required
+                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                  />
+                </div>
+              </div>
+
+              {/* Username */}
+              <div>
+                <label
+                  htmlFor="username"
+                  className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                >
+                  Username
+                </label>
+
+                <div className="relative">
+                  <User
+                    size={16}
+                    strokeWidth={1.8}
+                    className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <input
+                    id="username"
+                    type="text"
+                    value={username}
+                    onChange={(event) =>
+                      setUsername(event.target.value)
+                    }
+                    required
+                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                  />
+                </div>
+              </div>
+
+              {/* Email */}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                >
+                  Email
+                </label>
+
+                <div className="relative">
+                  <Mail
+                    size={16}
+                    strokeWidth={1.8}
+                    className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(event) =>
+                      setEmail(event.target.value)
+                    }
+                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                  />
+                </div>
+              </div>
+
+              {/* Password */}
+              <div>
+                <label
+                  htmlFor="password"
+                  className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                >
+                  Password
+                </label>
+
+                <div className="relative">
+                  <KeyRound
+                    size={16}
+                    strokeWidth={1.8}
+                    className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(event) =>
+                      setPassword(event.target.value)
+                    }
+                    required
+                    minLength={8}
+                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                  />
+                </div>
+              </div>
+
+              {/* Confirm Password */}
+              <div>
+                <label
+                  htmlFor="confirmPassword"
+                  className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                >
+                  Confirm Password
+                </label>
+
+                <div className="relative">
+                  <KeyRound
+                    size={16}
+                    strokeWidth={1.8}
+                    className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <input
+                    id="confirmPassword"
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(event) =>
+                      setConfirmPassword(event.target.value)
+                    }
+                    required
+                    minLength={8}
+                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                  />
+                </div>
+              </div>
+
+              {/* Account Type */}
+              <div>
+                <label
+                  htmlFor="role"
+                  className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
+                >
+                  Account Type
+                </label>
+
+                <div className="relative">
+                  <ShieldCheck
+                    size={16}
+                    strokeWidth={1.8}
+                    className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <select
+                    id="role"
+                    value={role}
+                    onChange={(event) =>
+                      setRole(event.target.value)
+                    }
+                    disabled={checkingStatus}
+                    className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10 disabled:cursor-not-allowed disabled:bg-slate-50"
+                  >
+                    <option value="CLINIC_STAFF">
+                      Clinic Staff
+                    </option>
+
+                    {adminAvailable && (
+                      <option value="ADMIN">
+                        Administrator
+                      </option>
+                    )}
+                  </select>
+                </div>
+
+                {!checkingStatus && !adminAvailable && (
+                  <p className="mt-1.5 text-xs leading-5 text-slate-400">
+                    Administrator registration is unavailable because an Administrator account already exists.
+                  </p>
+                )}
+              </div>
+
+              {/* Actions */}
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  disabled={loading || checkingStatus}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+                >
+                  <UserPlus size={17} strokeWidth={1.8} />
+                  {loading
+                    ? "Creating Account..."
+                    : "Create Account"}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => navigate("/login")}
+                  disabled={loading}
+                  className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <ArrowLeft size={16} strokeWidth={1.8} />
+                  Back to Login
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-const inputStyle = {
-  width: "100%",
-  boxSizing: "border-box" as const,
-  padding: "11px 12px",
-  border: "1px solid #d1d5db",
-  borderRadius: "8px",
-  fontSize: "15px",
-  outline: "none",
-};
-
 export default Register;
-
-

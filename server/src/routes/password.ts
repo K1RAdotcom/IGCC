@@ -1,11 +1,22 @@
-﻿import { Router } from "express";
+import { Router } from "express";
+import rateLimit from "express-rate-limit";
 import { requireAuth } from "../middleware/auth";
 import { changeMyPassword } from "../services/passwordService";
 import { createAuditLog } from "../services/auditLogService";
 
 const router = Router();
 
-router.post("/me/change-password", requireAuth, async (req, res) => {
+const passwordChangeLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 10,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  message: {
+    error: "Too many password change attempts. Please try again later.",
+  },
+});
+
+router.post("/me/change-password", requireAuth, passwordChangeLimiter, async (req, res) => {
   try {
     const {
       currentPassword,

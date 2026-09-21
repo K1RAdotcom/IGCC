@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from "react";
+import { apiUrl } from "./api";
+import { useEffect, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -71,7 +72,7 @@ function NewVisit() {
 
       try {
         const response = await fetch(
-          `http://localhost:4000/api/patient-profile/${patientId}`,
+          apiUrl(`/api/patient-profile/${patientId}`),
           {
             credentials: "include",
           }
@@ -99,7 +100,7 @@ function NewVisit() {
     async function loadCurrentUser() {
       try {
         const response = await fetch(
-          "http://localhost:4000/api/users/me",
+          apiUrl("/api/users/me"),
           {
             credentials: "include",
           }
@@ -158,7 +159,7 @@ function NewVisit() {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/visits",
+        apiUrl("/api/visits"),
         {
           method: "POST",
           headers: {

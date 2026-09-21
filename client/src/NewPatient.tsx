@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from "react";
+import { apiUrl } from "./api";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -51,7 +52,7 @@ export default function NewPatient() {
   useEffect(() => {
     async function loadUser() {
       try {
-        const response = await fetch("http://localhost:4000/api/users/me", {
+        const response = await fetch(apiUrl("/api/users/me"), {
           credentials: "include",
         });
 
@@ -116,7 +117,7 @@ export default function NewPatient() {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/patients",
+        apiUrl("/api/patients"),
         {
           method: "POST",
           credentials: "include",
