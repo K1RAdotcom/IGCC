@@ -1,4 +1,4 @@
-import "dotenv/config";
+﻿import "dotenv/config";
 import helmet from "helmet";
 import express from "express";
 import cors from "cors";
@@ -20,8 +20,11 @@ import clinicSettingsRoutes from "./routes/clinicSettings";
 
 const app = express();
 app.disable("x-powered-by");
-
 const isProduction = process.env.NODE_ENV === "production";
+
+if (isProduction) {
+  app.set("trust proxy", 1);
+}
 
 app.use(
   helmet({
