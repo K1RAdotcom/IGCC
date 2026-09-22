@@ -5,9 +5,11 @@ export async function authenticateUser(
   username: string,
   password: string
 ) {
+  const normalizedUsername = username.trim().toLowerCase();
+
   const user = await prisma.user.findUnique({
     where: {
-      username,
+      username: normalizedUsername,
     },
   });
 
