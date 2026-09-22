@@ -362,8 +362,81 @@ function Patients() {
               </button>
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[820px]">
+            <>
+              <div className="space-y-3 p-4 sm:hidden">
+              {filteredPatients.map((patient) => (
+                <div
+                  key={patient.patientId}
+                  className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex min-w-0 items-center gap-3">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-igcc-100 text-xs font-bold text-igcc-800">
+                        {getInitials(patient.fullName)}
+                      </span>
+
+                      <div className="min-w-0">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            navigate(`/patients/${patient.patientId}`)
+                          }
+                          className="block max-w-full truncate text-left font-semibold text-slate-900"
+                        >
+                          {patient.fullName}
+                        </button>
+
+                        <p className="mt-0.5 font-mono text-[11px] font-semibold text-igcc-700">
+                          {patient.displayId}
+                        </p>
+                      </div>
+                    </div>
+
+                    <span
+                      className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold ${getCategoryClasses(
+                        patient.patientCategory
+                      )}`}
+                    >
+                      {getCategoryLabel(patient.patientCategory)}
+                    </span>
+                  </div>
+
+                  <div className="mt-4 grid grid-cols-2 gap-3 border-t border-slate-100 pt-3">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-wide text-slate-400">
+                        Phone
+                      </p>
+                      <p className="mt-1 truncate text-sm text-slate-700">
+                        {patient.phone || "—"}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-wide text-slate-400">
+                        Date of Birth
+                      </p>
+                      <p className="mt-1 text-sm text-slate-700">
+                        {formatDate(patient.dateOfBirth)}
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      navigate(`/patients/${patient.patientId}`)
+                    }
+                    className="mt-4 inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-lg border border-igcc-200 bg-white px-3 py-2.5 text-sm font-semibold text-igcc-700 transition hover:border-igcc-300 hover:bg-igcc-50"
+                  >
+                    View Profile
+                    <ChevronRight size={16} strokeWidth={1.9} />
+                  </button>
+                </div>
+              ))}
+              </div>
+
+              <div className="hidden overflow-x-auto sm:block">
+                <table className="w-full min-w-[820px]">
                 <thead>
                   <tr className="border-b border-igcc-border bg-slate-50/80">
                     <th className="px-5 py-3.5 text-left text-[11px] font-bold uppercase tracking-wider text-slate-500">
@@ -477,7 +550,8 @@ function Patients() {
                   ))}
                 </tbody>
               </table>
-            </div>
+              </div>
+            </>
           )}
         </section>
       </div>
@@ -486,6 +560,9 @@ function Patients() {
 }
 
 export default Patients;
+
+
+
 
 
 
