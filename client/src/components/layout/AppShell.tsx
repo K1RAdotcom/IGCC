@@ -1,6 +1,6 @@
-import { apiUrl } from "../../api";
+﻿import { apiUrl } from "../../api";
 import { useState, type ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Activity,
   FileText,
@@ -26,6 +26,10 @@ export default function AppShell({
   userName = "Clinic Staff",
 }: AppShellProps) {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActive = (path: string) =>
+    location.pathname === path || location.pathname.startsWith(path + "/");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   async function handleLogout() {
@@ -66,7 +70,7 @@ export default function AppShell({
 
           <button
             onClick={() => navigate("/dashboard")}
-            className="mb-1 flex w-full items-center gap-3 rounded-lg bg-white/10 px-3 py-2.5 text-left text-sm font-medium text-white transition hover:bg-white/15"
+            className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-white transition hover:bg-white/15 ${isActive("/dashboard") ? "bg-white/10" : ""}`}
           >
             <LayoutDashboard size={18} strokeWidth={1.8} />
             Dashboard
@@ -74,7 +78,7 @@ export default function AppShell({
 
           <button
             onClick={() => navigate("/patients")}
-            className="mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-white/75 transition hover:bg-white/10 hover:text-white"
+            className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/patients") ? "bg-white/10 text-white" : "text-white/75"}`}
           >
             <Users size={18} strokeWidth={1.8} />
             Patients
@@ -82,7 +86,7 @@ export default function AppShell({
 
           <button
             onClick={() => navigate("/account")}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-white/75 transition hover:bg-white/10 hover:text-white"
+            className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/account") ? "bg-white/10 text-white" : "text-white/75"}`}
           >
             <UserCircle size={18} strokeWidth={1.8} />
             My Account
@@ -96,7 +100,7 @@ export default function AppShell({
 
               <button
                 onClick={() => navigate("/admin/staff")}
-                className="mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-white/75 transition hover:bg-white/10 hover:text-white"
+                className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/admin/staff") ? "bg-white/10 text-white" : "text-white/75"}`}
               >
                 <ShieldCheck size={18} strokeWidth={1.8} />
                 Staff Management
@@ -104,7 +108,7 @@ export default function AppShell({
 
               <button
                 onClick={() => navigate("/admin/audit-logs")}
-                className="mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-white/75 transition hover:bg-white/10 hover:text-white"
+                className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/admin/audit-logs") ? "bg-white/10 text-white" : "text-white/75"}`}
               >
                 <FileText size={18} strokeWidth={1.8} />
                 Audit Logs
@@ -112,7 +116,7 @@ export default function AppShell({
 
               <button
                 onClick={() => navigate("/admin/clinic-settings")}
-                className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-white/75 transition hover:bg-white/10 hover:text-white"
+                className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/admin/clinic-settings") ? "bg-white/10 text-white" : "text-white/75"}`}
               >
                 <Settings size={18} strokeWidth={1.8} />
                 Clinic Settings
@@ -180,7 +184,7 @@ export default function AppShell({
 
           <button
             onClick={() => navigateAndClose("/dashboard")}
-            className="mb-1 flex w-full items-center gap-3 rounded-lg bg-white/10 px-3 py-3 text-left text-sm font-medium text-white transition hover:bg-white/15"
+            className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm font-medium text-white transition hover:bg-white/15 ${isActive("/dashboard") ? "bg-white/10" : ""}`}
           >
             <LayoutDashboard size={18} strokeWidth={1.8} />
             Dashboard
@@ -188,7 +192,7 @@ export default function AppShell({
 
           <button
             onClick={() => navigateAndClose("/patients")}
-            className="mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm text-white/75 transition hover:bg-white/10 hover:text-white"
+            className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/patients") ? "bg-white/10 text-white" : "text-white/75"}`}
           >
             <Users size={18} strokeWidth={1.8} />
             Patients
@@ -196,7 +200,7 @@ export default function AppShell({
 
           <button
             onClick={() => navigateAndClose("/account")}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm text-white/75 transition hover:bg-white/10 hover:text-white"
+            className={`flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/account") ? "bg-white/10 text-white" : "text-white/75"}`}
           >
             <UserCircle size={18} strokeWidth={1.8} />
             My Account
@@ -210,7 +214,7 @@ export default function AppShell({
 
               <button
                 onClick={() => navigateAndClose("/admin/staff")}
-                className="mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm text-white/75 transition hover:bg-white/10 hover:text-white"
+                className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/admin/staff") ? "bg-white/10 text-white" : "text-white/75"}`}
               >
                 <ShieldCheck size={18} strokeWidth={1.8} />
                 Staff Management
@@ -218,7 +222,7 @@ export default function AppShell({
 
               <button
                 onClick={() => navigateAndClose("/admin/audit-logs")}
-                className="mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm text-white/75 transition hover:bg-white/10 hover:text-white"
+                className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/admin/audit-logs") ? "bg-white/10 text-white" : "text-white/75"}`}
               >
                 <FileText size={18} strokeWidth={1.8} />
                 Audit Logs
@@ -226,7 +230,7 @@ export default function AppShell({
 
               <button
                 onClick={() => navigateAndClose("/admin/clinic-settings")}
-                className="flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm text-white/75 transition hover:bg-white/10 hover:text-white"
+                className={`flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/admin/clinic-settings") ? "bg-white/10 text-white" : "text-white/75"}`}
               >
                 <Settings size={18} strokeWidth={1.8} />
                 Clinic Settings
@@ -298,3 +302,6 @@ export default function AppShell({
     </div>
   );
 }
+
+
+

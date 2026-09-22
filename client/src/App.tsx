@@ -1,4 +1,4 @@
-import { apiUrl } from "./api";
+﻿import { apiUrl } from "./api";
 import React, { useEffect, useState } from "react";
 import {
   BrowserRouter,
@@ -356,11 +356,11 @@ function Dashboard() {
         <section>
           <div className="mb-4">
             <h2 className="text-lg font-semibold text-slate-900">
-              Quick Actions
+
             </h2>
 
             <p className="mt-1 text-sm text-slate-500">
-              Common clinic tasks
+
             </p>
           </div>
 
@@ -576,6 +576,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
