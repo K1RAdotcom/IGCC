@@ -298,14 +298,14 @@ function PatientProfile() {
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={() => navigate(`/patients/${patient.patientId}/edit`)}
-              className="inline-flex items-center justify-center gap-2 rounded-lg border border-igcc-300 bg-white px-4 py-2.5 text-sm font-semibold text-igcc-700 shadow-sm transition hover:bg-igcc-50 hover:border-igcc-400"
+              className="order-2 inline-flex items-center justify-center gap-2 rounded-lg border border-igcc-300 bg-white px-4 py-2.5 text-sm font-semibold text-igcc-700 shadow-sm transition hover:bg-igcc-50 hover:border-igcc-400"
             >
               <Pencil size={17} />
               Edit Patient
             </button>
             <button
               onClick={() => navigate(`/patients/${patient.patientId}/new-visit`)}
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-700 px-3 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 sm:px-4 sm:py-2.5"
+            className="order-1 inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-700 px-3 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 sm:order-none sm:px-4 sm:py-2.5"
           >
             <Plus size={17} />
             Record New Visit
@@ -333,7 +333,7 @@ function PatientProfile() {
 
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <h1 className="truncate text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                    <h1 className="min-w-0 break-words text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
                       {patient.fullName}
                     </h1>
 
@@ -353,7 +353,8 @@ function PatientProfile() {
                       â€¢
                     </span>
 
-                    <span>{age} years old</span>
+                    <span className="sm:hidden">{age} yrs</span>
+                    <span className="hidden sm:inline">{age} years old</span>
 
                     {patient.gender && (
                       <>
@@ -415,12 +416,14 @@ function PatientProfile() {
                   icon={<Phone size={16} />}
                   label="Primary Phone"
                   value={patient.phone}
+                  phone
                 />
 
                 <InfoRow
                   icon={<Phone size={16} />}
                   label="Secondary Phone"
                   value={displayValue(patient.secondaryPhone)}
+                  phone
                 />
 
                 <InfoRow
@@ -464,6 +467,7 @@ function PatientProfile() {
                   icon={<Phone size={16} />}
                   label="Contact Phone"
                   value={patient.emergencyContactPhone}
+                  phone
                 />
               </div>
             </section>
@@ -515,7 +519,7 @@ function PatientProfile() {
               </div>
 
               {sortedVisits.length === 0 ? (
-                <div className="px-6 py-16 text-center">
+                <div className="px-6 py-10 text-center sm:py-16">
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-igcc-50 text-igcc-700">
                     <Stethoscope size={22} />
                   </div>
@@ -704,20 +708,34 @@ function InfoRow({
   icon,
   label,
   value,
+  phone,
 }: {
   icon: React.ReactNode;
   label: string;
   value: string;
+  phone?: boolean;
 }) {
+  const isRecorded = value !== "Not recorded";
+
   return (
     <div className="flex gap-3">
       <div className="mt-0.5 shrink-0 text-slate-400">{icon}</div>
 
       <div className="min-w-0">
         <p className="text-xs font-medium text-slate-500">{label}</p>
-        <p className="mt-0.5 break-words text-sm font-medium text-slate-800">
-          {value}
-        </p>
+
+        {phone && isRecorded ? (
+          <a
+            href={`tel:${value}`}
+            className="mt-0.5 inline-flex min-h-11 items-center break-all text-sm font-medium text-igcc-700 underline-offset-2 hover:underline"
+          >
+            {value}
+          </a>
+        ) : (
+          <p className="mt-0.5 break-words text-sm font-medium text-slate-800">
+            {value}
+          </p>
+        )}
       </div>
     </div>
   );
@@ -787,6 +805,11 @@ function Vital({
 }
 
 export default PatientProfile;
+
+
+
+
+
 
 
 
