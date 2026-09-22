@@ -280,7 +280,7 @@ function Dashboard() {
     <AppShell userRole={userRole} userName={userName}>
       <div className="space-y-8">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:mt-3">
             Dashboard
           </h1>
 
@@ -297,14 +297,14 @@ function Dashboard() {
 
         <section>
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            <div className="rounded-xl border border-igcc-border bg-white p-6 shadow-igcc-sm">
+            <div className="rounded-xl border border-igcc-border bg-white p-4 shadow-igcc-sm sm:p-6">
               <div className="flex items-start justify-between">
                 <div>
                   <p className="text-sm font-medium text-slate-500">
                     Total Patients
                   </p>
 
-                  <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+                  <p className="mt-3 mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:mt-3">
                     {stats ? stats.totalPatients : "..."}
                   </p>
                 </div>
@@ -315,14 +315,14 @@ function Dashboard() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-igcc-border bg-white p-6 shadow-igcc-sm">
+            <div className="rounded-xl border border-igcc-border bg-white p-4 shadow-igcc-sm sm:p-6">
               <div className="flex items-start justify-between">
                 <div>
                   <p className="text-sm font-medium text-slate-500">
                     Today's Visits
                   </p>
 
-                  <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+                  <p className="mt-3 mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:mt-3">
                     {stats ? stats.todaysVisits : "..."}
                   </p>
                 </div>
@@ -333,14 +333,14 @@ function Dashboard() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-igcc-border bg-white p-6 shadow-igcc-sm">
+            <div className="rounded-xl border border-igcc-border bg-white p-4 shadow-igcc-sm sm:p-6">
               <div className="flex items-start justify-between">
                 <div>
                   <p className="text-sm font-medium text-slate-500">
                     New Patients Today
                   </p>
 
-                  <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+                  <p className="mt-3 mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:mt-3">
                     {stats ? stats.newPatients : "..."}
                   </p>
                 </div>
@@ -424,7 +424,7 @@ function Dashboard() {
 function Placeholder({ title }: { title: string }) {
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-igcc-border bg-white p-6 shadow-igcc-sm">
+      <div className="rounded-xl border border-igcc-border bg-white p-4 shadow-igcc-sm sm:p-6">
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">
           {title}
         </h1>
@@ -576,6 +576,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
