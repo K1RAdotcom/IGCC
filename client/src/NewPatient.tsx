@@ -1,4 +1,4 @@
-import { apiUrl } from "./api";
+﻿import { apiUrl } from "./api";
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
@@ -149,7 +149,7 @@ export default function NewPatient() {
   }
 
   const inputClass =
-    "w-full rounded-lg border border-igcc-border bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm transition placeholder:text-slate-400 focus:border-igcc-500 focus:outline-none focus:ring-2 focus:ring-igcc-500/15 disabled:bg-slate-50";
+    "w-full rounded-lg border border-igcc-border bg-white px-3.5 py-3 text-sm text-slate-900 sm:py-2.5 shadow-sm transition placeholder:text-slate-400 focus:border-igcc-500 focus:outline-none focus:ring-2 focus:ring-igcc-500/15 disabled:bg-slate-50";
 
   const labelClass =
     "mb-1.5 block text-sm font-semibold text-slate-700";
@@ -172,17 +172,17 @@ export default function NewPatient() {
           Back to Patients
         </button>
 
-        <div className="mb-7">
+        <div className="mb-6 sm:mb-7">
           <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-igcc-100 text-igcc-700">
-              <UserPlus size={24} />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-igcc-100 text-igcc-700 sm:h-12 sm:w-12">
+              <UserPlus size={21} className="sm:h-6 sm:w-6" />
             </div>
 
             <div>
-              <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+              <h1 className="text-2xl font-bold leading-tight tracking-tight text-slate-900 sm:text-3xl">
                 Register New Patient
               </h1>
-              <p className="mt-1.5 max-w-2xl text-sm leading-6 text-slate-500">
+              <p className="mt-1 max-w-2xl text-sm leading-5 text-slate-500 sm:mt-1.5 sm:leading-6">
                 Create a new patient record for the Ikeja Golf Club Clinic.
                 Required information is marked with an asterisk.
               </p>
@@ -221,7 +221,7 @@ export default function NewPatient() {
               </div>
             </div>
 
-            <div className="grid gap-5 p-5 sm:grid-cols-2 sm:p-6">
+            <div className="grid gap-4 p-4 sm:grid-cols-2 sm:gap-5 sm:p-6">
               <div>
                 <label className={labelClass}>
                   Full Name <span className="text-red-600">*</span>
@@ -356,7 +356,7 @@ export default function NewPatient() {
               </div>
             </div>
 
-            <div className="grid gap-5 p-5 sm:grid-cols-2 sm:p-6">
+            <div className="grid gap-4 p-4 sm:grid-cols-2 sm:gap-5 sm:p-6">
               <div>
                 <label className={labelClass}>
                   Secondary Phone
@@ -425,7 +425,7 @@ export default function NewPatient() {
               </div>
             </div>
 
-            <div className="grid gap-5 p-5 sm:grid-cols-2 sm:p-6">
+            <div className="grid gap-4 p-4 sm:grid-cols-2 sm:gap-5 sm:p-6">
               <div>
                 <label className={labelClass}>
                   Emergency Contact Name{" "}
@@ -489,7 +489,7 @@ export default function NewPatient() {
               </div>
             </div>
 
-            <div className="space-y-5 p-5 sm:p-6">
+            <div className="space-y-4 p-4 sm:space-y-5 sm:p-6">
               <div>
                 <label className={labelClass}>
                   Relevant Medical / Physical Information
@@ -534,7 +534,7 @@ export default function NewPatient() {
                 type="button"
                 onClick={() => navigate("/patients")}
                 disabled={saving}
-                className="inline-flex items-center justify-center rounded-lg border border-igcc-border bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-lg border border-igcc-border bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:py-2.5"
               >
                 Cancel
               </button>
@@ -542,7 +542,7 @@ export default function NewPatient() {
               <button
                 type="submit"
                 disabled={saving}
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+                className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400 sm:w-auto sm:py-2.5"
               >
                 {saving ? (
                   <>
@@ -568,3 +568,7 @@ export default function NewPatient() {
     </AppShell>
   );
 }
+
+
+
+
