@@ -1,4 +1,4 @@
-import { apiUrl } from "./api";
+﻿import { apiUrl } from "./api";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -286,7 +286,7 @@ function PatientProfile() {
       userName={currentUser?.fullName ?? "Clinic Staff"}
     >
       <div className="space-y-6">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <button
             onClick={() => navigate("/patients")}
             className="inline-flex w-fit items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-igcc-700"
@@ -305,7 +305,7 @@ function PatientProfile() {
             </button>
             <button
               onClick={() => navigate(`/patients/${patient.patientId}/new-visit`)}
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-700 px-3 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 sm:px-4 sm:py-2.5"
           >
             <Plus size={17} />
             Record New Visit
@@ -316,17 +316,17 @@ function PatientProfile() {
         <section className="overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
           <div className="h-2 bg-igcc-800" />
 
-          <div className="p-6 sm:p-8">
+          <div className="p-5 sm:p-8">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex min-w-0 items-center gap-4 sm:gap-5">
                 {patient.profilePhoto ? (
                   <img
                     src={patient.profilePhoto}
                     alt={patient.fullName}
-                    className="h-20 w-20 shrink-0 rounded-full object-cover ring-4 ring-igcc-50"
+                    className="h-16 w-16 shrink-0 rounded-full object-cover ring-4 ring-igcc-50 sm:h-20 sm:w-20"
                   />
                 ) : (
-                  <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-igcc-100 text-xl font-bold text-igcc-800 ring-4 ring-igcc-50">
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-igcc-100 text-lg font-bold text-igcc-800 ring-4 ring-igcc-50 sm:h-20 sm:w-20 sm:text-xl">
                     {getInitials(patient.fullName)}
                   </div>
                 )}
@@ -350,7 +350,7 @@ function PatientProfile() {
                     </span>
 
                     <span className="hidden text-slate-300 sm:inline">
-                      •
+                      â€¢
                     </span>
 
                     <span>{age} years old</span>
@@ -358,7 +358,7 @@ function PatientProfile() {
                     {patient.gender && (
                       <>
                         <span className="hidden text-slate-300 sm:inline">
-                          •
+                          â€¢
                         </span>
                         <span>{patient.gender}</span>
                       </>
@@ -367,21 +367,21 @@ function PatientProfile() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 sm:flex">
-                <div className="rounded-lg bg-slate-50 px-4 py-3">
+              <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3">
+                <div className="rounded-lg bg-slate-50 px-3 py-2.5 sm:px-4 sm:py-3">
                   <p className="text-xs font-medium text-slate-500">
                     Total Visits
                   </p>
-                  <p className="mt-1 text-xl font-bold text-slate-900">
+                  <p className="mt-0.5 text-lg font-bold text-slate-900 sm:mt-1 sm:text-xl">
                     {patient.visits.length}
                   </p>
                 </div>
 
-                <div className="rounded-lg bg-igcc-50 px-4 py-3">
+                <div className="rounded-lg bg-igcc-50 px-3 py-2.5 sm:px-4 sm:py-3">
                   <p className="text-xs font-medium text-igcc-700">
                     Latest Visit
                   </p>
-                  <p className="mt-1 text-sm font-bold text-igcc-900">
+                  <p className="mt-0.5 text-sm font-bold text-igcc-900 sm:mt-1">
                     {latestVisit
                       ? formatDate(latestVisit.visitDateTime)
                       : "None"}
@@ -635,7 +635,7 @@ function PatientProfile() {
                             value={
                               visit.temperature !== null &&
                               visit.temperature !== undefined
-                                ? `${visit.temperature} °C`
+                                ? `${visit.temperature} Â°C`
                                 : null
                             }
                           />
@@ -662,7 +662,7 @@ function PatientProfile() {
                           </span>
 
                           <span className="hidden text-slate-300 sm:inline">
-                            •
+                            â€¢
                           </span>
 
                           <span>{visit.staff.displayId}</span>
@@ -780,13 +780,16 @@ function Vital({
     <div className="rounded-lg border border-slate-100 bg-white px-3 py-2.5">
       <p className="text-[11px] font-medium text-slate-400">{label}</p>
       <p className="mt-1 text-sm font-semibold text-slate-800">
-        {value || "—"}
+        {value || "â€”"}
       </p>
     </div>
   );
 }
 
 export default PatientProfile;
+
+
+
 
 
 
