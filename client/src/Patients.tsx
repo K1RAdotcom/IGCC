@@ -268,7 +268,7 @@ function Patients() {
                 }
                 className="rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-700 shadow-sm outline-none transition hover:border-slate-400 focus:border-igcc-500 focus:ring-2 focus:ring-igcc-500/20"
               >
-                <option value="ALL">All Categories</option>
+                <option value="ALL">Patient Category</option>
                 <option value="MEMBER">Club Member</option>
                 <option value="STAFF">Staff</option>
                 <option value="GUEST">Guest / Visitor</option>
@@ -486,6 +486,7 @@ function Patients() {
 }
 
 export default Patients;
+
 
 
 
