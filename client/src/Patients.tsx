@@ -1,5 +1,5 @@
 ﻿import { apiUrl } from "./api";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   CalendarDays,
@@ -29,6 +29,7 @@ function Patients() {
     "ADMIN" | "CLINIC_STAFF" | null
   >(null);
   const [userName, setUserName] = useState("Clinic Staff");
+  const isFirstSearch = useRef(true);
 
   const navigate = useNavigate();
 
@@ -65,6 +66,19 @@ function Patients() {
   useEffect(() => {
     loadPatients();
   }, []);
+
+  useEffect(() => {
+    if (isFirstSearch.current) {
+      isFirstSearch.current = false;
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      loadPatients(search);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [search]);
 
   useEffect(() => {
     async function loadCurrentUser() {
@@ -472,6 +486,8 @@ function Patients() {
 }
 
 export default Patients;
+
+
 
 
 
