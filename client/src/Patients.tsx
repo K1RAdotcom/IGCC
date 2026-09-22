@@ -1,4 +1,4 @@
-import { apiUrl } from "./api";
+﻿import { apiUrl } from "./api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -147,13 +147,13 @@ function Patients() {
 
   function formatDate(date: string) {
     if (!date) {
-      return "—";
+      return "â€”";
     }
 
     const parsed = new Date(date);
 
     if (Number.isNaN(parsed.getTime())) {
-      return "—";
+      return "â€”";
     }
 
     return parsed.toLocaleDateString();
@@ -165,10 +165,10 @@ function Patients() {
         <section className="overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
           <div className="h-2 bg-igcc-800" />
 
-          <div className="p-6 sm:p-8">
+          <div className="p-4 sm:p-8">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-igcc-50 text-igcc-700">
+                <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-igcc-50 text-igcc-700 sm:flex">
                   <Users size={24} strokeWidth={1.8} />
                 </div>
 
@@ -181,11 +181,11 @@ function Patients() {
                     </span>
                   </div>
 
-                  <h1 className="mt-1.5 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                  <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:mt-1.5 sm:text-3xl">
                     Patients
                   </h1>
 
-                  <p className="mt-1.5 text-sm leading-6 text-slate-500">
+                  <p className="mt-1 text-sm leading-5 text-slate-500 sm:mt-1.5 sm:leading-6">
                     Search and manage clinic patient records.
                   </p>
                 </div>
@@ -429,7 +429,7 @@ function Patients() {
                       </td>
 
                       <td className="whitespace-nowrap px-5 py-4 text-sm text-slate-600">
-                        {patient.phone || "—"}
+                        {patient.phone || "â€”"}
                       </td>
 
                       <td className="whitespace-nowrap px-5 py-4">
@@ -472,5 +472,6 @@ function Patients() {
 }
 
 export default Patients;
+
 
 
