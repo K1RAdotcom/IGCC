@@ -367,9 +367,9 @@ function Dashboard() {
           <div className="grid gap-4 md:grid-cols-3">
             <button
               onClick={() => navigate("/patients")}
-              className="group rounded-xl border border-igcc-border bg-white p-5 text-left shadow-igcc-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-igcc-200 hover:shadow-igcc-md"
+              className="group flex items-center gap-4 rounded-xl border border-igcc-border bg-white p-4 text-left shadow-igcc-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-igcc-200 hover:shadow-igcc-md sm:block sm:p-5"
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 transition group-hover:bg-igcc-100">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 transition group-hover:bg-igcc-100 sm:mb-4">
                 <Users size={20} strokeWidth={1.8} />
               </div>
 
@@ -384,9 +384,9 @@ function Dashboard() {
 
             <button
               onClick={() => navigate("/new-patient")}
-              className="group rounded-xl border border-igcc-border bg-white p-5 text-left shadow-igcc-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-igcc-200 hover:shadow-igcc-md"
+              className="group flex items-center gap-4 rounded-xl border border-igcc-border bg-white p-4 text-left shadow-igcc-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-igcc-200 hover:shadow-igcc-md sm:block sm:p-5"
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 transition group-hover:bg-igcc-100">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 transition group-hover:bg-igcc-100 sm:mb-4">
                 <UserCircle size={20} strokeWidth={1.8} />
               </div>
 
@@ -401,9 +401,9 @@ function Dashboard() {
 
             <button
               onClick={() => navigate("/patients")}
-              className="group rounded-xl border border-igcc-border bg-white p-5 text-left shadow-igcc-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-igcc-200 hover:shadow-igcc-md"
+              className="group flex items-center gap-4 rounded-xl border border-igcc-border bg-white p-4 text-left shadow-igcc-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-igcc-200 hover:shadow-igcc-md sm:block sm:p-5"
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 transition group-hover:bg-igcc-100">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 transition group-hover:bg-igcc-100 sm:mb-4">
                 <ClipboardList size={20} strokeWidth={1.8} />
               </div>
 
@@ -576,6 +576,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
