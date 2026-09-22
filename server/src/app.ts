@@ -1,4 +1,4 @@
-﻿import "dotenv/config";
+import "dotenv/config";
 import helmet from "helmet";
 import express from "express";
 import cors from "cors";
@@ -58,7 +58,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "none",
+      sameSite: isProduction ? "none" : "lax",
       maxAge: 1000 * 60 * 60 * 8,
     },
   })
@@ -138,3 +138,4 @@ const errorHandler: express.ErrorRequestHandler = (
 
 app.use(errorHandler);
 export default app;
+
