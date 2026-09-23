@@ -167,11 +167,11 @@ export default function StaffManagement() {
             </div>
 
             <div>
-              <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+              <h1 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
                 Staff Management
               </h1>
 
-              <p className="mt-0.5 text-sm text-slate-500">
+              <p className="mt-0.5 text-xs leading-5 text-slate-500 sm:text-sm">
                 Manage clinic staff and administrator accounts.
               </p>
             </div>
