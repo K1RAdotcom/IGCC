@@ -1,4 +1,4 @@
-﻿import { apiUrl } from "./api";
+import { apiUrl } from "./api";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -172,7 +172,6 @@ function Patients() {
 
     return parsed.toLocaleDateString();
   }
-
   return (
     <AppShell userRole={userRole} userName={userName}>
       <div className="space-y-6">
@@ -181,9 +180,9 @@ function Patients() {
 
           <div className="p-4 sm:p-8">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex items-start gap-4">
-                <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-igcc-50 text-igcc-700 sm:flex">
-                  <Users size={24} strokeWidth={1.8} />
+              <div className="flex items-start gap-3">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-900 text-white shadow-sm">
+                  <Users size={23} strokeWidth={1.8} />
                 </div>
 
                 <div>
@@ -195,7 +194,7 @@ function Patients() {
                     </span>
                   </div>
 
-                  <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:mt-1.5 sm:text-3xl">
+                  <h1 className="mt-1 text-xl font-bold leading-tight tracking-tight text-slate-900 sm:mt-1.5 sm:text-3xl">
                     Patients
                   </h1>
 
@@ -407,7 +406,7 @@ function Patients() {
                         Phone
                       </p>
                       <p className="mt-1 truncate text-sm text-slate-700">
-                        {patient.phone || "—"}
+                        {patient.phone || "ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â"}
                       </p>
                     </div>
 
@@ -516,7 +515,7 @@ function Patients() {
                       </td>
 
                       <td className="whitespace-nowrap px-5 py-4 text-sm text-slate-600">
-                        {patient.phone || "â€”"}
+                        {patient.phone || "ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â"}
                       </td>
 
                       <td className="whitespace-nowrap px-5 py-4">
