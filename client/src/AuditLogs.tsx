@@ -115,7 +115,7 @@ export default function AuditLogs() {
           </div>
 
           <div>
-            <h1 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+            <h1 className="text-lg font-bold tracking-tight text-slate-900 sm:text-2xl">
               Audit Logs
             </h1>
 
@@ -221,7 +221,6 @@ export default function AuditLogs() {
                 <p className="text-sm font-semibold text-slate-800">{log.action}</p>
                 <p className="mt-1 text-xs font-medium text-slate-500">{formatDateTime(log.timestamp)}</p>
               </div>
-              {log.entityType && <p className="mt-2 text-xs text-slate-500">{log.entityType}{log.entityId ? ` &middot; ${log.entityId}` : ""}</p>}
               {log.description && <p className="mt-2 break-words text-xs leading-5 text-slate-500">{log.description}</p>}
             </div>
           ))}
