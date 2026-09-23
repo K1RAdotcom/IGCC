@@ -402,12 +402,12 @@ function NewVisit() {
             <SectionHeader
               icon={<Activity size={18} />}
               title="Vital Signs"
-              description="Record the patient's vital measurements taken during the visit."
+              description="Record the patient's vital measurements for this visit."
             />
 
             <div className="grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-5 sm:gap-5 sm:p-6">
               <Field
-                label="Blood Pressure"
+                label="Blood Pressure (mmHg)"
                 icon={<HeartPulse size={16} />}
               >
                 <input
@@ -422,7 +422,7 @@ function NewVisit() {
               </Field>
 
               <Field
-                label="Pulse"
+                label="Pulse (bpm)"
                 icon={<Activity size={16} />}
               >
                 <input
@@ -433,13 +433,13 @@ function NewVisit() {
                   onChange={(event) =>
                     setPulse(event.target.value)
                   }
-                  placeholder="bpm"
+                  placeholder="e.g. 72"
                   className="form-input"
                 />
               </Field>
 
               <Field
-                label="Blood Sugar"
+                label="Blood Sugar (mmol/L)"
                 icon={<Activity size={16} />}
               >
                 <input
@@ -456,7 +456,7 @@ function NewVisit() {
               </Field>
 
               <Field
-                label="Respiration"
+                label="Respiration (breaths/min)"
                 icon={<Activity size={16} />}
               >
                 <input
@@ -467,13 +467,13 @@ function NewVisit() {
                   onChange={(event) =>
                     setRespiration(event.target.value)
                   }
-                  placeholder="breaths/min"
+                  placeholder="e.g. 18"
                   className="form-input"
                 />
               </Field>
 
               <Field
-                label="Temperature"
+                label="Temperature (°C)"
                 icon={<HeartPulse size={16} />}
               >
                 <input
@@ -484,7 +484,7 @@ function NewVisit() {
                   onChange={(event) =>
                     setTemperature(event.target.value)
                   }
-                  placeholder="�C"
+                  placeholder="e.g. 36.5"
                   className="form-input"
                 />
               </Field>
