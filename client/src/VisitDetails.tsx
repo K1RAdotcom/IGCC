@@ -210,19 +210,15 @@ function TextAreaField({
   );
 }
 
-function SectionHeader({
-  number,
-  icon,
+function SectionHeader({  icon,
   title,
   description,
-}: {
-  number: string;
-  icon: ReactNode;
+}: {  icon: ReactNode;
   title: string;
   description: string;
 }) {
   return (
-    <div className="border-b border-igcc-border px-5 py-4 sm:px-6">
+    <div className="border-b border-igcc-border px-4 py-3.5 sm:px-6 sm:py-4">
       <div className="flex items-start gap-3">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700">
           {icon}
@@ -230,9 +226,6 @@ function SectionHeader({
 
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[11px] font-bold tracking-wider text-slate-400">
-              {number}
-            </span>
 
             <h2 className="font-semibold text-slate-900">
               {title}
@@ -506,7 +499,7 @@ export default function VisitDetails() {
         userRole={currentUser?.role ?? null}
         userName={currentUser?.fullName ?? "Clinic Staff"}
       >
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <button
             type="button"
             onClick={() => navigate(`/patients/${patientId}`)}
@@ -544,7 +537,7 @@ export default function VisitDetails() {
       userRole={currentUser?.role ?? null}
       userName={currentUser?.fullName ?? "Clinic Staff"}
     >
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <button
             type="button"
@@ -572,8 +565,8 @@ export default function VisitDetails() {
         <section className="overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
           <div className="h-2 bg-igcc-800" />
 
-          <div className="p-6 sm:p-8">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="p-4 sm:p-8">
+            <div className="flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex items-start gap-4">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-igcc-50 text-igcc-700">
                   <ClipboardList size={24} />
@@ -618,7 +611,7 @@ export default function VisitDetails() {
         </section>
 
         <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
-          <div className="flex flex-col gap-5 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+          <div className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-5 sm:p-6">
             <div className="flex items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700">
                 <User size={21} />
@@ -651,13 +644,13 @@ export default function VisitDetails() {
           <>
             <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
               <SectionHeader
-                number="01"
+                
                 icon={<FileText size={18} />}
                 title="Visit Information"
                 description="Basic information recorded for this clinic visit."
               />
 
-              <div className="grid gap-6 p-5 sm:grid-cols-2 sm:p-6">
+              <div className="grid gap-4 p-4 sm:grid-cols-2 sm:gap-6 sm:p-6">
                 <DisplayField
                   label="Visit Date & Time"
                   value={formatDateTime(visit.visitDateTime)}
@@ -682,41 +675,41 @@ export default function VisitDetails() {
 
             <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
               <SectionHeader
-                number="02"
+                
                 icon={<Activity size={18} />}
                 title="Vital Signs"
                 description="Vital measurements recorded during the visit."
               />
 
-              <div className="grid gap-4 p-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 sm:p-6">
+              <div className="grid gap-3 p-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-5 sm:p-6">
                 <VitalCard
-                  label="Blood Pressure"
+                  label="Blood Pressure (mmHg)"
                   value={visit.bloodPressure}
                   icon={<HeartPulse size={16} />}
                 />
 
                 <VitalCard
-                  label="Pulse"
+                  label="Pulse (bpm)"
                   value={visit.pulse}
                   unit="bpm"
                   icon={<Activity size={16} />}
                 />
 
                 <VitalCard
-                  label="Blood Sugar"
+                  label="Blood Sugar (mmol/L)"
                   value={visit.bloodSugar}
                   icon={<Activity size={16} />}
                 />
 
                 <VitalCard
-                  label="Respiration"
+                  label="Respiration (breaths/min)"
                   value={visit.respiration}
                   unit="breaths/min"
                   icon={<Activity size={16} />}
                 />
 
                 <VitalCard
-                  label="Temperature"
+                  label="Temperature (°C)"
                   value={visit.temperature}
                   unit="°C"
                   icon={<HeartPulse size={16} />}
@@ -726,13 +719,13 @@ export default function VisitDetails() {
 
             <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
               <SectionHeader
-                number="03"
+                
                 icon={<Stethoscope size={18} />}
                 title="Clinical Record"
                 description="Clinical observations, treatment, actions, and follow-up."
               />
 
-              <div className="grid gap-6 p-5 sm:grid-cols-2 sm:p-6">
+              <div className="grid gap-4 p-4 sm:grid-cols-2 sm:gap-6 sm:p-6">
                 <DisplayField
                   label="Assessment / Observation"
                   value={visit.assessmentObservation}
@@ -769,13 +762,13 @@ export default function VisitDetails() {
 
             <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
               <SectionHeader
-                number="04"
+                
                 icon={<User size={18} />}
                 title="Visit Record Information"
                 description="Information about when and by whom this record was created."
               />
 
-              <div className="grid gap-6 p-5 sm:grid-cols-2 sm:p-6">
+              <div className="grid gap-4 p-4 sm:grid-cols-2 sm:gap-6 sm:p-6">
                 <DisplayField
                   label="Recorded By"
                   value={visit.staff.fullName}
@@ -803,7 +796,7 @@ export default function VisitDetails() {
             </section>
           </>
         ) : (
-          <form onSubmit={saveChanges} className="space-y-6">
+          <form onSubmit={saveChanges} className="space-y-4 sm:space-y-6">
             {formError && (
               <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3.5">
                 <div className="flex items-start gap-3">
@@ -829,7 +822,7 @@ export default function VisitDetails() {
               <>
                 <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
                   <SectionHeader
-                    number="01"
+                    
                     icon={<CalendarDays size={18} />}
                     title="Visit Information"
                     description="Update the date, time, reason, and patient complaint."
@@ -871,7 +864,7 @@ export default function VisitDetails() {
 
                 <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
                   <SectionHeader
-                    number="02"
+                    
                     icon={<Activity size={18} />}
                     title="Vital Signs"
                     description="Update the patient's recorded vital measurements."
@@ -879,7 +872,7 @@ export default function VisitDetails() {
 
                   <div className="grid gap-5 p-5 sm:grid-cols-2 lg:grid-cols-5 sm:p-6">
                     <InputField
-                      label="Blood Pressure"
+                      label="Blood Pressure (mmHg)"
                       value={formData.bloodPressure}
                       onChange={(value) =>
                         updateField("bloodPressure", value)
@@ -887,7 +880,7 @@ export default function VisitDetails() {
                     />
 
                     <InputField
-                      label="Pulse"
+                      label="Pulse (bpm)"
                       value={formData.pulse}
                       onChange={(value) =>
                         updateField("pulse", value)
@@ -896,7 +889,7 @@ export default function VisitDetails() {
                     />
 
                     <InputField
-                      label="Blood Sugar"
+                      label="Blood Sugar (mmol/L)"
                       value={formData.bloodSugar}
                       onChange={(value) =>
                         updateField("bloodSugar", value)
@@ -905,7 +898,7 @@ export default function VisitDetails() {
                     />
 
                     <InputField
-                      label="Respiration"
+                      label="Respiration (breaths/min)"
                       value={formData.respiration}
                       onChange={(value) =>
                         updateField("respiration", value)
@@ -914,7 +907,7 @@ export default function VisitDetails() {
                     />
 
                     <InputField
-                      label="Temperature"
+                      label="Temperature (°C)"
                       value={formData.temperature}
                       onChange={(value) =>
                         updateField("temperature", value)
@@ -926,13 +919,13 @@ export default function VisitDetails() {
 
                 <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
                   <SectionHeader
-                    number="03"
+                    
                     icon={<Stethoscope size={18} />}
                     title="Clinical Record"
                     description="Update the clinical assessment, treatment, notes, and follow-up."
                   />
 
-                  <div className="space-y-5 p-5 sm:p-6">
+                  <div className="space-y-4 p-4 sm:space-y-5 sm:p-6">
                     <TextAreaField
                       label="Assessment / Observation"
                       value={formData.assessmentObservation}
