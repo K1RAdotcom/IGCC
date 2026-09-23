@@ -109,13 +109,13 @@ export default function AuditLogs() {
         </button>
 
         {/* Page Header */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-start gap-3">
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-900 text-white shadow-sm">
             <ClipboardList size={23} strokeWidth={1.8} />
           </div>
 
           <div>
-            <h1 className="text-lg font-bold tracking-tight text-slate-900 sm:text-2xl">
+            <h1 className="text-xl font-bold leading-tight tracking-tight text-slate-900 sm:text-2xl">
               Audit Logs
             </h1>
 
@@ -129,7 +129,7 @@ export default function AuditLogs() {
         {/* Audit Logs Card */}
         <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
           {/* Search Header */}
-          <div className="border-b border-slate-200 px-5 py-5 sm:px-6">
+          <div className="border-b border-slate-200 px-4 py-4 sm:px-6 sm:py-5">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="text-base font-semibold text-slate-900">
