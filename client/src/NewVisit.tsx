@@ -208,7 +208,7 @@ function NewVisit() {
         userRole={currentUser?.role ?? null}
         userName={currentUser?.fullName ?? "Clinic Staff"}
       >
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <button
             type="button"
             onClick={() => navigate("/patients")}
@@ -246,7 +246,7 @@ function NewVisit() {
       userRole={currentUser?.role ?? null}
       userName={currentUser?.fullName ?? "Clinic Staff"}
     >
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <button
           type="button"
           onClick={() =>
@@ -261,7 +261,7 @@ function NewVisit() {
         <section className="overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
           <div className="h-2 bg-igcc-800" />
 
-          <div className="p-6 sm:p-8">
+          <div className="p-4 sm:p-8">
             <div className="flex items-start gap-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-igcc-50 text-igcc-700">
                 <ClipboardList size={24} />
@@ -272,13 +272,13 @@ function NewVisit() {
                   Record New Visit
                 </h1>
 
-                <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+                <p className="mt-1.5 max-w-2xl text-sm leading-5 text-slate-500 sm:mt-2 sm:leading-6">
                   Record the details of the patient's current
                   clinic visit, including symptoms, vital signs,
                   assessment, treatment, and follow-up.
                 </p>
 
-                <p className="mt-3 text-xs text-slate-400">
+                <p className="mt-2.5 text-xs text-slate-400 sm:mt-3">
                   Fields marked with{" "}
                   <span className="font-bold text-red-500">*</span>{" "}
                   are required.
@@ -289,7 +289,7 @@ function NewVisit() {
         </section>
 
         <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
-          <div className="flex flex-col gap-5 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+          <div className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-6 sm:gap-5">
             <div className="flex items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700">
                 <User size={21} />
@@ -306,7 +306,7 @@ function NewVisit() {
               </div>
             </div>
 
-            <div className="rounded-lg bg-igcc-50 px-4 py-3 sm:min-w-[150px]">
+            <div className="rounded-lg bg-igcc-50 px-3.5 py-2.5 sm:min-w-[150px] sm:px-4 sm:py-3">
               <p className="text-[11px] font-bold uppercase tracking-wider text-igcc-700">
                 Patient ID
               </p>
@@ -339,7 +339,7 @@ function NewVisit() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
             <SectionHeader
               number="01"
@@ -348,7 +348,7 @@ function NewVisit() {
               description="Record when the visit occurred and why the patient came to the clinic."
             />
 
-            <div className="grid gap-5 p-5 sm:grid-cols-2 sm:p-6">
+            <div className="grid gap-4 p-4 sm:grid-cols-2 sm:gap-5 sm:p-6">
               <Field
                 label="Visit Date & Time"
                 required
@@ -407,7 +407,7 @@ function NewVisit() {
               description="Record the patient's vital measurements taken during the visit."
             />
 
-            <div className="grid gap-5 p-5 sm:grid-cols-2 lg:grid-cols-5 sm:p-6">
+            <div className="grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-5 sm:gap-5 sm:p-6">
               <Field
                 label="Blood Pressure"
                 icon={<HeartPulse size={16} />}
@@ -486,7 +486,7 @@ function NewVisit() {
                   onChange={(event) =>
                     setTemperature(event.target.value)
                   }
-                  placeholder="°C"
+                  placeholder="�C"
                   className="form-input"
                 />
               </Field>
@@ -501,7 +501,7 @@ function NewVisit() {
               description="Document your assessment, treatment, actions, notes, and follow-up."
             />
 
-            <div className="space-y-5 p-5 sm:p-6">
+            <div className="space-y-4 p-4 sm:space-y-5 sm:p-6">
               <TextAreaField
                 label="Assessment / Observation"
                 value={assessmentObservation}
@@ -559,7 +559,7 @@ function NewVisit() {
             <button
               type="submit"
               disabled={saving}
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+              className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-5 py-3 sm:w-auto sm:py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
             >
               <Save size={17} />
               {saving ? "Saving Visit..." : "Save Visit"}
@@ -620,9 +620,9 @@ function SectionHeader({
   description: string;
 }) {
   return (
-    <div className="border-b border-igcc-border px-5 py-4 sm:px-6">
+    <div className="border-b border-igcc-border px-4 py-3 sm:px-6 sm:py-4">
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 sm:h-10 sm:w-10">
           {icon}
         </div>
 
@@ -663,7 +663,7 @@ function Field({
 }) {
   return (
     <div className={fullWidth ? "sm:col-span-2" : ""}>
-      <label className="mb-2 block">
+      <label className="mb-1.5 block sm:mb-2">
         <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-600">
           {icon && (
             <span className="text-slate-400">
@@ -699,7 +699,7 @@ function TextAreaField({
 }) {
   return (
     <div>
-      <label className="mb-2 block">
+      <label className="mb-1.5 block sm:mb-2">
         <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-600">
           {icon && (
             <span className="text-slate-400">
@@ -723,3 +723,4 @@ function TextAreaField({
 }
 
 export default NewVisit;
+
