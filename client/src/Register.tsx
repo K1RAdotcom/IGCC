@@ -170,7 +170,7 @@ function Register() {
               </div>
             )}
 
-            <form onSubmit={handleRegister} className="space-y-5">
+            <form onSubmit={handleRegister} className="space-y-4 sm:space-y-5">
               {/* Full Name */}
               <div>
                 <label
@@ -195,7 +195,7 @@ function Register() {
                       setFullName(event.target.value)
                     }
                     required
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-11 text-sm text-slate-900 sm:py-2.5 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
                   />
                 </div>
               </div>
@@ -224,7 +224,7 @@ function Register() {
                       setUsername(event.target.value)
                     }
                     required
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-11 text-sm text-slate-900 sm:py-2.5 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
                   />
                 </div>
               </div>
@@ -252,7 +252,7 @@ function Register() {
                     onChange={(event) =>
                       setEmail(event.target.value)
                     }
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-11 text-sm text-slate-900 sm:py-2.5 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
                   />
                 </div>
               </div>
@@ -282,7 +282,7 @@ function Register() {
                     }
                     required
                     minLength={8}
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-11 text-sm text-slate-900 sm:py-2.5 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
                   />
 
                   <button
@@ -321,7 +321,7 @@ function Register() {
                     }
                     required
                     minLength={8}
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-11 text-sm text-slate-900 sm:py-2.5 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
                   />
 
                   <button
@@ -358,7 +358,7 @@ function Register() {
                       setRole(event.target.value)
                     }
                     disabled={checkingStatus}
-                    className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10 disabled:cursor-not-allowed disabled:bg-slate-50"
+                    className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition focus:border-igcc-800 sm:py-2.5 focus:ring-2 focus:ring-igcc-800/10 disabled:cursor-not-allowed disabled:bg-slate-50"
                   >
                     <option value="CLINIC_STAFF">
                       Clinic Staff
@@ -384,7 +384,7 @@ function Register() {
                 <button
                   type="submit"
                   disabled={loading || checkingStatus}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+                  className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-4 py-3 text-sm font-semibold sm:py-2.5 text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
                 >
                   <UserPlus size={17} strokeWidth={1.8} />
                   {loading
@@ -396,7 +396,7 @@ function Register() {
                   type="button"
                   onClick={() => navigate("/login")}
                   disabled={loading}
-                  className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold sm:py-2.5 text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <ArrowLeft size={16} strokeWidth={1.8} />
                   Back to Login

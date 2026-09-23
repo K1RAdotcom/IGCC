@@ -1,4 +1,4 @@
-﻿import { apiUrl } from "./api";
+import { apiUrl } from "./api";
 import React, { useEffect, useState } from "react";
 import {
   BrowserRouter,
@@ -90,7 +90,7 @@ function Login() {
         <div className="w-full overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-md">
           <div className="h-2 bg-igcc-800" />
 
-          <div className="p-6 sm:p-8">
+          <div className="p-5 sm:p-8">
             {/* Header */}
             <div className="mb-7 text-center">
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-igcc-50 text-igcc-700">
@@ -126,7 +126,7 @@ function Login() {
               </div>
             )}
 
-            <form onSubmit={handleLogin} className="space-y-5">
+            <form onSubmit={handleLogin} className="space-y-4 sm:space-y-5">
               {/* Username */}
               <div>
                 <label
@@ -152,7 +152,7 @@ function Login() {
                     }
                     placeholder="Enter your username"
                     required
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-10 pr-3.5 text-sm text-slate-900 sm:py-2.5 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
                   />
                 </div>
               </div>
@@ -182,7 +182,7 @@ function Login() {
                     }
                     placeholder="Enter your password"
                     required
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-10 pr-11 text-sm text-slate-900 sm:py-2.5 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
                   />
 
                   <button
@@ -210,7 +210,7 @@ function Login() {
               <button
                 type="submit"
                 disabled={loading}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+                className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-4 py-3 text-sm font-semibold sm:py-2.5 text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
               >
                 <LogIn size={17} strokeWidth={1.8} />
                 {loading ? "Signing in..." : "Login"}
