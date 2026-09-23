@@ -161,13 +161,13 @@ function Patients() {
 
   function formatDate(date: string) {
     if (!date) {
-      return "Ã¢â‚¬â€";
+      return "-";
     }
 
     const parsed = new Date(date);
 
     if (Number.isNaN(parsed.getTime())) {
-      return "Ã¢â‚¬â€";
+      return "-";
     }
 
     return parsed.toLocaleDateString();
@@ -406,7 +406,7 @@ function Patients() {
                         Phone
                       </p>
                       <p className="mt-1 truncate text-sm text-slate-700">
-                        {patient.phone || "ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â"}
+                        {patient.phone || "-"}
                       </p>
                     </div>
 
@@ -515,7 +515,7 @@ function Patients() {
                       </td>
 
                       <td className="whitespace-nowrap px-5 py-4 text-sm text-slate-600">
-                        {patient.phone || "ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â"}
+                        {patient.phone || "-"}
                       </td>
 
                       <td className="whitespace-nowrap px-5 py-4">
