@@ -71,7 +71,14 @@ type FormData = {
 };
 
 function formatDateTime(value: string) {
-  return new Date(value).toLocaleString();
+  return new Date(value).toLocaleString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).replace(",", " ·");
 }
 
 function toDateTimeLocal(value: string) {
@@ -258,9 +265,9 @@ function VitalCard({
     String(value).trim() !== "";
 
   return (
-    <div className="min-h-[108px] rounded-lg border border-slate-200 bg-slate-50 p-4">
-      <div className="mb-3 flex items-center gap-2">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-igcc-700 shadow-sm">
+    <div className="min-h-[88px] rounded-lg border border-slate-200 bg-slate-50 p-3.5 sm:min-h-[108px] sm:p-4">
+      <div className="mb-2 flex items-center gap-2 sm:mb-3">
+        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-white text-igcc-700 shadow-sm sm:h-8 sm:w-8">
           {icon}
         </div>
 
@@ -269,8 +276,8 @@ function VitalCard({
         </span>
       </div>
 
-      <div className="text-xl font-bold tracking-tight text-slate-900">
-        {hasValue ? String(value) : "—"}
+      <div className="text-lg font-bold tracking-tight text-slate-900 sm:text-xl">
+        {hasValue ? String(value) : "Not recorded"}
         {hasValue && unit && (
           <span className="ml-1 text-xs font-medium text-slate-500">
             {unit}
@@ -651,11 +658,6 @@ export default function VisitDetails() {
               />
 
               <div className="grid gap-4 p-4 sm:grid-cols-2 sm:gap-6 sm:p-6">
-                <DisplayField
-                  label="Visit Date & Time"
-                  value={formatDateTime(visit.visitDateTime)}
-                  icon={<CalendarDays size={15} />}
-                />
 
                 <DisplayField
                   label="Reason for Visit"
