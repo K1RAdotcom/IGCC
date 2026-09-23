@@ -96,8 +96,8 @@ export default function AuditLogs() {
       userRole="ADMIN"
       userName="Administrator"
     >
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <div className="space-y-6">
+      <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
+      <div className="space-y-4 sm:space-y-6">
         {/* Back Navigation */}
         <button
           type="button"
@@ -115,11 +115,11 @@ export default function AuditLogs() {
           </div>
 
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+            <h1 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
               Audit Logs
             </h1>
 
-            <p className="mt-0.5 text-sm text-slate-500">
+            <p className="mt-0.5 text-xs leading-5 text-slate-500 sm:text-sm">
               Review important activity recorded in the clinic
               management system.
             </p>
@@ -165,7 +165,7 @@ export default function AuditLogs() {
                 onChange={(event) =>
                   setSearch(event.target.value)
                 }
-                placeholder="Search by user, action, record, or description..."
+                placeholder="Search activity..."
                 className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
               />
             </div>
@@ -204,7 +204,29 @@ export default function AuditLogs() {
               </p>
             </div>
           ) : !error ? (
-            <div className="overflow-x-auto">
+            <>
+              <div className="space-y-3 p-4 sm:hidden">
+          {filteredLogs.map((log) => (
+            <div key={log.logId} className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+              <div className="flex items-start gap-3">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
+                  <ShieldCheck size={16} strokeWidth={1.8} />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-semibold text-slate-900">{log.user.fullName}</p>
+                  <p className="mt-0.5 truncate text-[11px] text-slate-400">{log.user.displayId} &middot; {log.user.username}</p>
+                </div>
+              </div>
+              <div className="mt-3 border-t border-slate-100 pt-3">
+                <p className="text-sm font-semibold text-slate-800">{log.action}</p>
+                <p className="mt-1 text-xs font-medium text-slate-500">{formatDateTime(log.timestamp)}</p>
+              </div>
+              {log.entityType && <p className="mt-2 text-xs text-slate-500">{log.entityType}{log.entityId ? ` &middot; ${log.entityId}` : ""}</p>}
+              {log.description && <p className="mt-2 break-words text-xs leading-5 text-slate-500">{log.description}</p>}
+            </div>
+          ))}
+        </div>
+        <div className="hidden overflow-x-auto sm:block">
               <table className="w-full min-w-[1180px]">
                 <thead>
                   <tr className="border-b border-slate-200 bg-slate-50/70">
@@ -255,7 +277,7 @@ export default function AuditLogs() {
                             </div>
 
                             <div className="mt-0.5 text-xs text-slate-400">
-                              {log.user.displayId} Ã‚Â·{" "}
+                              {log.user.displayId} \u00B7{" "}
                               {log.user.username}
                             </div>
                           </div>
@@ -288,6 +310,7 @@ export default function AuditLogs() {
                 </tbody>
               </table>
             </div>
+            </>
           ) : null}
         </section>
       </div>
@@ -295,3 +318,4 @@ export default function AuditLogs() {
     </AppShell>
   );
 }
+
