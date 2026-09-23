@@ -121,17 +121,17 @@ export default function MyAccount() {
             Back to Dashboard
           </button>
 
-          <div className="mt-4 flex items-center gap-3 sm:mt-5">
+          <div className="mt-4 flex items-start gap-3 sm:mt-5">
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-900 text-white shadow-sm">
               <UserCircle size={23} strokeWidth={1.8} />
             </div>
 
             <div>
-              <h1 className="text-2xl font-bold leading-tight tracking-tight text-slate-900 sm:text-3xl">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-slate-900 sm:text-3xl">
                 My Account
               </h1>
 
-              <p className="mt-0.5 text-sm leading-5 text-slate-500 sm:leading-6">
+              <p className="mt-0.5 text-xs leading-5 text-slate-500 sm:text-sm sm:leading-6">
                 Manage your personal information and account settings.
               </p>
             </div>
