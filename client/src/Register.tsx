@@ -3,6 +3,8 @@ import { useEffect, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   AlertCircle,
+  Eye,
+  EyeOff,
   ArrowLeft,
   CheckCircle2,
   KeyRound,
@@ -20,6 +22,8 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [role, setRole] = useState("CLINIC_STAFF");
 
   const [adminAvailable, setAdminAvailable] = useState(false);
@@ -191,7 +195,7 @@ function Register() {
                       setFullName(event.target.value)
                     }
                     required
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
                   />
                 </div>
               </div>
@@ -220,7 +224,7 @@ function Register() {
                       setUsername(event.target.value)
                     }
                     required
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
                   />
                 </div>
               </div>
@@ -248,7 +252,7 @@ function Register() {
                     onChange={(event) =>
                       setEmail(event.target.value)
                     }
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
                   />
                 </div>
               </div>
@@ -271,15 +275,24 @@ function Register() {
 
                   <input
                     id="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(event) =>
                       setPassword(event.target.value)
                     }
                     required
                     minLength={8}
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
                   />
+
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((current) => !current)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition hover:text-slate-600"
+                  >
+                    {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
+                  </button>
                 </div>
               </div>
 
@@ -301,15 +314,24 @@ function Register() {
 
                   <input
                     id="confirmPassword"
-                    type="password"
+                    type={showConfirmPassword ? "text" : "password"}
                     value={confirmPassword}
                     onChange={(event) =>
                       setConfirmPassword(event.target.value)
                     }
                     required
                     minLength={8}
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
                   />
+
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword((current) => !current)}
+                    aria-label={showConfirmPassword ? "Hide password confirmation" : "Show password confirmation"}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition hover:text-slate-600"
+                  >
+                    {showConfirmPassword ? <EyeOff size={17} /> : <Eye size={17} />}
+                  </button>
                 </div>
               </div>
 

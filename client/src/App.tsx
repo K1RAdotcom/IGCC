@@ -10,6 +10,8 @@ import {
 import {
   AlertCircle,
   ClipboardList,
+  Eye,
+  EyeOff,
   KeyRound,
   LogIn,
   User,
@@ -40,11 +42,10 @@ type DashboardStats = {
   newPatients: number;
 };
 
-
-
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -93,7 +94,11 @@ function Login() {
             {/* Header */}
             <div className="mb-7 text-center">
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-igcc-50 text-igcc-700">
-                <img src="/igcc-logo.png" alt="Ikeja Golf Club Clinic" className="h-14 w-14 object-contain" />
+                <img
+                  src="/igcc-logo.png"
+                  alt="Ikeja Golf Club Clinic"
+                  className="h-14 w-14 object-contain"
+                />
               </div>
 
               <h1 className="text-2xl font-bold tracking-tight text-slate-900">
@@ -170,15 +175,34 @@ function Login() {
 
                   <input
                     id="login-password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(event) =>
                       setPassword(event.target.value)
                     }
                     placeholder="Enter your password"
                     required
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
                   />
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setShowPassword((current) => !current)
+                    }
+                    aria-label={
+                      showPassword
+                        ? "Hide password"
+                        : "Show password"
+                    }
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition hover:text-slate-600"
+                  >
+                    {showPassword ? (
+                      <EyeOff size={17} />
+                    ) : (
+                      <Eye size={17} />
+                    )}
+                  </button>
                 </div>
               </div>
 
@@ -214,11 +238,12 @@ function Login() {
     </div>
   );
 }
+
 function Dashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
-  const [userRole, setUserRole] = useState<"ADMIN" | "CLINIC_STAFF" | null>(
-    null
-  );
+  const [userRole, setUserRole] = useState<
+    "ADMIN" | "CLINIC_STAFF" | null
+  >(null);
   const [userName, setUserName] = useState("Clinic Staff");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -236,7 +261,9 @@ function Dashboard() {
         const data = await response.json();
 
         if (!response.ok) {
-          setError(data.error || "Could not load account information.");
+          setError(
+            data.error || "Could not load account information."
+          );
           return;
         }
 
@@ -304,7 +331,7 @@ function Dashboard() {
                     Total Patients
                   </p>
 
-                  <p className="mt-3 mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:mt-3">
+                  <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:mt-3">
                     {stats ? stats.totalPatients : "..."}
                   </p>
                 </div>
@@ -322,7 +349,7 @@ function Dashboard() {
                     Today's Visits
                   </p>
 
-                  <p className="mt-3 mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:mt-3">
+                  <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:mt-3">
                     {stats ? stats.todaysVisits : "..."}
                   </p>
                 </div>
@@ -340,7 +367,7 @@ function Dashboard() {
                     New Patients Today
                   </p>
 
-                  <p className="mt-3 mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:mt-3">
+                  <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:mt-3">
                     {stats ? stats.newPatients : "..."}
                   </p>
                 </div>
@@ -355,13 +382,9 @@ function Dashboard() {
 
         <section>
           <div className="mb-4">
-            <h2 className="text-lg font-semibold text-slate-900">
+            <h2 className="text-lg font-semibold text-slate-900"></h2>
 
-            </h2>
-
-            <p className="mt-1 text-sm text-slate-500">
-
-            </p>
+            <p className="mt-1 text-sm text-slate-500"></p>
           </div>
 
           <div className="grid gap-4 md:grid-cols-3">
@@ -421,6 +444,7 @@ function Dashboard() {
     </AppShell>
   );
 }
+
 function Placeholder({ title }: { title: string }) {
   return (
     <div className="space-y-6">
@@ -428,6 +452,7 @@ function Placeholder({ title }: { title: string }) {
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">
           {title}
         </h1>
+
         <p className="mt-2 text-sm text-slate-500">
           This section will be built next.
         </p>
@@ -435,6 +460,7 @@ function Placeholder({ title }: { title: string }) {
     </div>
   );
 }
+
 function AdminRoute({ children }: { children: React.ReactNode }) {
   const [checking, setChecking] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -475,6 +501,7 @@ function AdminRoute({ children }: { children: React.ReactNode }) {
       </div>
     );
   }
+
   if (!isAdmin) {
     return <Navigate to="/dashboard" replace />;
   }
@@ -486,34 +513,43 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route
+          path="/"
+          element={<Navigate to="/login" replace />}
+        />
+
         <Route path="/login" element={<Login />} />
+
         <Route path="/register" element={<Register />} />
+
         <Route path="/dashboard" element={<Dashboard />} />
 
         <Route
-  path="/admin/clinic-settings"
-  element={
-    <AdminRoute>
-      <ClinicSettings />
-    </AdminRoute>
-  }
-/>
-  
+          path="/admin/clinic-settings"
+          element={
+            <AdminRoute>
+              <ClinicSettings />
+            </AdminRoute>
+          }
+        />
 
         <Route path="/patients" element={<Patients />} />
+
         <Route
           path="/patients/:patientId"
           element={<PatientProfile />}
         />
+
         <Route
           path="/patients/:patientId/new-visit"
           element={<NewVisit />}
         />
+
         <Route
           path="/patients/:patientId/edit"
           element={<EditPatient />}
         />
+
         <Route
           path="/patients/:patientId/visits/:visitId"
           element={<VisitDetails />}
@@ -554,34 +590,25 @@ function App() {
         />
 
         <Route
-  path="/admin/audit-logs"
-  element={
-    <AdminRoute>
-      <AuditLogs />
-    </AdminRoute>
-  }
-/>
+          path="/admin/audit-logs"
+          element={
+            <AdminRoute>
+              <AuditLogs />
+            </AdminRoute>
+          }
+        />
 
         <Route
-  path="/admin/staff"
-  element={
-    <AdminRoute>
-      <StaffManagement />
-    </AdminRoute>
-  }
-/>
+          path="/admin/staff"
+          element={
+            <AdminRoute>
+              <StaffManagement />
+            </AdminRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
