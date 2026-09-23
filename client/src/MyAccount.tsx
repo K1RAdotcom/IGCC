@@ -121,17 +121,17 @@ export default function MyAccount() {
             Back to Dashboard
           </button>
 
-          <div className="mt-5 flex items-center gap-3">
+          <div className="mt-4 flex items-center gap-3 sm:mt-5">
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-900 text-white shadow-sm">
               <UserCircle size={23} strokeWidth={1.8} />
             </div>
 
             <div>
-              <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+              <h1 className="text-2xl font-bold leading-tight tracking-tight text-slate-900 sm:text-3xl">
                 My Account
               </h1>
 
-              <p className="mt-0.5 text-sm text-slate-500">
+              <p className="mt-0.5 text-sm leading-5 text-slate-500 sm:leading-6">
                 Manage your personal information and account settings.
               </p>
             </div>
@@ -140,7 +140,7 @@ export default function MyAccount() {
 
         {/* Account Information */}
         <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-          <div className="border-b border-slate-200 px-6 py-5">
+          <div className="border-b border-slate-200 px-4 py-4 sm:px-6 sm:py-5">
             <div className="flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-700">
                 <User size={18} strokeWidth={1.8} />
@@ -158,39 +158,39 @@ export default function MyAccount() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-x-10 gap-y-7 px-6 py-6 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-x-10 gap-y-5 px-4 py-5 sm:grid-cols-2 sm:gap-y-7 sm:px-6 sm:py-6">
             <div>
-              <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+              <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:mb-1.5 sm:text-xs">
                 Full Name
               </p>
 
-              <p className="text-sm font-semibold text-slate-900">
+              <p className="text-base font-semibold text-slate-900 sm:text-sm">
                 {user.fullName}
               </p>
             </div>
 
             <div>
-              <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+              <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:mb-1.5 sm:text-xs">
                 Username
               </p>
 
-              <p className="text-sm font-semibold text-slate-900">
+              <p className="text-base font-semibold text-slate-900 sm:text-sm">
                 {user.username}
               </p>
             </div>
 
             <div>
-              <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+              <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:mb-1.5 sm:text-xs">
                 Staff ID
               </p>
 
-              <p className="text-sm font-semibold text-slate-900">
+              <p className="text-base font-semibold text-slate-900 sm:text-sm">
                 {user.displayId}
               </p>
             </div>
 
             <div>
-              <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+              <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:mb-1.5 sm:text-xs">
                 Role
               </p>
 
@@ -201,14 +201,14 @@ export default function MyAccount() {
                   className="text-slate-400"
                 />
 
-                <p className="text-sm font-semibold text-slate-900">
+                <p className="text-base font-semibold text-slate-900 sm:text-sm">
                   {roleLabel}
                 </p>
               </div>
             </div>
 
             <div>
-              <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+              <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:mb-1.5 sm:text-xs">
                 Email
               </p>
 
@@ -219,14 +219,14 @@ export default function MyAccount() {
                   className="text-slate-400"
                 />
 
-                <p className="text-sm font-semibold text-slate-900">
+                <p className="text-base font-semibold text-slate-900 sm:text-sm">
                   {user.email || "Not provided"}
                 </p>
               </div>
             </div>
 
             <div>
-              <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+              <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:mb-1.5 sm:text-xs">
                 Account Status
               </p>
 
@@ -246,7 +246,7 @@ export default function MyAccount() {
 
         {/* Account Actions */}
         <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-          <div className="border-b border-slate-200 px-6 py-5">
+          <div className="border-b border-slate-200 px-4 py-4 sm:px-6 sm:py-5">
             <div className="flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-700">
                 <ShieldCheck size={18} strokeWidth={1.8} />
@@ -264,11 +264,11 @@ export default function MyAccount() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 px-6 py-5 sm:flex-row">
+          <div className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:px-6 sm:py-5">
             <button
               type="button"
               onClick={() => navigate("/account/edit")}
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800"
+              className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-900 px-4 py-3 text-sm font-semibold text-white sm:w-auto sm:py-2.5 shadow-sm transition hover:bg-igcc-800"
             >
               <Pencil size={16} strokeWidth={1.8} />
               Edit Profile
@@ -279,7 +279,7 @@ export default function MyAccount() {
               onClick={() =>
                 navigate("/account/change-password")
               }
-              className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+              className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-700 sm:w-auto sm:py-2.5 transition hover:bg-slate-50"
             >
               <KeyRound size={16} strokeWidth={1.8} />
               Change Password
