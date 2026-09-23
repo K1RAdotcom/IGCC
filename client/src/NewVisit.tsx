@@ -498,7 +498,7 @@ function NewVisit() {
               description="Document your assessment, treatment, actions, notes, and follow-up."
             />
 
-            <div className="space-y-4 p-4 sm:space-y-5 sm:p-6">
+            <div className="space-y-3.5 p-4 sm:space-y-5 sm:p-6">
               <TextAreaField
                 label="Assessment / Observation"
                 value={assessmentObservation}
