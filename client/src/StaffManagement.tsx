@@ -147,8 +147,8 @@ export default function StaffManagement() {
       userRole="ADMIN"
       userName="Administrator"
     >
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <div className="space-y-6">
+      <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
+      <div className="space-y-4 sm:space-y-6">
         {/* Back Navigation */}
         <button
           type="button"
@@ -160,7 +160,7 @@ export default function StaffManagement() {
         </button>
 
         {/* Page Header */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-900 text-white shadow-sm">
               <Users size={23} strokeWidth={1.8} />
@@ -180,7 +180,7 @@ export default function StaffManagement() {
           <button
             type="button"
             onClick={() => navigate("/admin/staff/add")}
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800"
+            className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-900 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 sm:w-auto sm:py-2.5"
           >
             <UserPlus size={17} strokeWidth={1.8} />
             Add Staff Account
@@ -190,7 +190,7 @@ export default function StaffManagement() {
         {/* Staff Card */}
         <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
           {/* Search */}
-          <div className="border-b border-slate-200 px-5 py-5 sm:px-6">
+          <div className="border-b border-slate-200 px-4 py-4 sm:px-6 sm:py-5">
             <div className="relative max-w-xl">
               <Search
                 size={17}
@@ -203,7 +203,7 @@ export default function StaffManagement() {
                 placeholder="Search by Staff ID, name, username, role, or status..."
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
-                className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10 sm:py-2.5"
               />
             </div>
 
@@ -237,9 +237,83 @@ export default function StaffManagement() {
             </div>
           )}
 
+          {/* Mobile Staff Cards */}
+          <div className="space-y-3 p-4 sm:hidden">
+            {filteredUsers.map((user) => (
+              <div
+                key={user.userId}
+                className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-slate-900">
+                      {user.fullName}
+                    </p>
+
+                    <p className="mt-0.5 font-mono text-[11px] font-semibold text-igcc-700">
+                      {user.displayId}
+                    </p>
+                  </div>
+
+                  <span
+                    className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold ${
+                      user.status === "ACTIVE"
+                        ? "bg-emerald-50 text-emerald-700"
+                        : "bg-red-50 text-red-700"
+                    }`}
+                  >
+                    {user.status === "ACTIVE" ? "Active" : "Inactive"}
+                  </span>
+                </div>
+
+                <div className="mt-4 grid grid-cols-2 gap-3 border-t border-slate-100 pt-3">
+                  <div>
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-slate-400">
+                      Username
+                    </p>
+                    <p className="mt-0.5 truncate text-sm font-medium text-slate-800">
+                      {user.username}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-slate-400">
+                      Role
+                    </p>
+                    <p className="mt-0.5 text-sm font-medium text-slate-800">
+                      {formatRole(user.role)}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-slate-400">
+                      Created
+                    </p>
+                    <p className="mt-0.5 text-sm font-medium text-slate-800">
+                      {formatDate(user.createdAt)}
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => handleStatusChange(user)}
+                  className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-slate-900"
+                >
+                  Manage Account
+                </button>
+              </div>
+            ))}
+
+            {filteredUsers.length === 0 && (
+              <div className="px-4 py-10 text-center text-sm text-slate-500">
+                No staff accounts found.
+              </div>
+            )}
+          </div>
           {/* Table */}
           {!loading && !error && (
-            <div className="overflow-x-auto">
+            <div className="hidden overflow-x-auto sm:block">
               <table className="w-full min-w-[900px]">
                 <thead>
                   <tr className="border-b border-slate-200 bg-slate-50/70">
