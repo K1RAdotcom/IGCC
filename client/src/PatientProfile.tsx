@@ -1,4 +1,4 @@
-﻿import { apiUrl } from "./api";
+import { apiUrl } from "./api";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -350,7 +350,7 @@ function PatientProfile() {
                     </span>
 
                     <span className="hidden text-slate-300 sm:inline">
-                      â€¢
+                      \u2022
                     </span>
 
                     <span className="sm:hidden">{age} yrs</span>
@@ -359,7 +359,7 @@ function PatientProfile() {
                     {patient.gender && (
                       <>
                         <span className="hidden text-slate-300 sm:inline">
-                          â€¢
+                          \u2022
                         </span>
                         <span>{patient.gender}</span>
                       </>
@@ -637,11 +637,11 @@ function PatientProfile() {
                           <Vital
                             label="Temperature"
                             value={
-                              visit.temperature !== null &&
-                              visit.temperature !== undefined
-                                ? `${visit.temperature} Â°C`
-                                : null
-                            }
+  visit.temperature !== null &&
+  visit.temperature !== undefined
+    ? `${visit.temperature} \u00B0C`
+    : null
+}
                           />
                         </div>
 
@@ -666,7 +666,7 @@ function PatientProfile() {
                           </span>
 
                           <span className="hidden text-slate-300 sm:inline">
-                            â€¢
+                            \u2022
                           </span>
 
                           <span>{visit.staff.displayId}</span>
@@ -798,7 +798,7 @@ function Vital({
     <div className="rounded-lg border border-slate-100 bg-white px-3 py-2.5">
       <p className="text-[11px] font-medium text-slate-400">{label}</p>
       <p className="mt-1 text-sm font-semibold text-slate-800">
-        {value || "â€”"}
+        {value || "Not recorded"}
       </p>
     </div>
   );
