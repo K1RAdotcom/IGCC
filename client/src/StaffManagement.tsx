@@ -200,7 +200,7 @@ export default function StaffManagement() {
 
               <input
                 type="text"
-                placeholder="Search by Staff ID, name, username, role, or status..."
+                placeholder="Search staff by name or ID"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
                 className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10 sm:py-2.5"
@@ -266,7 +266,7 @@ export default function StaffManagement() {
                   </span>
                 </div>
 
-                <div className="mt-4 grid grid-cols-2 gap-3 border-t border-slate-100 pt-3">
+                <div className="mt-3 grid grid-cols-2 gap-3 border-t border-slate-100 pt-3">
                   <div>
                     <p className="text-[11px] font-medium uppercase tracking-wide text-slate-400">
                       Username
