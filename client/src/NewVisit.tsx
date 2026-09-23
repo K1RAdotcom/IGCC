@@ -342,7 +342,6 @@ function NewVisit() {
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
             <SectionHeader
-              number="01"
               icon={<CalendarDays size={18} />}
               title="Visit Information"
               description="Record when the visit occurred and why the patient came to the clinic."
@@ -401,7 +400,6 @@ function NewVisit() {
 
           <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
             <SectionHeader
-              number="02"
               icon={<Activity size={18} />}
               title="Vital Signs"
               description="Record the patient's vital measurements taken during the visit."
@@ -495,7 +493,6 @@ function NewVisit() {
 
           <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
             <SectionHeader
-              number="03"
               icon={<Stethoscope size={18} />}
               title="Clinical Record"
               description="Document your assessment, treatment, actions, notes, and follow-up."
@@ -609,12 +606,10 @@ function NewVisit() {
 }
 
 function SectionHeader({
-  number,
   icon,
   title,
   description,
 }: {
-  number: string;
   icon: ReactNode;
   title: string;
   description: string;
@@ -628,9 +623,6 @@ function SectionHeader({
 
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[11px] font-bold tracking-wider text-slate-400">
-              {number}
-            </span>
 
             <h2 className="font-semibold text-slate-900">
               {title}
