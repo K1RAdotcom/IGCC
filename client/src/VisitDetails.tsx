@@ -872,7 +872,7 @@ export default function VisitDetails() {
                     description="Update the patient's recorded vital measurements."
                   />
 
-                  <div className="grid gap-5 p-5 sm:grid-cols-2 lg:grid-cols-5 sm:p-6">
+                  <div className="grid gap-4 p-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-5 sm:p-6">
                     <InputField
                       label="Blood Pressure (mmHg)"
                       value={formData.bloodPressure}
@@ -984,7 +984,7 @@ export default function VisitDetails() {
                     type="button"
                     onClick={cancelEditing}
                     disabled={saving}
-                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:py-2.5"
                   >
                     <X size={17} />
                     Cancel
@@ -993,7 +993,7 @@ export default function VisitDetails() {
                   <button
                     type="submit"
                     disabled={saving}
-                    className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+                    className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400 sm:w-auto sm:py-2.5"
                   >
                     <Save size={17} />
                     {saving ? "Saving Changes..." : "Save Changes"}
@@ -1039,6 +1039,13 @@ export default function VisitDetails() {
         .form-input:disabled {
           background: #f8fafc;
           cursor: not-allowed;
+        }
+
+        @media (max-width: 639px) {
+          .form-input {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+          }
         }
       `}</style>
     </AppShell>
