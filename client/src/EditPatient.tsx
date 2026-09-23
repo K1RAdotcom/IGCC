@@ -41,29 +41,23 @@ type CurrentUser = {
 };
 
 function SectionHeader({
-  number,
   icon,
   title,
   description,
 }: {
-  number: string;
   icon: ReactNode;
   title: string;
   description: string;
 }) {
   return (
-    <div className="border-b border-igcc-border px-5 py-4 sm:px-6">
+    <div className="border-b border-igcc-border px-4 py-3.5 sm:px-6 sm:py-4">
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 sm:h-10 sm:w-10">
           {icon}
         </div>
 
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[11px] font-bold tracking-wider text-slate-400">
-              {number}
-            </span>
-
             <h2 className="font-semibold text-slate-900">
               {title}
             </h2>
@@ -301,7 +295,7 @@ export default function EditPatient() {
         userRole={currentUser?.role ?? null}
         userName={currentUser?.fullName ?? "Clinic Staff"}
       >
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <button
             type="button"
             onClick={() => navigate("/patients")}
@@ -339,7 +333,7 @@ export default function EditPatient() {
       userRole={currentUser?.role ?? null}
       userName={currentUser?.fullName ?? "Clinic Staff"}
     >
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <button
           type="button"
           onClick={() =>
@@ -354,8 +348,8 @@ export default function EditPatient() {
         <section className="overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
           <div className="h-2 bg-igcc-800" />
 
-          <div className="p-6 sm:p-8">
-            <div className="flex items-start gap-4">
+          <div className="p-4 sm:p-8">
+            <div className="flex items-start gap-3 sm:gap-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-igcc-50 text-igcc-700">
                 <User size={24} />
               </div>
@@ -365,12 +359,12 @@ export default function EditPatient() {
                   Edit Patient
                 </h1>
 
-                <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+                <p className="mt-1.5 max-w-2xl text-sm leading-5 text-slate-500 sm:mt-2 sm:leading-6">
                   Update the patient's personal, contact,
                   emergency, and medical information.
                 </p>
 
-                <p className="mt-3 text-xs text-slate-400">
+                <p className="mt-2.5 text-xs text-slate-400 sm:mt-3">
                   Patient ID:{" "}
                   <span className="font-semibold text-slate-600">
                     {patient.displayId}
@@ -408,16 +402,15 @@ export default function EditPatient() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
             <SectionHeader
-              number="01"
               icon={<User size={18} />}
               title="Personal Information"
               description="Update the patient's basic identity and contact details."
             />
 
-            <div className="grid gap-5 p-5 sm:grid-cols-2 sm:p-6">
+            <div className="grid gap-4 p-4 sm:grid-cols-2 sm:gap-5 sm:p-6">
               <Field
                 label="Full Name"
                 required
@@ -573,13 +566,12 @@ export default function EditPatient() {
 
           <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
             <SectionHeader
-              number="02"
               icon={<ShieldAlert size={18} />}
               title="Emergency Contact"
               description="Keep the patient's emergency contact information current."
             />
 
-            <div className="grid gap-5 p-5 sm:grid-cols-2 sm:p-6">
+            <div className="grid gap-4 p-4 sm:grid-cols-2 sm:gap-5 sm:p-6">
               <Field
                 label="Emergency Contact Name"
                 required
@@ -620,13 +612,12 @@ export default function EditPatient() {
 
           <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
             <SectionHeader
-              number="03"
               icon={<HeartPulse size={18} />}
               title="Medical / Additional Information"
               description="Update relevant medical, physical, and other patient information."
             />
 
-            <div className="space-y-5 p-5 sm:p-6">
+            <div className="space-y-4 p-4 sm:space-y-5 sm:p-6">
               <Field
                 label="Relevant Medical / Physical Information"
                 icon={<HeartPulse size={16} />}
@@ -670,7 +661,7 @@ export default function EditPatient() {
                 navigate(`/patients/${patientId}`)
               }
               disabled={saving}
-              className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:py-2.5"
             >
               <X size={17} />
               Cancel
@@ -679,7 +670,7 @@ export default function EditPatient() {
             <button
               type="submit"
               disabled={saving}
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+              className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400 sm:w-auto sm:py-2.5"
             >
               <Save size={17} />
               {saving ? "Saving Changes..." : "Save Changes"}
@@ -717,6 +708,13 @@ export default function EditPatient() {
         .form-input:focus {
           border-color: #1f6b4f;
           box-shadow: 0 0 0 3px rgba(31, 107, 79, 0.12);
+        }
+
+        @media (max-width: 639px) {
+          .form-input {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+          }
         }
 
         .form-input:disabled {
