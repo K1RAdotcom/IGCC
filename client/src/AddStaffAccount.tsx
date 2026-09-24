@@ -58,7 +58,7 @@ export default function AddStaffAccount() {
           body: JSON.stringify({
             fullName: fullName.trim(),
             username: username.trim(),
-            email: email.trim() || undefined,
+            email: email.trim(),
             password,
             role,
           }),
@@ -216,11 +216,12 @@ export default function AddStaffAccount() {
                     <input
                       id="email"
                       type="email"
+                      required
                       value={email}
                       onChange={(event) =>
                         setEmail(event.target.value)
                       }
-                      placeholder="Optional email address"
+                      placeholder="Email address"
                       className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
                     />
                   </div>

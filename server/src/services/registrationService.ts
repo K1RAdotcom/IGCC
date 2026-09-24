@@ -46,7 +46,7 @@ function validateUsername(username: string) {
 
 function validateEmail(email: string | null) {
   if (!email) {
-    return;
+    throw new Error("Email address is required.");
   }
 
   if (email.length > 254) {
@@ -136,19 +136,17 @@ export async function registerUser(data: RegisterUserData) {
       throw new Error("That username is already in use.");
     }
 
-    if (email) {
-      const existingEmail = await tx.user.findFirst({
-        where: {
-          email,
-        },
-        select: {
-          userId: true,
-        },
-      });
+    const existingEmail = await tx.user.findFirst({
+      where: {
+        email: email!,
+      },
+      select: {
+        userId: true,
+      },
+    });
 
-      if (existingEmail) {
-        throw new Error("That email address is already in use.");
-      }
+    if (existingEmail) {
+      throw new Error("That email address is already in use.");
     }
 
     const sequenceResult = await tx.$queryRaw<

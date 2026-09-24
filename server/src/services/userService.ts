@@ -42,7 +42,7 @@ function normalizeUsername(value: string) {
 
 function normalizeEmail(value?: string) {
   if (value === undefined || value === null) {
-    return null;
+    throw new UserValidationError("Email address is required.");
   }
 
   if (typeof value !== "string") {
@@ -52,7 +52,7 @@ function normalizeEmail(value?: string) {
   const email = value.trim().toLowerCase();
 
   if (!email) {
-    return null;
+    throw new UserValidationError("Email address is required.");
   }
 
   if (email.length > 254) {
@@ -160,6 +160,19 @@ export async function createUser(data: CreateUserData) {
 
     if (existingUsername) {
       throw new Error("Username already exists.");
+    }
+
+    const existingEmail = await tx.user.findFirst({
+      where: {
+        email,
+      },
+      select: {
+        userId: true,
+      },
+    });
+
+    if (existingEmail) {
+      throw new Error("That email address is already in use.");
     }
 
     const sequenceResult = await tx.$queryRaw<

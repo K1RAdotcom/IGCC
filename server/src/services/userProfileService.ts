@@ -1,4 +1,4 @@
-﻿import { prisma } from "../lib/prisma";
+import { prisma } from "../lib/prisma";
 
 type UpdateMyProfileData = {
   fullName?: string;
@@ -35,7 +35,7 @@ export async function updateMyProfile(
 
       email:
         data.email !== undefined
-          ? data.email.trim() || null
+          ? data.email.trim().toLowerCase() || null
           : undefined,
     },
     select: {

@@ -15,6 +15,7 @@ import dashboardRoutes from "./routes/dashboard";
 import patientProfileRoutes from "./routes/patientProfile";
 import userProfileRoutes from "./routes/userProfile";
 import passwordRoutes from "./routes/password";
+import passwordResetRoutes from "./routes/passwordReset";
 import auditLogRoutes from "./routes/auditLogs";
 import clinicSettingsRoutes from "./routes/clinicSettings";
 
@@ -72,6 +73,7 @@ app.get("/api/health", (_req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/auth", passwordResetRoutes);
 app.use("/api/visits", visitRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/patient-profile", patientProfileRoutes);

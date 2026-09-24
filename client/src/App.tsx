@@ -20,6 +20,8 @@ import {
   Users,
 } from "lucide-react";
 import Register from "./Register";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
 import ClinicSettings from "./pages/ClinicSettings";
 import Patients from "./Patients";
 import PatientProfile from "./PatientProfile";
@@ -204,6 +206,16 @@ function Login() {
                     )}
                   </button>
                 </div>
+              </div>
+
+              <div className="-mt-2 flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => navigate("/forgot-password")}
+                  className="text-sm font-medium text-igcc-800 transition hover:text-igcc-900"
+                >
+                  Forgot password?
+                </button>
               </div>
 
               {/* Login */}
@@ -519,6 +531,8 @@ function App() {
         />
 
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         <Route path="/register" element={<Register />} />
 
