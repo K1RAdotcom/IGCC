@@ -1,13 +1,15 @@
 import { apiUrl } from "./api";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
+  Camera,
   CheckCircle2,
   KeyRound,
   Mail,
   Pencil,
   ShieldCheck,
+  Trash2,
   User,
   UserCircle,
 } from "lucide-react";
@@ -30,6 +32,210 @@ export default function MyAccount() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [selectedAvatar, setSelectedAvatar] = useState<File | null>(null);
+  const [selectedPreview, setSelectedPreview] = useState<string | null>(null);
+  const [avatarLoading, setAvatarLoading] = useState(true);
+  const [avatarSaving, setAvatarSaving] = useState(false);
+  const [avatarError, setAvatarError] = useState("");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  async function loadAvatar() {
+    try {
+      setAvatarLoading(true);
+
+      const response = await fetch(
+        apiUrl("/api/users/me/avatar"),
+        {
+          credentials: "include",
+        }
+      );
+
+      if (response.status === 404) {
+        setAvatarUrl(null);
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error("Could not load profile picture.");
+      }
+
+      const blob = await response.blob();
+      const nextUrl = URL.createObjectURL(blob);
+
+      setAvatarUrl((currentUrl) => {
+        if (currentUrl) {
+          URL.revokeObjectURL(currentUrl);
+        }
+
+        return nextUrl;
+      });
+    } catch {
+      setAvatarUrl(null);
+    } finally {
+      setAvatarLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    void loadAvatar();
+
+    return () => {
+      if (avatarUrl) {
+        URL.revokeObjectURL(avatarUrl);
+      }
+
+      if (selectedPreview) {
+        URL.revokeObjectURL(selectedPreview);
+      }
+    };
+  }, []);
+
+  function handleAvatarSelect(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    setAvatarError("");
+
+    if (
+      !["image/jpeg", "image/png", "image/webp"].includes(
+        file.type
+      )
+    ) {
+      setAvatarError(
+        "Please choose a JPG, PNG, or WebP image."
+      );
+
+      event.target.value = "";
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      setAvatarError(
+        "Profile pictures must be 2 MB or smaller."
+      );
+
+      event.target.value = "";
+      return;
+    }
+
+    if (selectedPreview) {
+      URL.revokeObjectURL(selectedPreview);
+    }
+
+    const previewUrl = URL.createObjectURL(file);
+
+    setSelectedAvatar(file);
+    setSelectedPreview(previewUrl);
+  }
+
+  function cancelAvatarSelection() {
+    if (selectedPreview) {
+      URL.revokeObjectURL(selectedPreview);
+    }
+
+    setSelectedAvatar(null);
+    setSelectedPreview(null);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }
+
+  async function saveAvatar() {
+    if (!selectedAvatar) {
+      return;
+    }
+
+    try {
+      setAvatarSaving(true);
+      setAvatarError("");
+
+      const formData = new FormData();
+      formData.append("avatar", selectedAvatar);
+
+      const response = await fetch(
+        apiUrl("/api/users/me/avatar"),
+        {
+          method: "POST",
+          credentials: "include",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error || "Could not update profile picture."
+        );
+      }
+
+      cancelAvatarSelection();
+      await loadAvatar();
+
+      window.dispatchEvent(
+        new Event("igcc:avatar-updated")
+      );
+    } catch (err) {
+      setAvatarError(
+        err instanceof Error
+          ? err.message
+          : "Could not update profile picture."
+      );
+    } finally {
+      setAvatarSaving(false);
+    }
+  }
+
+  async function removeAvatar() {
+    try {
+      setAvatarSaving(true);
+      setAvatarError("");
+
+      const response = await fetch(
+        apiUrl("/api/users/me/avatar"),
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error || "Could not remove profile picture."
+        );
+      }
+
+      setAvatarUrl((currentUrl) => {
+        if (currentUrl) {
+          URL.revokeObjectURL(currentUrl);
+        }
+
+        return null;
+      });
+
+      window.dispatchEvent(
+        new Event("igcc:avatar-updated")
+      );
+    } catch (err) {
+      setAvatarError(
+        err instanceof Error
+          ? err.message
+          : "Could not remove profile picture."
+      );
+    } finally {
+      setAvatarSaving(false);
+    }
+  }
 
   useEffect(() => {
     async function loadAccount() {
@@ -137,6 +343,111 @@ export default function MyAccount() {
             </div>
           </div>
         </div>
+
+        {/* Profile Picture */}
+        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+          <div className="border-b border-slate-200 px-4 py-4 sm:px-6 sm:py-5">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-700">
+                <Camera size={18} strokeWidth={1.8} />
+              </div>
+
+              <div>
+                <h2 className="text-base font-semibold text-slate-900">
+                  Profile Picture
+                </h2>
+
+                <p className="mt-0.5 text-xs text-slate-500">
+                  Choose a picture to use for your account.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-5 px-4 py-5 sm:flex-row sm:items-center sm:px-6 sm:py-6">
+            <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-full bg-slate-100 text-slate-400 ring-4 ring-slate-50">
+              {selectedPreview || avatarUrl ? (
+                <img
+                  src={selectedPreview || avatarUrl || ""}
+                  alt="Profile preview"
+                  className="h-full w-full object-cover"
+                />
+              ) : avatarLoading ? (
+                <div className="text-xs text-slate-400">
+                  Loading...
+                </div>
+              ) : (
+                <UserCircle size={58} strokeWidth={1.4} />
+              )}
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={handleAvatarSelect}
+                className="hidden"
+              />
+
+              <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={avatarSaving}
+                  className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg bg-igcc-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  <Camera size={16} strokeWidth={1.8} />
+                  Choose Photo
+                </button>
+
+                {selectedAvatar && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={saveAvatar}
+                      disabled={avatarSaving}
+                      className="inline-flex min-h-10 items-center justify-center rounded-lg border border-igcc-700 bg-white px-4 py-2.5 text-sm font-semibold text-igcc-800 transition hover:bg-igcc-50 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {avatarSaving ? "Saving..." : "Save Photo"}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={cancelAvatarSelection}
+                      disabled={avatarSaving}
+                      className="inline-flex min-h-10 items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      Cancel
+                    </button>
+                  </>
+                )}
+
+                {!selectedAvatar && avatarUrl && (
+                  <button
+                    type="button"
+                    onClick={removeAvatar}
+                    disabled={avatarSaving}
+                    className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-red-200 bg-white px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    <Trash2 size={16} strokeWidth={1.8} />
+                    Remove Photo
+                  </button>
+                )}
+              </div>
+
+              <p className="mt-2 text-xs text-slate-500">
+                JPG, PNG, or WebP· Maximum 2 MB
+              </p>
+
+              {avatarError && (
+                <p className="mt-2 text-sm font-medium text-red-600">
+                  {avatarError}
+                </p>
+              )}
+            </div>
+          </div>
+        </section>
 
         {/* Account Information */}
         <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">

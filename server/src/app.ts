@@ -16,6 +16,7 @@ import patientProfileRoutes from "./routes/patientProfile";
 import userProfileRoutes from "./routes/userProfile";
 import passwordRoutes from "./routes/password";
 import passwordResetRoutes from "./routes/passwordReset";
+import avatarRoutes from "./routes/avatar";
 import auditLogRoutes from "./routes/auditLogs";
 import clinicSettingsRoutes from "./routes/clinicSettings";
 
@@ -78,6 +79,7 @@ app.use("/api/visits", visitRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/patient-profile", patientProfileRoutes);
 app.use("/api/users", userProfileRoutes);
+app.use("/api/users", avatarRoutes);
 app.use("/api/users", passwordRoutes);
 app.use("/api/audit-logs", auditLogRoutes);
 app.use("/api/clinic-settings", clinicSettingsRoutes);

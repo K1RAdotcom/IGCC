@@ -32,7 +32,6 @@ export async function getAllPatients() {
     },
   });
 }
-
 export async function createPatient(data: CreatePatientData) {
   return prisma.$transaction(async (tx) => {
     const sequenceResult = await tx.$queryRaw<
