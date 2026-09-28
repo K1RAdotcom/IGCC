@@ -1,5 +1,5 @@
 ﻿import { apiUrl } from "../../api";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Activity,
@@ -31,6 +31,52 @@ export default function AppShell({
   const isActive = (path: string) =>
     location.pathname === path || location.pathname.startsWith(path + "/");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+
+async function loadAvatar() {
+  try {
+    const response = await fetch(apiUrl("/api/users/me/avatar"), {
+      credentials: "include",
+    });
+
+    if (response.status === 404) {
+      setAvatarUrl(null);
+      return;
+    }
+
+    if (!response.ok) {
+      return;
+    }
+
+    const blob = await response.blob();
+    const nextUrl = URL.createObjectURL(blob);
+
+    setAvatarUrl((currentUrl) => {
+      if (currentUrl) {
+        URL.revokeObjectURL(currentUrl);
+      }
+
+      return nextUrl;
+    });
+  } catch {
+    setAvatarUrl(null);
+  }
+}
+
+useEffect(() => {
+  void loadAvatar();
+
+  const handleAvatarUpdated = () => {
+    void loadAvatar();
+  };
+
+  window.addEventListener("igcc:avatar-updated", handleAvatarUpdated);
+
+  return () => {
+    window.removeEventListener("igcc:avatar-updated", handleAvatarUpdated);
+  };
+}, []);
 
   async function handleLogout() {
     try {
@@ -289,8 +335,16 @@ export default function AppShell({
               onClick={() => navigate("/account")}
               className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
             >
-              <UserCircle size={20} />
-              <span className="hidden sm:inline">{userName}</span>
+              {avatarUrl ? (
+  <img
+    src={avatarUrl}
+    alt="Profile"
+    className="h-8 w-8 rounded-full object-cover"
+  />
+) : (
+  <UserCircle size={20} />
+)}
+<span className="hidden sm:inline">{userName}</span>
             </button>
           </div>
         </header>
