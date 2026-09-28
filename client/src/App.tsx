@@ -1,4 +1,4 @@
-﻿
+
 import { apiUrl } from "./api";
 import React, { useEffect, useState } from "react";
 import {
@@ -21,6 +21,8 @@ import {
   Users,
 } from "lucide-react";
 import Register from "./Register";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
 import ClinicSettings from "./pages/ClinicSettings";
 import Patients from "./Patients";
 import PatientProfile from "./PatientProfile";
@@ -207,6 +209,16 @@ function Login() {
                 </div>
               </div>
 
+              {/* Forgot Password */}
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => navigate("/forgot-password")}
+                  className="text-sm font-semibold text-igcc-700 transition hover:text-igcc-800"
+                >
+                  Forgot Password?
+                </button>
+              </div>
               {/* Login */}
               <button
                 type="submit"
@@ -523,6 +535,13 @@ function App() {
 
         <Route path="/register" element={<Register />} />
 
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+
+        <Route
+          path="/reset-password"
+          element={<ResetPassword />}
+        />
+
         <Route path="/dashboard" element={<Dashboard />} />
 
         <Route
@@ -613,3 +632,4 @@ function App() {
 }
 
 export default App;
+
