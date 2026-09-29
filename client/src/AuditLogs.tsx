@@ -109,36 +109,37 @@ export default function AuditLogs() {
         </button>
 
         {/* Page Header */}
-        <div className="flex items-start gap-3">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-900 text-white shadow-sm">
-            <ClipboardList size={23} strokeWidth={1.8} />
-          </div>
+        <div className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 p-5 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:p-6">
+          <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
 
-          <div>
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-slate-900 sm:text-2xl">
-              Audit Logs
-            </h1>
+          <div className="relative flex items-start gap-3">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-900 text-white shadow-sm">
+              <ClipboardList size={23} strokeWidth={1.8} />
+            </div>
 
-            <p className="mt-0.5 text-xs leading-5 text-slate-500 sm:text-sm">
-              Review important activity recorded in the clinic
-              management system.
-            </p>
+            <div>
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-slate-900 sm:text-2xl">
+                Audit Logs
+              </h1>
+
+              <p className="mt-0.5 text-xs leading-5 text-slate-500 sm:text-sm">
+                Review important activity recorded in the clinic
+                management system.
+              </p>
+            </div>
           </div>
         </div>
 
         {/* Audit Logs Card */}
-        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-          {/* Search Header */}
-          <div className="border-b border-slate-200 px-4 py-4 sm:px-6 sm:py-5">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+          <div className="border-b border-white/70 bg-white/35 px-4 py-4 backdrop-blur-xl sm:px-6 sm:py-5">
+            <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h2 className="text-base font-semibold text-slate-900">
+                <h2 className="text-sm font-semibold text-slate-900 sm:text-base">
                   Activity History
                 </h2>
-
-                <p className="mt-0.5 text-xs text-slate-500">
-                  Search recorded activity by user, action, record,
-                  or description.
+                <p className="mt-0.5 text-xs text-slate-500 sm:text-sm">
+                  Review recorded activity across the clinic management system.
                 </p>
               </div>
 
@@ -166,14 +167,14 @@ export default function AuditLogs() {
                   setSearch(event.target.value)
                 }
                 placeholder="Search activity..."
-                className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
               />
             </div>
           </div>
 
           {/* Error */}
           {error && (
-            <div className="m-5 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 sm:m-6">
+            <div className="m-5 flex items-start gap-3 rounded-xl border border-red-200/80 bg-red-50/75 px-4 py-3 text-sm text-red-700 shadow-sm backdrop-blur-sm sm:m-6">
               <AlertCircle
                 size={17}
                 strokeWidth={1.8}
@@ -186,12 +187,12 @@ export default function AuditLogs() {
 
           {/* Loading */}
           {loading ? (
-            <div className="px-6 py-10 text-center text-sm text-slate-500">
+            <div className="px-6 py-12 text-center text-sm text-slate-500">
               Loading audit logs...
             </div>
           ) : !error && filteredLogs.length === 0 ? (
             <div className="px-6 py-12 text-center">
-              <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-slate-100 text-slate-400">
+              <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/80 bg-white/70 text-slate-400 shadow-sm backdrop-blur-sm">
                 <ClipboardList size={20} strokeWidth={1.8} />
               </div>
 
@@ -207,7 +208,7 @@ export default function AuditLogs() {
             <>
               <div className="space-y-3 p-4 sm:hidden">
           {filteredLogs.map((log) => (
-            <div key={log.logId} className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <div key={log.logId} className="rounded-2xl border border-white/70 bg-white/65 p-4 shadow-[0_8px_25px_rgba(15,23,42,0.06)] backdrop-blur-xl">
               <div className="flex items-start gap-3">
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
                   <ShieldCheck size={16} strokeWidth={1.8} />
@@ -217,18 +218,18 @@ export default function AuditLogs() {
                   <p className="mt-0.5 truncate text-[11px] text-slate-400">{log.user.displayId} &middot; {log.user.username}</p>
                 </div>
               </div>
-              <div className="mt-3 border-t border-slate-100 pt-3">
+              <div className="mt-3 border-t border-white/70 pt-3">
                 <p className="text-sm font-semibold text-slate-800">{log.action}</p>
                 <p className="mt-1 text-xs font-medium text-slate-500">{formatDateTime(log.timestamp)}</p>
               </div>
-              {log.description && <p className="mt-2 break-words text-xs leading-5 text-slate-500">{log.description}</p>}
+              {log.description && <p className="mt-2 break-words text-xs leading-6 text-slate-500">{log.description}</p>}
             </div>
           ))}
         </div>
         <div className="hidden overflow-x-auto sm:block">
               <table className="w-full min-w-[1180px]">
                 <thead>
-                  <tr className="border-b border-slate-200 bg-slate-50/70">
+                  <tr className="border-b border-white/70 bg-slate-50/80">
                     <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
                       Date &amp; Time
                     </th>
@@ -255,7 +256,7 @@ export default function AuditLogs() {
                   {filteredLogs.map((log) => (
                     <tr
                       key={log.logId}
-                      className="border-b border-slate-100 transition hover:bg-slate-50/70"
+                      className="border-b border-white/60 transition hover:bg-white/45"
                     >
                       <td className="whitespace-nowrap px-5 py-4 text-sm text-slate-600">
                         {formatDateTime(log.timestamp)}
@@ -263,7 +264,7 @@ export default function AuditLogs() {
 
                       <td className="px-5 py-4">
                         <div className="flex items-start gap-2.5">
-                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
+                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/80 bg-white/70 text-slate-500 shadow-sm backdrop-blur-sm">
                             <ShieldCheck
                               size={15}
                               strokeWidth={1.8}
@@ -276,7 +277,7 @@ export default function AuditLogs() {
                             </div>
 
                             <div className="mt-0.5 text-xs text-slate-400">
-                              {log.user.displayId} \u00B7{" "}
+                              {log.user.displayId} &middot;{" "}
                               {log.user.username}
                             </div>
                           </div>
@@ -301,7 +302,7 @@ export default function AuditLogs() {
                         )}
                       </td>
 
-                      <td className="min-w-[420px] px-5 py-4 text-sm leading-6 text-slate-600 whitespace-normal break-words">
+                      <td className="min-w-[420px] px-5 py-4 text-sm leading-6 text-slate-500 whitespace-normal break-words">
                         {log.description || "-"}
                       </td>
                     </tr>

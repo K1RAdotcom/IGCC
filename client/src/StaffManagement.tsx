@@ -160,7 +160,10 @@ export default function StaffManagement() {
         </button>
 
         {/* Page Header */}
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 p-5 mb-4 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:p-6">
+          <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
+
+          <div className="relative flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-900 text-white shadow-sm">
               <Users size={23} strokeWidth={1.8} />
@@ -187,10 +190,13 @@ export default function StaffManagement() {
           </button>
         </div>
 
+          </div>
+        </div>
+
         {/* Staff Card */}
-        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+        <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
           {/* Search */}
-          <div className="border-b border-slate-200 px-4 py-4 sm:px-6 sm:py-5">
+          <div className="border-b border-white/70 bg-white/35 px-4 py-4 backdrop-blur-xl sm:px-6 sm:py-5">
             <div className="relative max-w-xl">
               <Search
                 size={17}
@@ -203,7 +209,7 @@ export default function StaffManagement() {
                 placeholder="Search staff by name or ID"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
-                className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10 sm:py-2.5"
+                className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
               />
             </div>
 
@@ -242,7 +248,7 @@ export default function StaffManagement() {
             {filteredUsers.map((user) => (
               <div
                 key={user.userId}
-                className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
+                className="rounded-2xl border border-white/70 bg-white/65 p-4 shadow-[0_8px_25px_rgba(15,23,42,0.06)] backdrop-blur-xl"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
@@ -258,8 +264,8 @@ export default function StaffManagement() {
                   <span
                     className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold ${
                       user.status === "ACTIVE"
-                        ? "bg-emerald-50 text-emerald-700"
-                        : "bg-red-50 text-red-700"
+                        ? "bg-emerald-50/80 text-emerald-700"
+                        : "bg-red-50/80 text-red-700"
                     }`}
                   >
                     {user.status === "ACTIVE" ? "Active" : "Inactive"}
@@ -298,7 +304,7 @@ export default function StaffManagement() {
                 <button
                   type="button"
                   onClick={() => handleStatusChange(user)}
-                  className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-slate-900"
+                  className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-lg border border-white/80 bg-white/70 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-sm transition hover:bg-white hover:text-igcc-700"
                 >
                   Manage Account
                 </button>
@@ -306,7 +312,7 @@ export default function StaffManagement() {
             ))}
 
             {filteredUsers.length === 0 && (
-              <div className="px-4 py-10 text-center text-sm text-slate-500">
+              <div className="px-4 py-12 text-center text-sm text-slate-500">
                 No staff accounts found.
               </div>
             )}
@@ -316,7 +322,7 @@ export default function StaffManagement() {
             <div className="hidden overflow-x-auto sm:block">
               <table className="w-full min-w-[900px]">
                 <thead>
-                  <tr className="border-b border-slate-200 bg-slate-50/70">
+                  <tr className="border-b border-white/70 bg-slate-50/80">
                     <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
                       Staff ID
                     </th>
@@ -351,7 +357,7 @@ export default function StaffManagement() {
                   {filteredUsers.map((user) => (
                     <tr
                       key={user.userId}
-                      className="border-b border-slate-100 transition hover:bg-slate-50/70"
+                      className="border-b border-white/60 transition hover:bg-white/45"
                     >
                       <td className="px-5 py-4 text-sm font-semibold text-slate-900">
                         {user.displayId}
@@ -373,8 +379,8 @@ export default function StaffManagement() {
                         <span
                           className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
                             user.status === "ACTIVE"
-                              ? "bg-emerald-50 text-emerald-700"
-                              : "bg-red-50 text-red-700"
+                              ? "bg-emerald-50/80 text-emerald-700"
+                              : "bg-red-50/80 text-red-700"
                           }`}
                         >
                           <CheckCircle2
@@ -395,7 +401,7 @@ export default function StaffManagement() {
                         <button
                           type="button"
                           onClick={() => handleStatusChange(user)}
-                          className="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-slate-900"
+                          className="inline-flex items-center rounded-lg border border-white/80 bg-white/70 px-3 py-2 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-sm transition hover:bg-white hover:text-igcc-700"
                         >
                           Manage
                         </button>
@@ -418,7 +424,6 @@ export default function StaffManagement() {
             </div>
           )}
         </section>
-      </div>
       </div>
     </AppShell>
   );

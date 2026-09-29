@@ -108,7 +108,7 @@ export default function ChangePassword() {
         </button>
 
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-900 text-white shadow-sm">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/80 bg-white/75 text-igcc-700 shadow-[0_8px_24px_rgba(15,23,42,0.06)] backdrop-blur-xl">
             <KeyRound size={22} strokeWidth={1.8} />
           </div>
 
@@ -125,11 +125,12 @@ export default function ChangePassword() {
       </div>
 
       {/* Password Form */}
-      <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+      <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+        <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
         {/* Section Header */}
-        <div className="border-b border-slate-200 px-6 py-5">
+        <div className="border-b border-white/70 bg-white/35 px-4 py-4 backdrop-blur-xl sm:px-6 sm:py-5">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-700">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/80 bg-white/70 text-slate-700 shadow-sm backdrop-blur-sm">
               <KeyRound size={18} strokeWidth={1.8} />
             </div>
 
@@ -146,10 +147,10 @@ export default function ChangePassword() {
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="px-6 py-6">
+          <div className="px-4 py-5 sm:px-6 sm:py-7">
             {/* Error Message */}
             {error && (
-              <div className="mb-6 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              <div className="mb-6 flex items-start gap-3 rounded-xl border border-red-200/80 bg-red-50/75 px-4 py-3 text-sm text-red-700 shadow-sm backdrop-blur-sm">
                 <AlertCircle
                   size={17}
                   strokeWidth={1.8}
@@ -161,7 +162,7 @@ export default function ChangePassword() {
 
             {/* Success Message */}
             {message && (
-              <div className="mb-6 flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+              <div className="mb-6 flex items-start gap-3 rounded-xl border border-emerald-200/80 bg-emerald-50/75 px-4 py-3 text-sm text-emerald-700 shadow-sm backdrop-blur-sm">
                 <CheckCircle2
                   size={17}
                   strokeWidth={1.8}
@@ -190,7 +191,7 @@ export default function ChangePassword() {
                       setCurrentPassword(event.target.value)
                     }
                     autoComplete="current-password"
-                    className="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-xl border border-white/80 bg-white/75 px-3.5 py-3 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
 
                   <button
@@ -198,7 +199,7 @@ export default function ChangePassword() {
                     onClick={() =>
                       setShowCurrent((value) => !value)
                     }
-                    className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+                    className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg text-slate-400 transition hover:bg-white/80 hover:text-slate-700"
                     aria-label={
                       showCurrent
                         ? "Hide current password"
@@ -232,13 +233,13 @@ export default function ChangePassword() {
                       setNewPassword(event.target.value)
                     }
                     autoComplete="new-password"
-                    className="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-xl border border-white/80 bg-white/75 px-3.5 py-3 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
 
                   <button
                     type="button"
                     onClick={() => setShowNew((value) => !value)}
-                    className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+                    className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg text-slate-400 transition hover:bg-white/80 hover:text-slate-700"
                     aria-label={
                       showNew
                         ? "Hide new password"
@@ -276,7 +277,7 @@ export default function ChangePassword() {
                       setConfirmPassword(event.target.value)
                     }
                     autoComplete="new-password"
-                    className="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-xl border border-white/80 bg-white/75 px-3.5 py-3 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
 
                   <button
@@ -284,7 +285,7 @@ export default function ChangePassword() {
                     onClick={() =>
                       setShowConfirm((value) => !value)
                     }
-                    className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+                    className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg text-slate-400 transition hover:bg-white/80 hover:text-slate-700"
                     aria-label={
                       showConfirm
                         ? "Hide confirmation password"
@@ -303,12 +304,12 @@ export default function ChangePassword() {
           </div>
 
           {/* Actions */}
-          <div className="flex flex-col-reverse gap-3 border-t border-slate-200 bg-slate-50/60 px-6 py-5 sm:flex-row sm:justify-end">
+          <div className="flex flex-col-reverse gap-3 border-t border-white/70 bg-white/35 px-4 py-4 backdrop-blur-xl sm:flex-row sm:justify-end sm:px-6 sm:py-5">
             <button
               type="button"
               onClick={() => navigate("/account")}
               disabled={saving}
-              className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex min-h-11 w-full items-center justify-center rounded-lg border border-white/80 bg-white/70 px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-sm transition hover:bg-white hover:text-igcc-700 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
             >
               Cancel
             </button>
@@ -316,7 +317,7 @@ export default function ChangePassword() {
             <button
               type="submit"
               disabled={saving}
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+              className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(31,107,79,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-igcc-800 hover:shadow-[0_10px_24px_rgba(31,107,79,0.24)] disabled:cursor-not-allowed disabled:bg-slate-400 disabled:shadow-none sm:w-auto"
             >
               <KeyRound size={16} strokeWidth={1.8} />
               {saving ? "Changing..." : "Change Password"}

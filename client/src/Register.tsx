@@ -118,8 +118,8 @@ function Register() {
   return (
     <div className="min-h-screen bg-igcc-background px-4 py-8 sm:px-6">
       <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-xl items-center justify-center">
-        <div className="w-full overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-md">
-          <div className="h-2 bg-igcc-800" />
+        <div className="group relative w-full overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+          <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
 
           <div className="p-6 sm:p-8">
             {/* Header */}
@@ -147,7 +147,7 @@ function Register() {
 
             {/* Messages */}
             {error && (
-              <div className="mb-5 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              <div className="mb-5 flex items-start gap-3 rounded-xl border border-red-200/80 bg-red-50/75 px-4 py-3 shadow-sm text-sm text-red-700 backdrop-blur-sm">
                 <AlertCircle
                   size={18}
                   strokeWidth={1.8}
@@ -159,7 +159,7 @@ function Register() {
             )}
 
             {success && (
-              <div className="mb-5 flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+              <div className="mb-5 flex items-start gap-3 rounded-xl border border-emerald-200/80 bg-emerald-50/75 px-4 py-3 shadow-sm text-sm text-emerald-700 backdrop-blur-sm">
                 <CheckCircle2
                   size={18}
                   strokeWidth={1.8}
@@ -195,7 +195,7 @@ function Register() {
                       setFullName(event.target.value)
                     }
                     required
-                    className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-11 text-sm text-slate-900 sm:py-2.5 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] sm:py-2.5 outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
                 </div>
               </div>
@@ -224,7 +224,7 @@ function Register() {
                       setUsername(event.target.value)
                     }
                     required
-                    className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-11 text-sm text-slate-900 sm:py-2.5 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] sm:py-2.5 outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
                 </div>
               </div>
@@ -252,7 +252,7 @@ function Register() {
                     onChange={(event) =>
                       setEmail(event.target.value)
                     }
-                    className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-11 text-sm text-slate-900 sm:py-2.5 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] sm:py-2.5 outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
                 </div>
               </div>
@@ -282,7 +282,7 @@ function Register() {
                     }
                     required
                     minLength={8}
-                    className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-11 text-sm text-slate-900 sm:py-2.5 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] sm:py-2.5 outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
 
                   <button
@@ -321,7 +321,7 @@ function Register() {
                     }
                     required
                     minLength={8}
-                    className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-11 text-sm text-slate-900 sm:py-2.5 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] sm:py-2.5 outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
 
                   <button
@@ -358,7 +358,7 @@ function Register() {
                       setRole(event.target.value)
                     }
                     disabled={checkingStatus}
-                    className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition focus:border-igcc-800 sm:py-2.5 focus:ring-2 focus:ring-igcc-800/10 disabled:cursor-not-allowed disabled:bg-slate-50"
+                    className="w-full appearance-none rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] outline-none backdrop-blur-sm transition focus:border-igcc-700 focus:bg-white sm:py-2.5 focus:ring-2 focus:ring-igcc-700/10 disabled:cursor-not-allowed disabled:bg-slate-100/70"
                   >
                     <option value="CLINIC_STAFF">
                       Clinic Staff
@@ -384,7 +384,7 @@ function Register() {
                 <button
                   type="submit"
                   disabled={loading || checkingStatus}
-                  className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-4 py-3 text-sm font-semibold sm:py-2.5 text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+                  className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-4 py-3 text-sm font-semibold sm:py-2.5 text-white shadow-[0_8px_20px_rgba(31,107,79,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-igcc-800 hover:shadow-[0_10px_24px_rgba(31,107,79,0.24)] disabled:cursor-not-allowed disabled:bg-slate-400 disabled:shadow-none"
                 >
                   <UserPlus size={17} strokeWidth={1.8} />
                   {loading
@@ -396,7 +396,7 @@ function Register() {
                   type="button"
                   onClick={() => navigate("/login")}
                   disabled={loading}
-                  className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold sm:py-2.5 text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-white/80 bg-white/70 px-4 py-3 text-sm font-semibold sm:py-2.5 text-slate-700 shadow-sm backdrop-blur-sm transition hover:bg-white hover:text-igcc-700 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <ArrowLeft size={16} strokeWidth={1.8} />
                   Back to Login

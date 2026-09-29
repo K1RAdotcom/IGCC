@@ -313,7 +313,8 @@ function PatientProfile() {
             </div>
           </div>
 
-        <section className="overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+        <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+          <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
           <div className="h-2 bg-igcc-800" />
 
           <div className="p-5 sm:p-8">
@@ -395,7 +396,60 @@ function PatientProfile() {
 
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="space-y-6">
-            <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+            <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+              <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/20 blur-3xl" />
+              <div className="border-b border-igcc-border px-5 py-4">
+                <div className="flex items-center gap-2">
+                  <User size={18} className="text-igcc-700" />
+                  <h2 className="font-semibold text-slate-900">
+                    Personal Information
+                  </h2>
+                </div>
+              </div>
+
+              <div className="space-y-4 p-5">
+                <InfoRow
+                  icon={<CalendarDays size={16} />}
+                  label="Date of Birth"
+                  value={`${formatDate(patient.dateOfBirth)} (${age} years)`}
+                />
+
+                <InfoRow
+                  icon={<Phone size={16} />}
+                  label="Primary Phone"
+                  value={patient.phone}
+                  phone
+                />
+
+                <InfoRow
+                  icon={<Phone size={16} />}
+                  label="Secondary Phone"
+                  value={displayValue(patient.secondaryPhone)}
+                  phone
+                />
+
+                <InfoRow
+                  icon={<Mail size={16} />}
+                  label="Email"
+                  value={displayValue(patient.email)}
+                />
+
+                <InfoRow
+                  icon={<MapPin size={16} />}
+                  label="Address"
+                  value={displayValue(patient.address)}
+                />
+
+                <InfoRow
+                  icon={<Users size={16} />}
+                  label="Golf Club Membership"
+                  value={displayValue(patient.golfClubMembership)}
+                />
+              </div>
+            </section>
+            <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+              <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/20 blur-3xl" />
+
               <div className="border-b border-igcc-border px-5 py-4">
                 <div className="flex items-center gap-2">
                   <User size={18} className="text-igcc-700" />
@@ -446,7 +500,9 @@ function PatientProfile() {
               </div>
             </section>
 
-            <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+            <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+              <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/20 blur-3xl" />
+
               <div className="border-b border-igcc-border px-5 py-4">
                 <div className="flex items-center gap-2">
                   <ShieldAlert size={18} className="text-red-600" />
@@ -472,7 +528,9 @@ function PatientProfile() {
               </div>
             </section>
 
-            <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+            <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+              <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/20 blur-3xl" />
+
               <div className="border-b border-igcc-border px-5 py-4">
                 <div className="flex items-center gap-2">
                   <FileText size={18} className="text-igcc-700" />
@@ -497,7 +555,9 @@ function PatientProfile() {
           </div>
 
           <div className="lg:col-span-2">
-            <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+            <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+              <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-igcc-200/20 blur-3xl" />
+
               <div className="flex flex-col gap-3 border-b border-igcc-border px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <div className="flex items-center gap-2">
@@ -680,7 +740,7 @@ function PatientProfile() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-igcc-200 bg-igcc-50/60 px-5 py-4">
+        <div className="rounded-2xl border border-igcc-200/70 bg-white/55 px-5 py-4 shadow-[0_8px_25px_rgba(15,23,42,0.05)] backdrop-blur-xl">
           <div className="flex items-start gap-3">
             <div className="mt-0.5 text-igcc-700">
               <FileText size={17} />

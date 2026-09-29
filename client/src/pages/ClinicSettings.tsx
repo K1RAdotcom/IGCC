@@ -168,25 +168,29 @@ export default function ClinicSettings() {
         </button>
 
         {/* Page Header */}
-        <div className="flex items-start gap-3">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-900 text-white shadow-sm">
-            <Building2 size={23} strokeWidth={1.8} />
-          </div>
+        <div className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 p-5 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:p-6">
+          <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
 
-          <div>
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-slate-900 sm:text-2xl">
-              Clinic Settings
-            </h1>
+          <div className="relative flex items-start gap-3">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-900 text-white shadow-sm">
+              <Building2 size={23} strokeWidth={1.8} />
+            </div>
 
-            <p className="mt-0.5 text-xs leading-5 text-slate-500 sm:text-sm">
-              Manage clinic information and branding.
-            </p>
+            <div>
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-slate-900 sm:text-2xl">
+                Clinic Settings
+              </h1>
+
+              <p className="mt-0.5 text-xs leading-5 text-slate-500 sm:text-sm">
+                Manage clinic information and branding.
+              </p>
+            </div>
           </div>
         </div>
 
         {/* Messages */}
         {message && (
-          <div className="flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+          <div className="flex items-start gap-3 rounded-xl border border-emerald-200/80 bg-emerald-50/75 px-4 py-3 text-sm text-emerald-700 shadow-sm backdrop-blur-sm">
             <CheckCircle2
               size={18}
               strokeWidth={1.8}
@@ -208,8 +212,8 @@ export default function ClinicSettings() {
         )}
 
         {/* Clinic Information */}
-        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-          <div className="border-b border-slate-200 px-4 py-4 sm:px-6 sm:py-5">
+        <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+          <div className="border-b border-white/70 bg-white/35 px-4 py-4 backdrop-blur-xl sm:px-6 sm:py-5">
             <div className="flex items-start gap-3">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-700 sm:h-10 sm:w-10">
                 <Building2 size={17} strokeWidth={1.8} />
@@ -228,7 +232,7 @@ export default function ClinicSettings() {
           </div>
 
           <form onSubmit={handleSubmit}>
-            <div className="px-4 py-4 sm:px-6 sm:py-6">
+            <div className="px-4 py-5 sm:px-6 sm:py-7">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
                 {/* Clinic Name */}
                 <div className="sm:col-span-2">
@@ -254,7 +258,7 @@ export default function ClinicSettings() {
                         updateField("clinicName", event.target.value)
                       }
                       required
-                      className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-3.5 sm:py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                      className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
                     />
                   </div>
                 </div>
@@ -283,7 +287,7 @@ export default function ClinicSettings() {
                       }
                       rows={3}
                       placeholder="Enter clinic address"
-                      className="w-full resize-y rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-3.5 sm:py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                      className="w-full resize-y rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
                     />
                   </div>
                 </div>
@@ -312,7 +316,7 @@ export default function ClinicSettings() {
                         updateField("phone", event.target.value)
                       }
                       placeholder="Enter clinic phone number"
-                      className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-3.5 sm:py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                      className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
                     />
                   </div>
                 </div>
@@ -341,7 +345,7 @@ export default function ClinicSettings() {
                         updateField("email", event.target.value)
                       }
                       placeholder="Enter clinic email"
-                      className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-3.5 sm:py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                      className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
                     />
                   </div>
                 </div>
@@ -370,7 +374,7 @@ export default function ClinicSettings() {
                         updateField("logo", event.target.value)
                       }
                       placeholder="Enter logo path or URL"
-                      className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-9 pr-3.5 sm:py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                      className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
                     />
                   </div>
 
@@ -382,12 +386,12 @@ export default function ClinicSettings() {
             </div>
 
             {/* Actions */}
-            <div className="flex flex-col-reverse gap-2.5 border-t border-slate-200 bg-slate-50/60 px-4 py-4 sm:flex-row sm:justify-end sm:gap-3 sm:px-6 sm:py-5">
+            <div className="flex flex-col-reverse gap-3 border-t border-white/70 bg-white/35 px-4 py-4 backdrop-blur-xl sm:flex-row sm:justify-end sm:px-6 sm:py-5">
               <button
                 type="button"
                 onClick={() => navigate("/dashboard")}
                 disabled={saving}
-                className="inline-flex min-h-11 w-full items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-lg border border-white/80 bg-white/70 px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-sm transition hover:bg-white hover:text-igcc-700 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
               >
                 Cancel
               </button>
@@ -395,7 +399,7 @@ export default function ClinicSettings() {
               <button
                 type="submit"
                 disabled={saving}
-                className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400 sm:w-auto"
+                className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(31,107,79,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-igcc-800 hover:shadow-[0_10px_24px_rgba(31,107,79,0.24)] disabled:cursor-not-allowed disabled:bg-slate-400 disabled:shadow-none sm:w-auto"
               >
                 <Save size={16} strokeWidth={1.8} />
                 {saving ? "Saving..." : "Save Changes"}

@@ -317,7 +317,8 @@ export default function MyAccount() {
     >
       <div className="space-y-6">
         {/* Header */}
-        <div>
+        <div className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 p-5 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:p-6">
+          <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
           <button
             type="button"
             onClick={() => navigate("/dashboard")}
@@ -345,7 +346,8 @@ export default function MyAccount() {
         </div>
 
         {/* Profile Picture */}
-        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+        <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+          <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/20 blur-3xl" />
           <div className="border-b border-slate-200 px-4 py-4 sm:px-6 sm:py-5">
             <div className="flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-700">
@@ -437,7 +439,7 @@ export default function MyAccount() {
               </div>
 
               <p className="mt-2 text-xs text-slate-500">
-                JPG, PNG, or WebP· Maximum 2 MB
+                JPG, PNG, or WebP - Maximum 2 MB
               </p>
 
               {avatarError && (
@@ -450,7 +452,8 @@ export default function MyAccount() {
         </section>
 
         {/* Account Information */}
-        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+        <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+          <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/15 blur-3xl" />
           <div className="border-b border-slate-200 px-4 py-4 sm:px-6 sm:py-5">
             <div className="flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-700">
@@ -556,7 +559,8 @@ export default function MyAccount() {
         </section>
 
         {/* Account Actions */}
-        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+        <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+          <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/20 blur-3xl" />
           <div className="border-b border-slate-200 px-4 py-4 sm:px-6 sm:py-5">
             <div className="flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-700">

@@ -191,7 +191,7 @@ function NewVisit() {
         userRole={currentUser?.role ?? null}
         userName={currentUser?.fullName ?? "Clinic Staff"}
       >
-        <div className="rounded-xl border border-igcc-border bg-white p-8 shadow-igcc-sm">
+        <div className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 p-8 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
           <div className="animate-pulse space-y-4">
             <div className="h-6 w-48 rounded bg-slate-200" />
             <div className="h-4 w-72 rounded bg-slate-200" />
@@ -218,7 +218,7 @@ function NewVisit() {
             Back to Patients
           </button>
 
-          <div className="rounded-xl border border-red-200 bg-red-50 p-5">
+          <div className="rounded-xl border border-red-200/80 bg-red-50/75 p-5 shadow-sm backdrop-blur-sm">
             <div className="flex items-start gap-3">
               <ShieldAlert
                 size={20}
@@ -258,8 +258,9 @@ function NewVisit() {
           Back to Patient Profile
         </button>
 
-        <section className="overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
-          <div className="h-2 bg-igcc-800" />
+        <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+          <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
+          
 
           <div className="p-4 sm:p-8">
             <div className="flex items-start gap-4">
@@ -288,7 +289,8 @@ function NewVisit() {
           </div>
         </section>
 
-        <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+        <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+          <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/20 blur-3xl" />
           <div className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-6 sm:gap-5">
             <div className="flex items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700">
@@ -319,7 +321,7 @@ function NewVisit() {
         </section>
 
         {error && (
-          <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3.5">
+          <div className="rounded-xl border border-red-200/80 bg-red-50/75 px-4 py-3.5 shadow-sm backdrop-blur-sm">
             <div className="flex items-start gap-3">
               <ShieldAlert
                 size={19}
@@ -340,7 +342,8 @@ function NewVisit() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-          <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+          <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+            <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/20 blur-3xl" />
             <SectionHeader
               icon={<CalendarDays size={18} />}
               title="Visit Information"
@@ -398,7 +401,8 @@ function NewVisit() {
             </div>
           </section>
 
-          <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+          <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+            <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/20 blur-3xl" />
             <SectionHeader
               icon={<Activity size={18} />}
               title="Vital Signs"
@@ -473,7 +477,7 @@ function NewVisit() {
               </Field>
 
               <Field
-                label="Temperature (°C)"
+                  label="Temperature (°C)"
                 icon={<HeartPulse size={16} />}
               >
                 <input
@@ -491,7 +495,8 @@ function NewVisit() {
             </div>
           </section>
 
-          <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+          <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+            <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/20 blur-3xl" />
             <SectionHeader
               icon={<Stethoscope size={18} />}
               title="Clinical Record"
@@ -541,7 +546,7 @@ function NewVisit() {
             </div>
           </section>
 
-          <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-5 sm:flex-row sm:justify-end">
+          <div className="flex flex-col-reverse gap-3 rounded-2xl border border-white/70 bg-white/55 p-4 shadow-[0_8px_25px_rgba(15,23,42,0.05)] backdrop-blur-xl sm:flex-row sm:justify-end sm:p-5">
             <button
               type="button"
               onClick={() =>
@@ -568,18 +573,22 @@ function NewVisit() {
       <style>{`
         .form-input {
           width: 100%;
-          border: 1px solid #cbd5e1;
-          border-radius: 0.5rem;
-          background: #ffffff;
+          border: 1px solid rgba(255, 255, 255, 0.8);
+          border-radius: 0.75rem;
+          background: rgba(255, 255, 255, 0.75);
           padding: 0.7rem 0.8rem;
           font-size: 0.875rem;
           line-height: 1.5rem;
           color: #1e293b;
           outline: none;
+          box-shadow: 0 2px 8px rgba(15, 23, 42, 0.07);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
           transition:
             border-color 150ms ease,
             box-shadow 150ms ease,
-            background-color 150ms ease;
+            background-color 150ms ease,
+            transform 150ms ease;
           box-sizing: border-box;
         }
 
@@ -588,7 +597,7 @@ function NewVisit() {
         }
 
         .form-input:hover {
-          border-color: #94a3b8;
+          border-color: rgba(148, 163, 184, 0.75);
         }
 
         .form-input:focus {
@@ -597,10 +606,9 @@ function NewVisit() {
         }
 
         .form-input:disabled {
-          background: #f8fafc;
+          background: rgba(248, 250, 252, 0.7);
           cursor: not-allowed;
-        }
-      `}</style>
+        }      `}</style>
     </AppShell>
   );
 }
@@ -615,7 +623,7 @@ function SectionHeader({
   description: string;
 }) {
   return (
-    <div className="border-b border-igcc-border px-4 py-3 sm:px-6 sm:py-4">
+    <div className="border-b border-white/70 bg-white/35 px-4 py-3 backdrop-blur-xl sm:px-6 sm:py-4">
       <div className="flex items-start gap-3">
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 sm:h-10 sm:w-10">
           {icon}

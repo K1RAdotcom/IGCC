@@ -90,13 +90,14 @@ function Login() {
   return (
     <div className="min-h-screen bg-igcc-background px-4 py-8 sm:px-6">
       <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-md items-center justify-center">
-        <div className="w-full overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-md">
+        <div className="group relative w-full overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+          <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
           <div className="h-2 bg-igcc-800" />
 
           <div className="p-6 sm:p-8">
             {/* Header */}
             <div className="mb-7 text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-igcc-50 text-igcc-700">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/80 bg-white/75 shadow-[0_8px_24px_rgba(15,23,42,0.06)] backdrop-blur-xl">
                 <img
                   src="/igcc-logo.png"
                   alt="Ikeja Golf Club Clinic"
@@ -155,7 +156,7 @@ function Login() {
                     }
                     placeholder="Enter your username"
                     required
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-xl border border-slate-200/90 bg-white/80 py-3 pl-10 pr-3.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
                 </div>
               </div>
@@ -185,7 +186,7 @@ function Login() {
                     }
                     placeholder="Enter your password"
                     required
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-11 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                    className="w-full rounded-xl border border-slate-200/90 bg-white/80 py-3 pl-10 pr-11 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
 
                   <button
@@ -214,7 +215,7 @@ function Login() {
                 <button
                   type="button"
                   onClick={() => navigate("/forgot-password")}
-                  className="text-sm font-semibold text-igcc-700 transition hover:text-igcc-800"
+                  className="rounded-md px-1 py-0.5 text-sm font-semibold text-igcc-700 transition hover:bg-igcc-50 hover:text-igcc-800"
                 >
                   Forgot Password?
                 </button>
@@ -223,7 +224,7 @@ function Login() {
               <button
                 type="submit"
                 disabled={loading}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-igcc-700 px-4 py-3 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(31,107,79,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-igcc-800 hover:shadow-[0_10px_24px_rgba(31,107,79,0.24)] disabled:cursor-not-allowed disabled:bg-slate-400 disabled:shadow-none"
               >
                 <LogIn size={17} strokeWidth={1.8} />
                 {loading ? "Signing in..." : "Login"}
@@ -231,7 +232,7 @@ function Login() {
             </form>
 
             {/* Register */}
-            <div className="mt-6 border-t border-slate-200 pt-5 text-center">
+            <div className="mt-6 rounded-2xl border border-white/70 bg-white/45 p-4 text-center shadow-[0_8px_25px_rgba(15,23,42,0.04)] backdrop-blur-xl">
               <p className="mb-3 text-sm text-slate-500">
                 Need an account?
               </p>
@@ -337,7 +338,8 @@ function Dashboard() {
 
         <section>
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            <div className="rounded-xl border border-igcc-border bg-white p-4 shadow-igcc-sm sm:p-6">
+            <div className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/75 p-4 shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:p-6">
+              <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
               <div className="flex items-start justify-between">
                 <div>
                   <p className="text-sm font-medium text-slate-500">
@@ -355,7 +357,8 @@ function Dashboard() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-igcc-border bg-white p-4 shadow-igcc-sm sm:p-6">
+            <div className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/75 p-4 shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:p-6">
+              <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
               <div className="flex items-start justify-between">
                 <div>
                   <p className="text-sm font-medium text-slate-500">
@@ -373,7 +376,8 @@ function Dashboard() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-igcc-border bg-white p-4 shadow-igcc-sm sm:p-6">
+            <div className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/75 p-4 shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:p-6">
+              <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
               <div className="flex items-start justify-between">
                 <div>
                   <p className="text-sm font-medium text-slate-500">
@@ -403,8 +407,9 @@ function Dashboard() {
           <div className="grid gap-4 md:grid-cols-3">
             <button
               onClick={() => navigate("/patients")}
-              className="group flex items-center gap-4 rounded-xl border border-igcc-border bg-white p-4 text-left shadow-igcc-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-igcc-200 hover:shadow-igcc-md sm:block sm:p-5"
+              className="group relative overflow-hidden flex items-center gap-4 rounded-2xl border border-white/70 bg-white/75 p-4 text-left shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:block sm:p-5"
             >
+              <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 transition group-hover:bg-igcc-100 sm:mb-4">
                 <Users size={20} strokeWidth={1.8} />
               </div>
@@ -420,8 +425,9 @@ function Dashboard() {
 
             <button
               onClick={() => navigate("/new-patient")}
-              className="group flex items-center gap-4 rounded-xl border border-igcc-border bg-white p-4 text-left shadow-igcc-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-igcc-200 hover:shadow-igcc-md sm:block sm:p-5"
+              className="group relative overflow-hidden flex items-center gap-4 rounded-2xl border border-white/70 bg-white/75 p-4 text-left shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:block sm:p-5"
             >
+              <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 transition group-hover:bg-igcc-100 sm:mb-4">
                 <UserCircle size={20} strokeWidth={1.8} />
               </div>
@@ -437,8 +443,9 @@ function Dashboard() {
 
             <button
               onClick={() => navigate("/patients")}
-              className="group flex items-center gap-4 rounded-xl border border-igcc-border bg-white p-4 text-left shadow-igcc-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-igcc-200 hover:shadow-igcc-md sm:block sm:p-5"
+              className="group relative overflow-hidden flex items-center gap-4 rounded-2xl border border-white/70 bg-white/75 p-4 text-left shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:block sm:p-5"
             >
+              <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 transition group-hover:bg-igcc-100 sm:mb-4">
                 <ClipboardList size={20} strokeWidth={1.8} />
               </div>

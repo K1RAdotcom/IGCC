@@ -1,4 +1,4 @@
-﻿import { apiUrl } from "../../api";
+import { apiUrl } from "../../api";
 import { useEffect, useState, type ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -98,7 +98,7 @@ useEffect(() => {
 
   return (
     <div className="min-h-screen bg-igcc-background text-slate-900">
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-igcc-800 bg-igcc-900 text-white lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-white/10 bg-igcc-900/90 text-white shadow-[8px_0_30px_rgba(15,23,42,0.12)] backdrop-blur-2xl lg:flex">
         <div className="border-b border-white/10 px-6 py-6">
           <div className="flex items-center justify-center px-4 py-5">
             <img
@@ -116,7 +116,7 @@ useEffect(() => {
 
           <button
             onClick={() => navigate("/dashboard")}
-            className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-white transition hover:bg-white/15 ${isActive("/dashboard") ? "bg-white/10" : ""}`}
+            className={`mb-1 flex w-52 items-center gap-3 rounded-xl px-4 py-2.5 text-left whitespace-nowrap text-sm font-medium text-white transition hover:bg-white/15 ${isActive("/dashboard") ? "bg-white/[0.07] shadow-[inset_0_1px_0_rgba(255,255,255,0.10),inset_0_-1px_0_rgba(255,255,255,0.03)] backdrop-blur-md" : ""}`}
           >
             <LayoutDashboard size={18} strokeWidth={1.8} />
             Dashboard
@@ -124,7 +124,7 @@ useEffect(() => {
 
           <button
             onClick={() => navigate("/patients")}
-            className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/patients") ? "bg-white/10 text-white" : "text-white/75"}`}
+            className={`mb-1 flex w-52 items-center gap-3 rounded-xl px-4 py-2.5 text-left whitespace-nowrap text-sm font-medium transition hover:bg-white/10 hover:text-white ${isActive("/patients") ? "border border-white/15 bg-white/10 text-white shadow-[0_4px_16px_rgba(255,255,255,0.06)] backdrop-blur-md" : "text-white/75"}`}
           >
             <Users size={18} strokeWidth={1.8} />
             Patients
@@ -132,7 +132,7 @@ useEffect(() => {
 
           <button
             onClick={() => navigate("/account")}
-            className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/account") ? "bg-white/10 text-white" : "text-white/75"}`}
+            className={`flex w-52 items-center gap-3 rounded-xl px-4 py-2.5 text-left whitespace-nowrap text-sm font-medium transition hover:bg-white/10 hover:text-white ${isActive("/account") ? "border border-white/15 bg-white/10 text-white shadow-[0_4px_16px_rgba(255,255,255,0.06)] backdrop-blur-md" : "text-white/75"}`}
           >
             <UserCircle size={18} strokeWidth={1.8} />
             My Account
@@ -146,7 +146,7 @@ useEffect(() => {
 
               <button
                 onClick={() => navigate("/admin/staff")}
-                className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/admin/staff") ? "bg-white/10 text-white" : "text-white/75"}`}
+                className={`mb-1 flex w-52 items-center gap-3 rounded-xl px-4 py-2.5 text-left whitespace-nowrap text-sm font-medium transition hover:bg-white/10 hover:text-white ${isActive("/admin/staff") ? "border border-white/15 bg-white/10 text-white shadow-[0_4px_16px_rgba(255,255,255,0.06)] backdrop-blur-md" : "text-white/75"}`}
               >
                 <ShieldCheck size={18} strokeWidth={1.8} />
                 Staff Management
@@ -154,7 +154,7 @@ useEffect(() => {
 
               <button
                 onClick={() => navigate("/admin/audit-logs")}
-                className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/admin/audit-logs") ? "bg-white/10 text-white" : "text-white/75"}`}
+                className={`mb-1 flex w-52 items-center gap-3 rounded-xl px-4 py-2.5 text-left whitespace-nowrap text-sm font-medium transition hover:bg-white/10 hover:text-white ${isActive("/admin/audit-logs") ? "border border-white/15 bg-white/10 text-white shadow-[0_4px_16px_rgba(255,255,255,0.06)] backdrop-blur-md" : "text-white/75"}`}
               >
                 <FileText size={18} strokeWidth={1.8} />
                 Audit Logs
@@ -162,7 +162,7 @@ useEffect(() => {
 
               <button
                 onClick={() => navigate("/admin/clinic-settings")}
-                className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/admin/clinic-settings") ? "bg-white/10 text-white" : "text-white/75"}`}
+                className={`flex w-52 items-center gap-3 rounded-xl px-4 py-2.5 text-left whitespace-nowrap text-sm font-medium transition hover:bg-white/10 hover:text-white ${isActive("/admin/clinic-settings") ? "border border-white/15 bg-white/10 text-white shadow-[0_4px_16px_rgba(255,255,255,0.06)] backdrop-blur-md" : "text-white/75"}`}
               >
                 <Settings size={18} strokeWidth={1.8} />
                 Clinic Settings
@@ -187,7 +187,7 @@ useEffect(() => {
 
           <button
             onClick={handleLogout}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-white/70 transition hover:bg-white/10 hover:text-white"
+            className="flex w-52 items-center gap-3 rounded-xl px-4 py-2.5 text-left text-sm text-white/70 transition hover:bg-white/10 hover:text-white"
           >
             <LogOut size={18} strokeWidth={1.8} />
             Logout
@@ -203,7 +203,7 @@ useEffect(() => {
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] flex-col bg-igcc-900 text-white shadow-2xl transition-transform duration-200 lg:hidden ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] flex-col border-r border-white/10 bg-igcc-900/90 text-white shadow-2xl backdrop-blur-2xl transition-transform duration-200 lg:hidden ${
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -230,7 +230,7 @@ useEffect(() => {
 
           <button
             onClick={() => navigateAndClose("/dashboard")}
-            className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm font-medium text-white transition hover:bg-white/15 ${isActive("/dashboard") ? "bg-white/10" : ""}`}
+            className={`mb-1 flex w-52 items-center gap-3 rounded-xl px-4 py-3 text-left whitespace-nowrap text-sm font-medium text-white transition hover:bg-white/15 ${isActive("/dashboard") ? "bg-white/[0.07] shadow-[inset_0_1px_0_rgba(255,255,255,0.10),inset_0_-1px_0_rgba(255,255,255,0.03)] backdrop-blur-md" : ""}`}
           >
             <LayoutDashboard size={18} strokeWidth={1.8} />
             Dashboard
@@ -238,7 +238,7 @@ useEffect(() => {
 
           <button
             onClick={() => navigateAndClose("/patients")}
-            className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/patients") ? "bg-white/10 text-white" : "text-white/75"}`}
+            className={`mb-1 flex w-52 items-center gap-3 rounded-xl px-4 py-3 text-left whitespace-nowrap text-sm font-medium transition hover:bg-white/10 hover:text-white ${isActive("/patients") ? "border border-white/15 bg-white/10 text-white shadow-[0_4px_16px_rgba(255,255,255,0.06)] backdrop-blur-md" : "text-white/75"}`}
           >
             <Users size={18} strokeWidth={1.8} />
             Patients
@@ -246,7 +246,7 @@ useEffect(() => {
 
           <button
             onClick={() => navigateAndClose("/account")}
-            className={`flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/account") ? "bg-white/10 text-white" : "text-white/75"}`}
+            className={`flex w-52 items-center gap-3 rounded-xl px-4 py-3 text-left whitespace-nowrap text-sm font-medium transition hover:bg-white/10 hover:text-white ${isActive("/account") ? "border border-white/15 bg-white/10 text-white shadow-[0_4px_16px_rgba(255,255,255,0.06)] backdrop-blur-md" : "text-white/75"}`}
           >
             <UserCircle size={18} strokeWidth={1.8} />
             My Account
@@ -260,7 +260,7 @@ useEffect(() => {
 
               <button
                 onClick={() => navigateAndClose("/admin/staff")}
-                className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/admin/staff") ? "bg-white/10 text-white" : "text-white/75"}`}
+                className={`mb-1 flex w-52 items-center gap-3 rounded-xl px-4 py-3 text-left whitespace-nowrap text-sm font-medium transition hover:bg-white/10 hover:text-white ${isActive("/admin/staff") ? "border border-white/15 bg-white/10 text-white shadow-[0_4px_16px_rgba(255,255,255,0.06)] backdrop-blur-md" : "text-white/75"}`}
               >
                 <ShieldCheck size={18} strokeWidth={1.8} />
                 Staff Management
@@ -268,7 +268,7 @@ useEffect(() => {
 
               <button
                 onClick={() => navigateAndClose("/admin/audit-logs")}
-                className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/admin/audit-logs") ? "bg-white/10 text-white" : "text-white/75"}`}
+                className={`mb-1 flex w-52 items-center gap-3 rounded-xl px-4 py-3 text-left whitespace-nowrap text-sm font-medium transition hover:bg-white/10 hover:text-white ${isActive("/admin/audit-logs") ? "border border-white/15 bg-white/10 text-white shadow-[0_4px_16px_rgba(255,255,255,0.06)] backdrop-blur-md" : "text-white/75"}`}
               >
                 <FileText size={18} strokeWidth={1.8} />
                 Audit Logs
@@ -276,7 +276,7 @@ useEffect(() => {
 
               <button
                 onClick={() => navigateAndClose("/admin/clinic-settings")}
-                className={`flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm transition hover:bg-white/10 hover:text-white ${isActive("/admin/clinic-settings") ? "bg-white/10 text-white" : "text-white/75"}`}
+                className={`flex w-52 items-center gap-3 rounded-xl px-4 py-3 text-left whitespace-nowrap text-sm font-medium transition hover:bg-white/10 hover:text-white ${isActive("/admin/clinic-settings") ? "border border-white/15 bg-white/10 text-white shadow-[0_4px_16px_rgba(255,255,255,0.06)] backdrop-blur-md" : "text-white/75"}`}
               >
                 <Settings size={18} strokeWidth={1.8} />
                 Clinic Settings
@@ -301,7 +301,7 @@ useEffect(() => {
 
           <button
             onClick={handleLogout}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm text-white/70 transition hover:bg-white/10 hover:text-white"
+            className="flex w-52 items-center gap-3 rounded-xl px-4 py-3 text-left text-sm text-white/70 transition hover:bg-white/10 hover:text-white"
           >
             <LogOut size={18} strokeWidth={1.8} />
             Logout

@@ -175,7 +175,8 @@ function Patients() {
   return (
     <AppShell userRole={userRole} userName={userName}>
       <div className="space-y-6">
-        <section className="overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+        <section className="overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+          <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-igcc-200/25 blur-3xl" />
           <div className="h-2 bg-igcc-800" />
 
           <div className="p-4 sm:p-8">
@@ -216,7 +217,7 @@ function Patients() {
           </div>
         </section>
 
-        <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+        <section className="rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
           <div className="border-b border-igcc-border px-5 py-4 sm:px-6">
             <div className="flex items-start gap-3">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700">
@@ -299,7 +300,8 @@ function Patients() {
           </div>
         )}
 
-        <section className="overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+        <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+          <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
           <div className="flex flex-col gap-3 border-b border-igcc-border px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
             <div>
               <div className="flex items-center gap-2">

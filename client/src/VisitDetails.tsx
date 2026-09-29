@@ -569,8 +569,8 @@ export default function VisitDetails() {
           )}
         </div>
 
-        <section className="overflow-hidden rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
-          <div className="h-2 bg-igcc-800" />
+        <section className="overflow-hidden group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+          <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
 
           <div className="p-4 sm:p-8">
             <div className="flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-center lg:justify-between">
@@ -617,7 +617,7 @@ export default function VisitDetails() {
           </div>
         </section>
 
-        <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+        <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
           <div className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-5 sm:p-6">
             <div className="flex items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700">
@@ -649,7 +649,7 @@ export default function VisitDetails() {
 
         {!editMode ? (
           <>
-            <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+            <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
               <SectionHeader
                 
                 icon={<FileText size={18} />}
@@ -675,7 +675,7 @@ export default function VisitDetails() {
               </div>
             </section>
 
-            <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+            <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
               <SectionHeader
                 
                 icon={<Activity size={18} />}
@@ -719,7 +719,7 @@ export default function VisitDetails() {
               </div>
             </section>
 
-            <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+            <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
               <SectionHeader
                 
                 icon={<Stethoscope size={18} />}
@@ -762,7 +762,7 @@ export default function VisitDetails() {
               </div>
             </section>
 
-            <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+            <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
               <SectionHeader
                 
                 icon={<User size={18} />}
@@ -822,7 +822,7 @@ export default function VisitDetails() {
 
             {formData && (
               <>
-                <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+                <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
                   <SectionHeader
                     
                     icon={<CalendarDays size={18} />}
@@ -864,7 +864,7 @@ export default function VisitDetails() {
                   </div>
                 </section>
 
-                <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+                <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
                   <SectionHeader
                     
                     icon={<Activity size={18} />}
@@ -919,7 +919,7 @@ export default function VisitDetails() {
                   </div>
                 </section>
 
-                <section className="rounded-xl border border-igcc-border bg-white shadow-igcc-sm">
+                <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
                   <SectionHeader
                     
                     icon={<Stethoscope size={18} />}
@@ -979,12 +979,12 @@ export default function VisitDetails() {
                   </div>
                 </section>
 
-                <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-5 sm:flex-row sm:justify-end">
+                <div className="flex flex-col-reverse gap-3 rounded-2xl border border-white/70 bg-white/55 p-4 shadow-[0_8px_25px_rgba(15,23,42,0.05)] backdrop-blur-xl sm:flex-row sm:justify-end sm:p-5">
                   <button
                     type="button"
                     onClick={cancelEditing}
                     disabled={saving}
-                    className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:py-2.5"
+                    className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-white/80 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-sm transition hover:bg-white hover:text-igcc-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:py-2.5"
                   >
                     <X size={17} />
                     Cancel
@@ -993,7 +993,7 @@ export default function VisitDetails() {
                   <button
                     type="submit"
                     disabled={saving}
-                    className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400 sm:w-auto sm:py-2.5"
+                    className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-5 py-3 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(31,107,79,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-igcc-800 hover:shadow-[0_10px_24px_rgba(31,107,79,0.24)] disabled:cursor-not-allowed disabled:bg-slate-400 disabled:shadow-none sm:w-auto sm:py-2.5"
                   >
                     <Save size={17} />
                     {saving ? "Saving Changes..." : "Save Changes"}
@@ -1008,18 +1008,22 @@ export default function VisitDetails() {
       <style>{`
         .form-input {
           width: 100%;
-          border: 1px solid #cbd5e1;
-          border-radius: 0.5rem;
-          background: #ffffff;
+          border: 1px solid rgba(255, 255, 255, 0.8);
+          border-radius: 0.75rem;
+          background: rgba(255, 255, 255, 0.75);
           padding: 0.7rem 0.8rem;
           font-size: 0.875rem;
           line-height: 1.5rem;
           color: #1e293b;
           outline: none;
+          box-shadow: 0 2px 8px rgba(15, 23, 42, 0.07);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
           transition:
             border-color 150ms ease,
             box-shadow 150ms ease,
-            background-color 150ms ease;
+            background-color 150ms ease,
+            transform 150ms ease;
           box-sizing: border-box;
         }
 

@@ -195,10 +195,10 @@ export default function EditProfile() {
       {/* Profile Form */}
       <form
         onSubmit={handleSubmit}
-        className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"
+        className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl"
       >
         {/* Form Header */}
-        <div className="border-b border-slate-200 px-6 py-5">
+        <div className="border-b border-white/70 bg-white/35 px-4 py-4 backdrop-blur-xl sm:px-6 sm:py-5">
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-700">
               <User size={18} strokeWidth={1.8} />
@@ -216,7 +216,7 @@ export default function EditProfile() {
           </div>
         </div>
 
-        <div className="px-6 py-6">
+        <div className="px-4 py-5 sm:px-6 sm:py-7">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {/* Full Name */}
             <div className="sm:col-span-2">
@@ -235,7 +235,7 @@ export default function EditProfile() {
                   setFullName(event.target.value)
                 }
                 required
-                className="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                className="w-full rounded-xl border border-white/80 bg-white/75 px-3.5 py-3 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
               />
             </div>
 
@@ -263,7 +263,7 @@ export default function EditProfile() {
                     setEmail(event.target.value)
                   }
                   placeholder="Enter email address"
-                  className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-igcc-800 focus:ring-2 focus:ring-igcc-800/10"
+                  className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                 />
               </div>
             </div>
@@ -282,7 +282,7 @@ export default function EditProfile() {
                 type="text"
                 value={user.username}
                 disabled
-                className="w-full cursor-not-allowed rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-500"
+                className="w-full cursor-not-allowed rounded-xl border border-white/70 bg-slate-50/70 px-3.5 py-3 text-sm text-slate-500 shadow-sm backdrop-blur-sm"
               />
 
               <p className="mt-1.5 text-xs text-slate-400">
@@ -304,7 +304,7 @@ export default function EditProfile() {
                 type="text"
                 value={user.displayId}
                 disabled
-                className="w-full cursor-not-allowed rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-500"
+                className="w-full cursor-not-allowed rounded-xl border border-white/70 bg-slate-50/70 px-3.5 py-3 text-sm text-slate-500 shadow-sm backdrop-blur-sm"
               />
 
               <p className="mt-1.5 text-xs text-slate-400">
@@ -315,14 +315,14 @@ export default function EditProfile() {
 
           {/* Messages */}
           {error && (
-            <div className="mt-6 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div className="mt-6 flex items-start gap-3 rounded-xl border border-red-200/80 bg-red-50/75 px-4 py-3 shadow-sm text-sm text-red-700 backdrop-blur-sm">
               <div className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-red-500" />
               <p>{error}</p>
             </div>
           )}
 
           {success && (
-            <div className="mt-6 flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+            <div className="mt-6 flex items-start gap-3 rounded-xl border border-emerald-200/80 bg-emerald-50/75 px-4 py-3 shadow-sm text-sm text-emerald-700 backdrop-blur-sm">
               <CheckCircle2
                 size={17}
                 strokeWidth={1.8}
@@ -334,12 +334,12 @@ export default function EditProfile() {
         </div>
 
         {/* Actions */}
-        <div className="flex flex-col-reverse gap-3 border-t border-slate-200 bg-slate-50/60 px-6 py-5 sm:flex-row sm:justify-end">
+        <div className="flex flex-col-reverse gap-3 border-t border-white/70 bg-white/35 px-4 py-4 backdrop-blur-xl sm:flex-row sm:justify-end sm:px-6 sm:py-5">
           <button
             type="button"
             onClick={() => navigate("/account")}
             disabled={saving}
-            className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex min-h-11 w-full items-center justify-center rounded-lg border border-white/80 bg-white/70 px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-sm transition hover:bg-white hover:text-igcc-700 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
           >
             Cancel
           </button>
@@ -347,7 +347,7 @@ export default function EditProfile() {
           <button
             type="submit"
             disabled={saving}
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-igcc-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-igcc-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+            className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(31,107,79,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-igcc-800 hover:shadow-[0_10px_24px_rgba(31,107,79,0.24)] disabled:cursor-not-allowed disabled:bg-slate-400 disabled:shadow-none sm:w-auto"
           >
             {saving ? (
               "Saving..."
