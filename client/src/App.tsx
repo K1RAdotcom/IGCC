@@ -338,7 +338,7 @@ function Dashboard() {
 
         <section>
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            <div className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/75 p-4 shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:p-6">
+            <div className="group relative overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 sm:border-white/70 p-4 shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:p-6">
               <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
               <div className="flex items-start justify-between">
                 <div>
@@ -357,7 +357,7 @@ function Dashboard() {
               </div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/75 p-4 shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:p-6">
+            <div className="group relative overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 sm:border-white/70 p-4 shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:p-6">
               <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
               <div className="flex items-start justify-between">
                 <div>
@@ -376,7 +376,7 @@ function Dashboard() {
               </div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/75 p-4 shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:p-6">
+            <div className="group relative overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 sm:border-white/70 p-4 shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:p-6">
               <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
               <div className="flex items-start justify-between">
                 <div>
@@ -407,7 +407,7 @@ function Dashboard() {
           <div className="grid gap-4 md:grid-cols-3">
             <button
               onClick={() => navigate("/patients")}
-              className="group relative overflow-hidden flex items-center gap-4 rounded-2xl border border-white/70 bg-white/75 p-4 text-left shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:block sm:p-5"
+              className="group relative overflow-hidden flex items-center gap-4 rounded-2xl border border-slate-300/70 bg-white/75 sm:border-white/70 p-4 text-left shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:block sm:p-5"
             >
               <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 transition group-hover:bg-igcc-100 sm:mb-4">
@@ -425,7 +425,7 @@ function Dashboard() {
 
             <button
               onClick={() => navigate("/new-patient")}
-              className="group relative overflow-hidden flex items-center gap-4 rounded-2xl border border-white/70 bg-white/75 p-4 text-left shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:block sm:p-5"
+              className="group relative overflow-hidden flex items-center gap-4 rounded-2xl border border-slate-300/70 bg-white/75 sm:border-white/70 p-4 text-left shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:block sm:p-5"
             >
               <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 transition group-hover:bg-igcc-100 sm:mb-4">
@@ -443,7 +443,7 @@ function Dashboard() {
 
             <button
               onClick={() => navigate("/patients")}
-              className="group relative overflow-hidden flex items-center gap-4 rounded-2xl border border-white/70 bg-white/75 p-4 text-left shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:block sm:p-5"
+              className="group relative overflow-hidden flex items-center gap-4 rounded-2xl border border-slate-300/70 bg-white/75 sm:border-white/70 p-4 text-left shadow-[0_8px_30px_rgba(16,185,129,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(16,185,129,0.14)] sm:block sm:p-5"
             >
               <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700 transition group-hover:bg-igcc-100 sm:mb-4">
@@ -639,4 +639,3 @@ function App() {
 }
 
 export default App;
-
