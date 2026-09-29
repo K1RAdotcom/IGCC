@@ -167,7 +167,7 @@ export default function AuditLogs() {
                   setSearch(event.target.value)
                 }
                 placeholder="Search activity..."
-                className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
+                className="w-full rounded-xl border border-slate-300 bg-white/90 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_3px_10px_rgba(15,23,42,0.06)] outline-none transition placeholder:text-slate-500 hover:border-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
               />
             </div>
           </div>
@@ -208,9 +208,9 @@ export default function AuditLogs() {
             <>
               <div className="space-y-3 p-4 sm:hidden">
           {filteredLogs.map((log) => (
-            <div key={log.logId} className="rounded-2xl border border-white/70 bg-white/65 p-4 shadow-[0_8px_25px_rgba(15,23,42,0.06)] backdrop-blur-xl">
+            <div key={log.logId} className="rounded-2xl border border-slate-300/70 bg-white/75 p-4 shadow-[0_8px_25px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:border-white/70 sm:bg-white/65">
               <div className="flex items-start gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-igcc-700">
                   <ShieldCheck size={16} strokeWidth={1.8} />
                 </div>
                 <div className="min-w-0 flex-1">
@@ -218,7 +218,7 @@ export default function AuditLogs() {
                   <p className="mt-0.5 truncate text-[11px] text-slate-400">{log.user.displayId} &middot; {log.user.username}</p>
                 </div>
               </div>
-              <div className="mt-3 border-t border-white/70 pt-3">
+              <div className="mt-3 border-t border-slate-300/60 pt-3 sm:border-white/70">
                 <p className="text-sm font-semibold text-slate-800">{log.action}</p>
                 <p className="mt-1 text-xs font-medium text-slate-500">{formatDateTime(log.timestamp)}</p>
               </div>
@@ -264,7 +264,7 @@ export default function AuditLogs() {
 
                       <td className="px-5 py-4">
                         <div className="flex items-start gap-2.5">
-                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/80 bg-white/70 text-slate-500 shadow-sm backdrop-blur-sm">
+                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/80 bg-white/70 text-igcc-700 shadow-sm backdrop-blur-sm">
                             <ShieldCheck
                               size={15}
                               strokeWidth={1.8}

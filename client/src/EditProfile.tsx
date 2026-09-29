@@ -195,7 +195,7 @@ export default function EditProfile() {
       {/* Profile Form */}
       <form
         onSubmit={handleSubmit}
-        className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl"
+        className="group relative overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:border-white/70 sm:bg-white/65"
       >
         {/* Form Header */}
         <div className="border-b border-white/70 bg-white/35 px-4 py-4 backdrop-blur-xl sm:px-6 sm:py-5">

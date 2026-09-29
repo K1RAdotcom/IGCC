@@ -90,7 +90,7 @@ function Login() {
   return (
     <div className="min-h-screen bg-igcc-background px-4 py-8 sm:px-6">
       <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-md items-center justify-center">
-        <div className="group relative w-full overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+        <div className="group relative w-full overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:border-white/70 sm:bg-white/65">
           <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
           <div className="h-2 bg-igcc-800" />
 

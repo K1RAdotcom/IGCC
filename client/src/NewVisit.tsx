@@ -477,7 +477,7 @@ function NewVisit() {
               </Field>
 
               <Field
-                  label="Temperature (Ã‚Â°C)"
+                  label="Temperature (°C)"
                 icon={<HeartPulse size={16} />}
               >
                 <input

@@ -65,7 +65,7 @@ function ForgotPassword() {
             </p>
           </div>
 
-          <div className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 p-5 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:p-8">
+          <div className="group relative overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 p-5 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:border-white/70 sm:bg-white/65 sm:p-8">
           <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
             {message ? (
               <div

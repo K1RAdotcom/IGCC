@@ -209,7 +209,7 @@ export default function StaffManagement() {
                 placeholder="Search staff by name or ID"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
-                className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
+                className="w-full rounded-xl border border-slate-300 bg-white/90 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_3px_10px_rgba(15,23,42,0.06)] outline-none transition placeholder:text-slate-500 hover:border-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
               />
             </div>
 
@@ -304,7 +304,7 @@ export default function StaffManagement() {
                 <button
                   type="button"
                   onClick={() => handleStatusChange(user)}
-                  className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-lg border border-white/80 bg-white/70 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-sm transition hover:bg-white hover:text-igcc-700"
+                  className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-lg border border-igcc-200 bg-igcc-50 px-3 py-2.5 text-sm font-semibold text-igcc-700 shadow-sm backdrop-blur-sm transition hover:border-igcc-300 hover:bg-igcc-100 hover:text-igcc-800"
                 >
                   Manage Account
                 </button>
@@ -428,3 +428,4 @@ export default function StaffManagement() {
     </AppShell>
   );
 }
+

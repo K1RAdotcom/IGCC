@@ -78,7 +78,7 @@ function formatDateTime(value: string) {
     hour: "numeric",
     minute: "2-digit",
     hour12: true,
-  }).replace(",", " Ã‚Â·");
+  }).replace(",", " \u00B7");
 }
 
 function toDateTimeLocal(value: string) {
@@ -569,7 +569,7 @@ export default function VisitDetails() {
           )}
         </div>
 
-        <section className="overflow-hidden group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+        <section className="overflow-hidden group relative overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
           <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-igcc-200/25 blur-3xl transition-all duration-300 group-hover:bg-igcc-200/40" />
 
           <div className="p-4 sm:p-8">
@@ -601,7 +601,7 @@ export default function VisitDetails() {
                 </div>
               </div>
 
-              <div className="rounded-lg bg-igcc-50 px-4 py-3 lg:min-w-[220px]">
+              <div className="rounded-lg border border-igcc-200 bg-igcc-50/90 px-4 py-3 sm:border-transparent sm:bg-igcc-50 lg:min-w-[220px]">
                 <div className="flex items-center gap-2 text-igcc-700">
                   <CalendarDays size={17} />
                   <span className="text-xs font-bold uppercase tracking-wider">
@@ -617,7 +617,7 @@ export default function VisitDetails() {
           </div>
         </section>
 
-        <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+        <section className="group relative overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
           <div className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-5 sm:p-6">
             <div className="flex items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-igcc-50 text-igcc-700">
@@ -635,7 +635,7 @@ export default function VisitDetails() {
               </div>
             </div>
 
-            <div className="rounded-lg bg-igcc-50 px-4 py-3">
+            <div className="rounded-lg border border-igcc-200 bg-igcc-50/90 px-4 py-3 sm:border-transparent sm:bg-igcc-50">
               <p className="text-[11px] font-bold uppercase tracking-wider text-igcc-700">
                 Patient ID
               </p>
@@ -649,7 +649,7 @@ export default function VisitDetails() {
 
         {!editMode ? (
           <>
-            <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+            <section className="group relative overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
               <SectionHeader
                 
                 icon={<FileText size={18} />}
@@ -675,7 +675,7 @@ export default function VisitDetails() {
               </div>
             </section>
 
-            <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+            <section className="group relative overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
               <SectionHeader
                 
                 icon={<Activity size={18} />}
@@ -711,15 +711,15 @@ export default function VisitDetails() {
                 />
 
                 <VitalCard
-                  label="Temperature (Ã‚Â°C)"
+                  label="Temperature (°C)"
                   value={visit.temperature}
-                  unit="Ã‚Â°C"
+                  unit="°C"
                   icon={<HeartPulse size={16} />}
                 />
               </div>
             </section>
 
-            <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+            <section className="group relative overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
               <SectionHeader
                 
                 icon={<Stethoscope size={18} />}
@@ -762,7 +762,7 @@ export default function VisitDetails() {
               </div>
             </section>
 
-            <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+            <section className="group relative overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
               <SectionHeader
                 
                 icon={<User size={18} />}
@@ -822,7 +822,7 @@ export default function VisitDetails() {
 
             {formData && (
               <>
-                <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+                <section className="group relative overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
                   <SectionHeader
                     
                     icon={<CalendarDays size={18} />}
@@ -864,7 +864,7 @@ export default function VisitDetails() {
                   </div>
                 </section>
 
-                <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+                <section className="group relative overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
                   <SectionHeader
                     
                     icon={<Activity size={18} />}
@@ -909,7 +909,7 @@ export default function VisitDetails() {
                     />
 
                     <InputField
-                      label="Temperature (Ã‚Â°C)"
+                      label="Temperature (°C)"
                       value={formData.temperature}
                       onChange={(value) =>
                         updateField("temperature", value)
@@ -919,7 +919,7 @@ export default function VisitDetails() {
                   </div>
                 </section>
 
-                <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+                <section className="group relative overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
                   <SectionHeader
                     
                     icon={<Stethoscope size={18} />}

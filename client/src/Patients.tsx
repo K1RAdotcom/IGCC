@@ -257,7 +257,7 @@ function Patients() {
                     }
                   }}
                   placeholder="Search patient ID, name or phone..."
-                  className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-3.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-400 focus:border-igcc-500 focus:ring-2 focus:ring-igcc-500/20"
+                  className="w-full rounded-lg border border-slate-300 bg-white/90 py-2.5 pl-10 pr-3.5 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_3px_10px_rgba(15,23,42,0.06)] outline-none transition placeholder:text-slate-500 hover:border-slate-400 focus:border-igcc-500 focus:bg-white focus:ring-2 focus:ring-igcc-500/20"
                 />
               </div>
 
@@ -427,7 +427,7 @@ function Patients() {
                     onClick={() =>
                       navigate(`/patients/${patient.patientId}`)
                     }
-                    className="mt-4 inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-lg border border-igcc-200 bg-white px-3 py-2.5 text-sm font-semibold text-igcc-700 transition hover:border-igcc-300 hover:bg-igcc-50"
+                    className="mt-4 inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-lg border border-igcc-200 bg-igcc-50 px-3 py-2.5 text-sm font-semibold text-igcc-700 shadow-sm transition hover:border-igcc-300 hover:bg-igcc-100 hover:text-igcc-800"
                   >
                     View Profile
                     <ChevronRight size={16} strokeWidth={1.9} />
@@ -538,7 +538,7 @@ function Patients() {
                               `/patients/${patient.patientId}`
                             )
                           }
-                          className="inline-flex items-center gap-1.5 rounded-lg border border-igcc-200 bg-white px-3 py-2 text-xs font-semibold text-igcc-700 transition hover:border-igcc-300 hover:bg-igcc-50"
+                          className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg border border-igcc-200 bg-igcc-50 px-3 py-2 text-xs font-semibold text-igcc-700 shadow-sm transition hover:border-igcc-300 hover:bg-igcc-100 hover:text-igcc-800"
                         >
                           View Profile
                           <ChevronRight
