@@ -151,7 +151,7 @@ function ResetPassword() {
                       minLength={8}
                       required
                       disabled={!token}
-                      className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-10 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 disabled:cursor-not-allowed disabled:bg-slate-100/70 sm:py-2.5"
+                      className="w-full rounded-xl border border-slate-300/70 bg-white/90 py-3 pl-10 pr-11 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_3px_10px_rgba(15,23,42,0.06)] outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 disabled:cursor-not-allowed disabled:bg-slate-100/70 sm:py-2.5"
                     />
 
                     <button
@@ -201,7 +201,7 @@ function ResetPassword() {
                       minLength={8}
                       required
                       disabled={!token}
-                      className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-10 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 disabled:cursor-not-allowed disabled:bg-slate-100/70 sm:py-2.5"
+                      className="w-full rounded-xl border border-slate-300/70 bg-white/90 py-3 pl-10 pr-11 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_3px_10px_rgba(15,23,42,0.06)] outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 disabled:cursor-not-allowed disabled:bg-slate-100/70 sm:py-2.5"
                     />
 
                     <button

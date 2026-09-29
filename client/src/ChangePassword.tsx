@@ -191,7 +191,7 @@ export default function ChangePassword() {
                       setCurrentPassword(event.target.value)
                     }
                     autoComplete="current-password"
-                    className="w-full rounded-xl border border-white/80 bg-white/75 px-3.5 py-3 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
+                    className="w-full rounded-xl border border-slate-300/70 bg-white/90 px-3.5 py-3 pr-11 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_3px_10px_rgba(15,23,42,0.06)] outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
 
                   <button
@@ -233,7 +233,7 @@ export default function ChangePassword() {
                       setNewPassword(event.target.value)
                     }
                     autoComplete="new-password"
-                    className="w-full rounded-xl border border-white/80 bg-white/75 px-3.5 py-3 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
+                    className="w-full rounded-xl border border-slate-300/70 bg-white/90 px-3.5 py-3 pr-11 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_3px_10px_rgba(15,23,42,0.06)] outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
 
                   <button
@@ -277,7 +277,7 @@ export default function ChangePassword() {
                       setConfirmPassword(event.target.value)
                     }
                     autoComplete="new-password"
-                    className="w-full rounded-xl border border-white/80 bg-white/75 px-3.5 py-3 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
+                    className="w-full rounded-xl border border-slate-300/70 bg-white/90 px-3.5 py-3 pr-11 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_3px_10px_rgba(15,23,42,0.06)] outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
 
                   <button

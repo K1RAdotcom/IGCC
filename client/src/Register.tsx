@@ -195,7 +195,7 @@ function Register() {
                       setFullName(event.target.value)
                     }
                     required
-                    className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] sm:py-2.5 outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
+                    className="w-full rounded-xl border border-slate-300/70 bg-white/90 py-3 pl-9 pr-11 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_3px_10px_rgba(15,23,42,0.06)] sm:py-2.5 outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
                 </div>
               </div>
@@ -224,7 +224,7 @@ function Register() {
                       setUsername(event.target.value)
                     }
                     required
-                    className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] sm:py-2.5 outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
+                    className="w-full rounded-xl border border-slate-300/70 bg-white/90 py-3 pl-9 pr-11 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_3px_10px_rgba(15,23,42,0.06)] sm:py-2.5 outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
                 </div>
               </div>
@@ -252,7 +252,7 @@ function Register() {
                     onChange={(event) =>
                       setEmail(event.target.value)
                     }
-                    className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] sm:py-2.5 outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
+                    className="w-full rounded-xl border border-slate-300/70 bg-white/90 py-3 pl-9 pr-11 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_3px_10px_rgba(15,23,42,0.06)] sm:py-2.5 outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
                 </div>
               </div>
@@ -282,7 +282,7 @@ function Register() {
                     }
                     required
                     minLength={8}
-                    className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] sm:py-2.5 outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
+                    className="w-full rounded-xl border border-slate-300/70 bg-white/90 py-3 pl-9 pr-11 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_3px_10px_rgba(15,23,42,0.06)] sm:py-2.5 outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
 
                   <button
@@ -321,7 +321,7 @@ function Register() {
                     }
                     required
                     minLength={8}
-                    className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-11 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] sm:py-2.5 outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
+                    className="w-full rounded-xl border border-slate-300/70 bg-white/90 py-3 pl-9 pr-11 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_3px_10px_rgba(15,23,42,0.06)] sm:py-2.5 outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10"
                   />
 
                   <button
@@ -358,7 +358,7 @@ function Register() {
                       setRole(event.target.value)
                     }
                     disabled={checkingStatus}
-                    className="w-full appearance-none rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.07)] outline-none backdrop-blur-sm transition focus:border-igcc-700 focus:bg-white sm:py-2.5 focus:ring-2 focus:ring-igcc-700/10 disabled:cursor-not-allowed disabled:bg-slate-100/70"
+                    className="w-full appearance-none rounded-xl border border-slate-300/70 bg-white/90 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_3px_10px_rgba(15,23,42,0.06)] outline-none backdrop-blur-sm transition focus:border-igcc-700 focus:bg-white sm:py-2.5 focus:ring-2 focus:ring-igcc-700/10 disabled:cursor-not-allowed disabled:bg-slate-100/70"
                   >
                     <option value="CLINIC_STAFF">
                       Clinic Staff

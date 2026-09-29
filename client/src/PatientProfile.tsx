@@ -141,7 +141,7 @@ function PatientProfile() {
 
         if (userResponse.ok) {
           const userData = await userResponse.json();
-          setCurrentUser(userData);
+          setCurrentUser(userData.user);
         }
       } catch {
         setError("Unable to connect to the clinic server.");
@@ -398,58 +398,6 @@ function PatientProfile() {
           <div className="space-y-6">
             <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
               <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/20 blur-3xl" />
-              <div className="border-b border-igcc-border px-5 py-4">
-                <div className="flex items-center gap-2">
-                  <User size={18} className="text-igcc-700" />
-                  <h2 className="font-semibold text-slate-900">
-                    Personal Information
-                  </h2>
-                </div>
-              </div>
-
-              <div className="space-y-4 p-5">
-                <InfoRow
-                  icon={<CalendarDays size={16} />}
-                  label="Date of Birth"
-                  value={`${formatDate(patient.dateOfBirth)} (${age} years)`}
-                />
-
-                <InfoRow
-                  icon={<Phone size={16} />}
-                  label="Primary Phone"
-                  value={patient.phone}
-                  phone
-                />
-
-                <InfoRow
-                  icon={<Phone size={16} />}
-                  label="Secondary Phone"
-                  value={displayValue(patient.secondaryPhone)}
-                  phone
-                />
-
-                <InfoRow
-                  icon={<Mail size={16} />}
-                  label="Email"
-                  value={displayValue(patient.email)}
-                />
-
-                <InfoRow
-                  icon={<MapPin size={16} />}
-                  label="Address"
-                  value={displayValue(patient.address)}
-                />
-
-                <InfoRow
-                  icon={<Users size={16} />}
-                  label="Golf Club Membership"
-                  value={displayValue(patient.golfClubMembership)}
-                />
-              </div>
-            </section>
-            <section className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/65 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
-              <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-igcc-200/20 blur-3xl" />
-
               <div className="border-b border-igcc-border px-5 py-4">
                 <div className="flex items-center gap-2">
                   <User size={18} className="text-igcc-700" />

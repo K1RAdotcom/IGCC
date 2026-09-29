@@ -258,7 +258,7 @@ export default function ClinicSettings() {
                         updateField("clinicName", event.target.value)
                       }
                       required
-                      className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
+                      className="w-full rounded-xl border border-slate-300/70 bg-white/90 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
                     />
                   </div>
                 </div>
@@ -287,7 +287,7 @@ export default function ClinicSettings() {
                       }
                       rows={3}
                       placeholder="Enter clinic address"
-                      className="w-full resize-y rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
+                      className="w-full resize-y rounded-xl border border-slate-300/70 bg-white/90 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
                     />
                   </div>
                 </div>
@@ -316,7 +316,7 @@ export default function ClinicSettings() {
                         updateField("phone", event.target.value)
                       }
                       placeholder="Enter clinic phone number"
-                      className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
+                      className="w-full rounded-xl border border-slate-300/70 bg-white/90 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
                     />
                   </div>
                 </div>
@@ -345,7 +345,7 @@ export default function ClinicSettings() {
                         updateField("email", event.target.value)
                       }
                       placeholder="Enter clinic email"
-                      className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
+                      className="w-full rounded-xl border border-slate-300/70 bg-white/90 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
                     />
                   </div>
                 </div>
@@ -374,7 +374,7 @@ export default function ClinicSettings() {
                         updateField("logo", event.target.value)
                       }
                       placeholder="Enter logo path or URL"
-                      className="w-full rounded-xl border border-white/80 bg-white/75 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-400 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
+                      className="w-full rounded-xl border border-slate-300/70 bg-white/90 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-sm outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-igcc-700 focus:bg-white focus:ring-2 focus:ring-igcc-700/10 sm:py-2.5"
                     />
                   </div>
 

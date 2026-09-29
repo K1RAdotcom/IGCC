@@ -210,7 +210,7 @@ export default function EditPatient() {
         if (!response.ok) return;
 
         const data = await response.json();
-        setCurrentUser(data);
+        setCurrentUser(data.user);
       } catch {
         // Keep the page usable if the profile request fails.
       }
@@ -681,50 +681,49 @@ export default function EditPatient() {
 
       <style>{`
         .form-input {
-          width: 100%;
-          border: 1px solid rgba(255, 255, 255, 0.8);
-          border-radius: 0.75rem;
-          background: rgba(255, 255, 255, 0.75);
-          padding: 0.7rem 0.8rem;
-          font-size: 0.875rem;
-          line-height: 1.5rem;
-          color: #1e293b;
-          outline: none;
-          box-shadow: 0 2px 8px rgba(15, 23, 42, 0.07);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-          transition:
-            border-color 150ms ease,
-            box-shadow 150ms ease,
-            background-color 150ms ease,
-            transform 150ms ease;
-          box-sizing: border-box;
-        }
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.7rem 0.8rem;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #1e293b;
+  outline: none;
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 3px 10px rgba(15, 23, 42, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    background-color 150ms ease;
+  box-sizing: border-box;
+}
 
-        .form-input::placeholder {
-          color: #94a3b8;
-        }
+.form-input::placeholder {
+  color: #64748b;
+}
 
-        .form-input:hover {
-          border-color: #94a3b8;
-        }
+.form-input:hover {
+  border-color: rgba(100, 116, 139, 0.65);
+}
 
-        .form-input:focus {
-          border-color: #1f6b4f;
-          box-shadow: 0 0 0 3px rgba(31, 107, 79, 0.12);
-        }
+.form-input:focus {
+  border-color: #1f6b4f;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow:
+    0 0 0 3px rgba(31, 107, 79, 0.12),
+    0 3px 10px rgba(15, 23, 42, 0.06);
+}
 
-        @media (max-width: 639px) {
-          .form-input {
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-          }
-        }
-
-        .form-input:disabled {
-          background: #f8fafc;
-          cursor: not-allowed;
-        }
+.form-input:disabled {
+  background: rgba(241, 245, 249, 0.75);
+  border-color: rgba(203, 213, 225, 0.7);
+  color: #64748b;
+  cursor: not-allowed;
+}
       `}</style>
     </AppShell>
   );
