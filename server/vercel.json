@@ -1,6 +1,5 @@
 ﻿{
-  "version": 2,
-  "buildCommand": "npm run build",
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
     "api/index.ts": {
       "includeFiles": "generated/**"
