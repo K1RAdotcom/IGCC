@@ -19,6 +19,7 @@ import passwordResetRoutes from "./routes/passwordReset";
 import avatarRoutes from "./routes/avatar";
 import auditLogRoutes from "./routes/auditLogs";
 import clinicSettingsRoutes from "./routes/clinicSettings";
+import { prisma } from "./lib/prisma";
 
 const app = express();
 app.disable("x-powered-by");
@@ -71,6 +72,22 @@ app.get("/api/health", (_req, res) => {
     status: "ok",
     system: "Ikeja Golf Club Clinic",
   });
+});
+
+app.get("/api/db-test", async (_req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    res.json({
+      status: "ok",
+      database: "connected",
+    });
+  } catch (error) {
+    console.error("Database test error:", error);
+    res.status(500).json({
+      status: "error",
+      database: "connection failed",
+    });
+  }
 });
 
 app.use("/api/auth", authRoutes);
