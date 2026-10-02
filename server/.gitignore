@@ -6,3 +6,6 @@ node_modules
 /backups
 src/*.backup*
 audit-report.json
+
+# Generated Prisma Client
+/src/generated/prisma
