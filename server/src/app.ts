@@ -4,6 +4,7 @@ import express from "express";
 import cors from "cors";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
+import { Pool } from "pg";
 
 import patientRoutes from "./routes/patients";
 import patientCreateRoutes from "./routes/patientCreate";
@@ -38,8 +39,17 @@ app.use(
 
 const PgSession = connectPgSimple(session);
 
+const sessionPool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: isProduction
+    ? {
+        rejectUnauthorized: false,
+      }
+    : undefined,
+});
+
 const sessionStore = new PgSession({
-  conString: process.env.DATABASE_URL,
+  pool: sessionPool,
   createTableIfMissing: true,
 });
 
