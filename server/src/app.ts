@@ -41,12 +41,9 @@ const PgSession = connectPgSimple(session);
 
 const sessionPool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl:
-    isProduction || process.env.VERCEL === "1"
-      ? {
-          rejectUnauthorized: false,
-        }
-      : undefined,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 const sessionStore = new PgSession({
