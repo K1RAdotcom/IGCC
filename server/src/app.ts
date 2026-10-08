@@ -51,6 +51,27 @@ const sessionStore = new PgSession({
   createTableIfMissing: true,
 });
 
+app.get("/api/session-db-test", async (_req, res) => {
+  try {
+    await sessionPool.query("SELECT 1");
+
+    res.json({
+      status: "ok",
+      sessionDatabase: "connected",
+      sslConfigured: Boolean(sessionPool.options.ssl),
+    });
+  } catch (error) {
+    console.error("Session database test error:", error);
+
+    res.status(500).json({
+      status: "error",
+      sessionDatabase: "connection failed",
+      sslConfigured: Boolean(sessionPool.options.ssl),
+    });
+  }
+});
+
+
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN || "http://localhost:5173",
