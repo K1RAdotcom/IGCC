@@ -51,8 +51,29 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [setupAvailable, setSetupAvailable] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    async function checkSetupStatus() {
+      try {
+        const response = await fetch(
+          apiUrl("/api/auth/registration-status")
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setSetupAvailable(Boolean(data.adminAvailable));
+        }
+      } catch {
+        setSetupAvailable(false);
+      }
+    }
+
+    checkSetupStatus();
+  }, []);
 
   async function handleLogin(event: React.FormEvent) {
     event.preventDefault();
@@ -232,20 +253,26 @@ function Login() {
             </form>
 
             {/* Register */}
-            <div className="mt-6 rounded-2xl border border-white/70 bg-white/45 p-4 text-center shadow-[0_8px_25px_rgba(15,23,42,0.04)] backdrop-blur-xl">
-              <p className="mb-3 text-sm text-slate-500">
-                Need an account?
-              </p>
+            {setupAvailable ? (
+              <div className="mt-6 rounded-2xl border border-white/70 bg-white/45 p-4 text-center shadow-[0_8px_25px_rgba(15,23,42,0.04)] backdrop-blur-xl">
+                <p className="mb-3 text-sm text-slate-500">
+                  First-time setup
+                </p>
 
-              <button
-                type="button"
-                onClick={() => navigate("/register")}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-igcc-800"
-              >
-                <UserPlus size={17} strokeWidth={1.8} />
-                Create Account
-              </button>
-            </div>
+                <button
+                  type="button"
+                  onClick={() => navigate("/register")}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-igcc-800"
+                >
+                  <UserPlus size={17} strokeWidth={1.8} />
+                  Create Administrator Account
+                </button>
+              </div>
+            ) : (
+              <p className="mt-6 text-center text-sm text-slate-500">
+                Need an account? Contact your clinic Administrator.
+              </p>
+            )}
           </div>
         </div>
       </div>

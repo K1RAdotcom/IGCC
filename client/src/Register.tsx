@@ -24,7 +24,6 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [role, setRole] = useState("CLINIC_STAFF");
 
   const [adminAvailable, setAdminAvailable] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -70,8 +69,8 @@ function Register() {
       return;
     }
 
-    if (role === "ADMIN" && !adminAvailable) {
-      setError("An Administrator account already exists.");
+    if (!adminAvailable) {
+      setError("Self-registration is closed.");
       return;
     }
 
@@ -91,7 +90,6 @@ function Register() {
             email,
             password,
             confirmPassword,
-            role,
           }),
         }
       );
@@ -115,6 +113,45 @@ function Register() {
     }
   }
 
+  if (!checkingStatus && !adminAvailable && !success) {
+    return (
+      <div className="min-h-screen bg-igcc-background px-4 py-8 sm:px-6">
+        <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-xl items-center justify-center">
+          <div className="w-full overflow-hidden rounded-2xl border border-slate-300/70 bg-white/75 p-6 shadow-[0_10px_35px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:border-white/70 sm:bg-white/65 sm:p-8">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-igcc-50 text-igcc-700">
+                <ShieldCheck size={23} strokeWidth={1.8} />
+              </div>
+
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+                  Registration Closed
+                </h1>
+
+                <p className="mt-0.5 text-sm text-slate-500">
+                  Ikeja Golf Club Clinic
+                </p>
+              </div>
+            </div>
+
+            <p className="mt-4 text-sm leading-6 text-slate-500">
+              New accounts are created by your clinic Administrator. Please contact them to get access.
+            </p>
+
+            <button
+              type="button"
+              onClick={() => navigate("/login")}
+              className="mt-6 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-igcc-700 px-4 py-3 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(31,107,79,0.18)] transition-all duration-200 hover:bg-igcc-800 sm:py-2.5"
+            >
+              <ArrowLeft size={16} strokeWidth={1.8} />
+              Back to Login
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-igcc-background px-4 py-8 sm:px-6">
       <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-xl items-center justify-center">
@@ -131,7 +168,7 @@ function Register() {
 
                 <div>
                   <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-                    Create Account
+                    Administrator Setup
                   </h1>
 
                   <p className="mt-0.5 text-sm text-slate-500">
@@ -141,7 +178,7 @@ function Register() {
               </div>
 
               <p className="mt-4 text-sm leading-6 text-slate-500">
-                Create a new clinic staff or administrator account.
+                First-time setup: create the Administrator account for this clinic. Staff accounts are created afterwards by the Administrator.
               </p>
             </div>
 
@@ -333,50 +370,6 @@ function Register() {
                     {showConfirmPassword ? <EyeOff size={17} /> : <Eye size={17} />}
                   </button>
                 </div>
-              </div>
-
-              {/* Account Type */}
-              <div>
-                <label
-                  htmlFor="role"
-                  className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
-                >
-                  Account Type
-                </label>
-
-                <div className="relative">
-                  <ShieldCheck
-                    size={16}
-                    strokeWidth={1.8}
-                    className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                  />
-
-                  <select
-                    id="role"
-                    value={role}
-                    onChange={(event) =>
-                      setRole(event.target.value)
-                    }
-                    disabled={checkingStatus}
-                    className="w-full appearance-none rounded-xl border border-slate-300/70 bg-white/90 py-3 pl-9 pr-3.5 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_3px_10px_rgba(15,23,42,0.06)] outline-none backdrop-blur-sm transition focus:border-igcc-700 focus:bg-white sm:py-2.5 focus:ring-2 focus:ring-igcc-700/10 disabled:cursor-not-allowed disabled:bg-slate-100/70"
-                  >
-                    <option value="CLINIC_STAFF">
-                      Clinic Staff
-                    </option>
-
-                    {adminAvailable && (
-                      <option value="ADMIN">
-                        Administrator
-                      </option>
-                    )}
-                  </select>
-                </div>
-
-                {!checkingStatus && !adminAvailable && (
-                  <p className="mt-1.5 text-xs leading-5 text-slate-400">
-                    Administrator registration is unavailable because an Administrator account already exists.
-                  </p>
-                )}
               </div>
 
               {/* Actions */}

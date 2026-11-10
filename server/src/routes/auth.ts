@@ -48,16 +48,21 @@ router.get("/registration-status", async (_req, res) => {
 
 router.post("/register", registrationLimiter, async (req, res) => {
   try {
+    /*
+     * Public sign-up exists ONLY to create the first Administrator.
+     * The requested role is deliberately ignored: once an Administrator
+     * exists, every other account is created by an Administrator through
+     * POST /api/users.
+     */
     const {
       fullName,
       username,
       email,
       password,
       confirmPassword,
-      role,
     } = req.body;
 
-    if (!fullName || !username || !password || !confirmPassword || !role) {
+    if (!fullName || !username || !password || !confirmPassword) {
       return res.status(400).json({
         error: "Please complete all required fields.",
       });
@@ -69,14 +74,13 @@ router.post("/register", registrationLimiter, async (req, res) => {
       });
     }
 
-    if (role === "ADMIN") {
-      const adminAvailable = await canRegisterAsAdmin();
+    const adminAvailable = await canRegisterAsAdmin();
 
-      if (!adminAvailable) {
-        return res.status(403).json({
-          error: "An Administrator account already exists.",
-        });
-      }
+    if (!adminAvailable) {
+      return res.status(403).json({
+        error:
+          "Self-registration is closed. Please ask your clinic administrator to create your account.",
+      });
     }
 
     const user = await registerUser({
@@ -84,7 +88,7 @@ router.post("/register", registrationLimiter, async (req, res) => {
       username,
       email,
       password,
-      role,
+      role: "ADMIN",
     });
 
     try {
@@ -98,9 +102,9 @@ router.post("/register", registrationLimiter, async (req, res) => {
           user.displayId +
           " (" +
           user.fullName +
-          ") created a " +
+          ") created the first " +
           user.role +
-          " account through self-registration.",
+          " account through initial setup.",
       });
     } catch (auditError) {
       console.error("Registration audit error:", auditError);
