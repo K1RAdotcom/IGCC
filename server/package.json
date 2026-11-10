@@ -41,7 +41,7 @@
     "@types/express-session": "^1.19.0",
     "@types/node": "^26.4.1",
     "tsx": "^4.23.13",
-    "typescript": "^7.0.2"
+    "typescript": "~6.0.2"
   },
   "allowScripts": {
     "prisma@7.10.0": true,
