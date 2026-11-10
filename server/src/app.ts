@@ -4,6 +4,8 @@ import express from "express";
 import cors from "cors";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
+import { Pool } from "pg";
+import { DB_POOL_MAX } from "./lib/dbConfig";
 
 import patientRoutes from "./routes/patients";
 import patientCreateRoutes from "./routes/patientCreate";
@@ -38,7 +40,10 @@ app.use(
 const PgSession = connectPgSimple(session);
 
 const sessionStore = new PgSession({
-  conString: process.env.DATABASE_URL,
+  pool: new Pool({
+    connectionString: process.env.DATABASE_URL,
+    max: DB_POOL_MAX,
+  }),
   createTableIfMissing: true,
 });
 
@@ -60,7 +65,12 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: isProduction ? "none" : "lax",
+      /*
+       * On Vercel the frontend and API share one origin, so "lax" is correct
+       * (and safer). Other production hosts that serve the frontend from a
+       * different site still need "none".
+       */
+      sameSite: isProduction && !process.env.VERCEL ? "none" : "lax",
       maxAge: 1000 * 60 * 60 * 8,
     },
   })

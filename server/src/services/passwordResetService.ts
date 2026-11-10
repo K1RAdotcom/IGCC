@@ -10,7 +10,11 @@ function hashResetToken(token: string) {
 }
 
 function getAppUrl() {
-  const appUrl = process.env.APP_URL?.trim();
+  const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+
+  const appUrl =
+    process.env.APP_URL?.trim() ||
+    (vercelUrl ? "https://" + vercelUrl : "");
 
   if (!appUrl) {
     throw new Error("APP_URL is not configured.");
