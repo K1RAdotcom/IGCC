@@ -39,12 +39,47 @@ app.use(
 
 const PgSession = connectPgSimple(session);
 
+const sessionPool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  max: DB_POOL_MAX,
+});
+
+/*
+ * The session table is created here instead of with the library's
+ * createTableIfMissing option, because that option reads a bundled .sql
+ * file at runtime, which does not exist once the server is bundled into a
+ * single file. The layout is identical to connect-pg-simple's table.sql.
+ */
+let sessionTableReady: Promise<void> | null = null;
+
+function ensureSessionTable() {
+  if (!sessionTableReady) {
+    sessionTableReady = sessionPool
+      .query(
+        'CREATE TABLE IF NOT EXISTS "session" (' +
+          '"sid" varchar NOT NULL COLLATE "default" PRIMARY KEY, ' +
+          '"sess" json NOT NULL, ' +
+          '"expire" timestamp(6) NOT NULL)'
+      )
+      .then(() =>
+        sessionPool.query(
+          'CREATE INDEX IF NOT EXISTS "IDX_session_expire" ON "session" ("expire")'
+        )
+      )
+      .then(() => undefined)
+      .catch((error) => {
+        // Allow a retry on the next request instead of caching the failure.
+        sessionTableReady = null;
+        console.error("Could not prepare session table:", error);
+      });
+  }
+
+  return sessionTableReady;
+}
+
 const sessionStore = new PgSession({
-  pool: new Pool({
-    connectionString: process.env.DATABASE_URL,
-    max: DB_POOL_MAX,
-  }),
-  createTableIfMissing: true,
+  pool: sessionPool,
+  createTableIfMissing: false,
 });
 
 app.use(
@@ -55,6 +90,10 @@ app.use(
 );
 
 app.use(express.json({ limit: "100kb" }));
+
+app.use((_req, _res, next) => {
+  ensureSessionTable().then(() => next());
+});
 
 app.use(
   session({

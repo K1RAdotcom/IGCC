@@ -7,3 +7,4 @@ node_modules
 /backups
 src/*.backup*
 audit-report.json
+/dist-vercel

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/server.ts",
-    "build": "prisma generate && tsc",
+    "build": "prisma generate && tsc && node scripts/bundle-vercel.mjs",
     "start": "node dist/src/server.js",
     "postinstall": "prisma generate"
   },
@@ -17,10 +17,9 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
-    "@types/bcrypt": "^6.0.0",
     "@types/multer": "^2.2.0",
     "@types/nodemailer": "^8.0.2",
-    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
     "connect-pg-simple": "^10.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
@@ -40,6 +39,7 @@
     "@types/express-rate-limit": "^5.1.3",
     "@types/express-session": "^1.19.0",
     "@types/node": "^26.4.1",
+    "esbuild": "^0.28.2",
     "tsx": "^4.23.13",
     "typescript": "~6.0.2"
   },

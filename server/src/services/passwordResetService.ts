@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { createHash, randomBytes } from "node:crypto";
 import { prisma } from "../lib/prisma";
 import { sendPasswordResetEmail } from "./emailService";

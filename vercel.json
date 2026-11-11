@@ -9,7 +9,7 @@
     "backend": {
       "root": "server",
       "framework": "express",
-      "entrypoint": "src/app.ts"
+      "entrypoint": "dist-vercel/app.cjs"
     }
   },
   "rewrites": [
