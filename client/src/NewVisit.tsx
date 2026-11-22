@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 
 import AppShell from "./components/layout/AppShell";
+import PainScoreSelector from "./components/PainScoreSelector";
 
 type Patient = {
   patientId: string;
@@ -49,6 +50,8 @@ function NewVisit() {
 
   const [reasonForVisit, setReasonForVisit] = useState("");
   const [complaintSymptoms, setComplaintSymptoms] = useState("");
+  const [focusArea, setFocusArea] = useState("");
+  const [painScore, setPainScore] = useState<number | null>(null);
   const [bloodPressure, setBloodPressure] = useState("");
   const [pulse, setPulse] = useState("");
   const [bloodSugar, setBloodSugar] = useState("");
@@ -145,6 +148,8 @@ function NewVisit() {
       visitDateTime: new Date(visitDateTime).toISOString(),
       reasonForVisit,
       complaintSymptoms,
+      focusArea: focusArea.trim() || undefined,
+      painScore: painScore ?? undefined,
       bloodPressure,
       pulse: numericValue(pulse),
       bloodSugar: numericValue(bloodSugar),
@@ -379,6 +384,33 @@ function NewVisit() {
                   }
                   placeholder="e.g. Routine check, headache, dizziness..."
                   className="form-input"
+                />
+              </Field>
+
+              <Field
+                label="Focus Area"
+                icon={<Activity size={16} />}
+              >
+                <input
+                  type="text"
+                  value={focusArea}
+                  onChange={(event) =>
+                    setFocusArea(event.target.value)
+                  }
+                  maxLength={80}
+                  placeholder="e.g. L4 L5, right shoulder, left knee..."
+                  className="form-input"
+                />
+              </Field>
+
+              <Field
+                label="Pain Score (0-10)"
+                icon={<HeartPulse size={16} />}
+                fullWidth
+              >
+                <PainScoreSelector
+                  value={painScore}
+                  onChange={setPainScore}
                 />
               </Field>
 

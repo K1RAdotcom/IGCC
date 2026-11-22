@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 
 import AppShell from "./components/layout/AppShell";
+import PainScoreSelector from "./components/PainScoreSelector";
 
 type Visit = {
   visitId: string;
@@ -25,6 +26,8 @@ type Visit = {
   visitDateTime: string;
   reasonForVisit: string;
   complaintSymptoms?: string | null;
+  focusArea?: string | null;
+  painScore?: number | null;
   bloodPressure?: string | null;
   pulse?: number | null;
   bloodSugar?: number | null;
@@ -58,6 +61,8 @@ type FormData = {
   visitDateTime: string;
   reasonForVisit: string;
   complaintSymptoms: string;
+  focusArea: string;
+  painScore: number | null;
   bloodPressure: string;
   pulse: string;
   bloodSugar: string;
@@ -98,6 +103,8 @@ function createFormData(visit: Visit): FormData {
     visitDateTime: toDateTimeLocal(visit.visitDateTime),
     reasonForVisit: visit.reasonForVisit || "",
     complaintSymptoms: visit.complaintSymptoms || "",
+    focusArea: visit.focusArea || "",
+    painScore: visit.painScore ?? null,
     bloodPressure: visit.bloodPressure || "",
     pulse:
       visit.pulse !== null && visit.pulse !== undefined
@@ -420,6 +427,8 @@ export default function VisitDetails() {
             visitDateTime: formData.visitDateTime,
             reasonForVisit: formData.reasonForVisit.trim(),
             complaintSymptoms: formData.complaintSymptoms.trim(),
+            focusArea: formData.focusArea.trim(),
+            painScore: formData.painScore,
             bloodPressure: formData.bloodPressure.trim(),
             pulse: formData.pulse
               ? Number(formData.pulse)
@@ -665,6 +674,23 @@ export default function VisitDetails() {
                   icon={<ClipboardList size={15} />}
                 />
 
+                <DisplayField
+                  label="Focus Area"
+                  value={visit.focusArea}
+                  icon={<Activity size={15} />}
+                />
+
+                <DisplayField
+                  label="Pain Score"
+                  value={
+                    visit.painScore !== null &&
+                    visit.painScore !== undefined
+                      ? `${visit.painScore} / 10`
+                      : null
+                  }
+                  icon={<HeartPulse size={15} />}
+                />
+
                 <div className="sm:col-span-2">
                   <DisplayField
                     label="Patient's Description / Complaint"
@@ -848,6 +874,30 @@ export default function VisitDetails() {
                       }
                       required
                     />
+
+                    <InputField
+                      label="Focus Area"
+                      value={formData.focusArea}
+                      onChange={(value) =>
+                        updateField("focusArea", value)
+                      }
+                    />
+
+                    <div>
+                      <span className="mb-2 block text-xs font-semibold text-slate-600">
+                        Pain Score (0-10)
+                      </span>
+                      <PainScoreSelector
+                        value={formData.painScore}
+                        onChange={(value) =>
+                          setFormData((current) =>
+                            current
+                              ? { ...current, painScore: value }
+                              : current
+                          )
+                        }
+                      />
+                    </div>
 
                     <div className="sm:col-span-2">
                       <TextAreaField

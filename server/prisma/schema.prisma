@@ -77,6 +77,8 @@ model Visit {
   visitDateTime           DateTime @map("visit_date_time")
   reasonForVisit          String   @map("reason_for_visit")
   complaintSymptoms       String?  @map("complaint_symptoms")
+  focusArea               String?  @map("focus_area")
+  painScore               Int?     @map("pain_score")
   bloodPressure           String?  @map("blood_pressure")
   pulse                   Decimal? @db.Decimal(6, 2)
   bloodSugar              Decimal? @map("blood_sugar") @db.Decimal(6, 2)

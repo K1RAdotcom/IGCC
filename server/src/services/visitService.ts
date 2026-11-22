@@ -6,6 +6,8 @@ type CreateVisitData = {
   visitDateTime?: string;
   reasonForVisit: string;
   complaintSymptoms?: string;
+  focusArea?: string | null;
+  painScore?: number | null;
   bloodPressure?: string;
   pulse?: number;
   bloodSugar?: number;
@@ -22,6 +24,8 @@ type UpdateVisitData = {
   visitDateTime?: string;
   reasonForVisit?: string;
   complaintSymptoms?: string;
+  focusArea?: string | null;
+  painScore?: number | null;
   bloodPressure?: string;
   pulse?: number;
   bloodSugar?: number;
@@ -65,6 +69,20 @@ function validateVital(
   }
 }
 
+function validatePainScore(value: number | null | undefined) {
+  if (value === undefined || value === null) {
+    return;
+  }
+
+  if (typeof value !== "number" || !Number.isInteger(value)) {
+    throw new Error("Pain score must be a whole number from 0 to 10.");
+  }
+
+  if (value < 0 || value > 10) {
+    throw new Error("Pain score must be between 0 and 10.");
+  }
+}
+
 function validateDateTime(value: string | undefined) {
   if (!value) {
     return;
@@ -85,6 +103,7 @@ export async function createVisit(data: CreateVisitData) {
   const patientId = data.patientId?.trim();
   const reasonForVisit = data.reasonForVisit?.trim();
   const complaintSymptoms = normalizeOptionalText(data.complaintSymptoms);
+  const focusArea = normalizeOptionalText(data.focusArea ?? undefined);
   const bloodPressure = normalizeOptionalText(data.bloodPressure);
   const assessmentObservation = normalizeOptionalText(
     data.assessmentObservation
@@ -133,6 +152,9 @@ export async function createVisit(data: CreateVisitData) {
     3000
   );
 
+  validateTextLength(focusArea ?? undefined, "Focus area", 80);
+  validatePainScore(data.painScore);
+
   validateVital(data.pulse, "Pulse", 20, 300);
   validateVital(data.bloodSugar, "Blood sugar", 10, 1000);
   validateVital(data.respiration, "Respiration", 1, 100);
@@ -175,6 +197,8 @@ export async function createVisit(data: CreateVisitData) {
           : new Date(),
         reasonForVisit,
         complaintSymptoms,
+        focusArea,
+        painScore: data.painScore ?? null,
         bloodPressure,
         pulse: data.pulse,
         bloodSugar: data.bloodSugar,
@@ -242,6 +266,9 @@ export async function updateVisit(
     3000
   );
 
+  validateTextLength(data.focusArea?.trim(), "Focus area", 80);
+  validatePainScore(data.painScore);
+
   validateVital(data.pulse, "Pulse", 20, 300);
   validateVital(data.bloodSugar, "Blood sugar", 10, 1000);
   validateVital(data.respiration, "Respiration", 1, 100);
@@ -266,6 +293,11 @@ export async function updateVisit(
         data.bloodPressure !== undefined
           ? normalizeOptionalText(data.bloodPressure)
           : undefined,
+      focusArea:
+        data.focusArea !== undefined
+          ? normalizeOptionalText(data.focusArea ?? undefined)
+          : undefined,
+      painScore: data.painScore,
       pulse: data.pulse,
       bloodSugar: data.bloodSugar,
       respiration: data.respiration,
